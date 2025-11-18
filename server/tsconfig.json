@@ -1,0 +1,78 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@app/constants": [
+        "src/shared/constants"
+      ],
+      "@app/constants/*": [
+        "src/shared/constants/*"
+      ],
+      "@app/decorators": [
+        "src/shared/decorators"
+      ],
+      "@app/decorators/*": [
+        "src/shared/decorators/*"
+      ],
+      "@app/interfaces": [
+        "src/shared/interfaces"
+      ],
+      "@app/interfaces/*": [
+        "src/shared/interfaces/*"
+      ],
+      "@app/entities": [
+        "src/shared/entities"
+      ],
+      "@app/entities/*": [
+        "src/shared/entities/*"
+      ],
+      "@app/utils": [
+        "src/shared/utils"
+      ],
+      "@app/utils/*": [
+        "src/shared/utils/*"
+      ],
+      "@app/account": [
+        "src/account"
+      ],
+      "@app/account/*": [
+        "src/account/*"
+      ],
+      "@app/tenant": [
+        "src/tenant"
+      ],
+      "@app/tenant/*": [
+        "src/tenant/*"
+      ],
+      "@app/auth": [
+        "src/auth"
+      ],
+      "@app/auth/*": [
+        "src/auth/*"
+      ],
+      "@app/configs": [
+        "src/configs"
+      ],
+      "@app/configs/*": [
+        "src/configs/*"
+      ]
+
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}

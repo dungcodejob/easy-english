@@ -35,6 +35,16 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
 
 ---
 
+## Clarifications
+
+### Session 2025-11-18
+
+- Q: Which specific user interactions on the Topic List screen should be tracked for analytics and observability? → A: Track all key interactions (page views, topic clicks, search queries, filter changes, view mode switches, time-on-page) - **Implementation deferred to later phase**
+- Q: How should the system handle API failures when fetching the topic list? → A: Retry 3 times with exponential backoff (1s, 2s, 4s), show cached data if available while retrying
+- Q: Where should the user's view mode preference (grid/card/list) be persisted? → A: localStorage only (device-specific, no cross-device sync)
+
+---
+
 ## User Scenarios
 
 ### Primary Use Cases
@@ -97,6 +107,7 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
 - **Very Long Topic Descriptions**: Descriptions are truncated to 2 lines with "..." and "Read more" link in grid/card view; full description visible in list view or detail screen
 - **Topic Has Zero Words**: Display "Coming soon" instead of word count; topic still selectable but shows "Content in development" on detail screen
 - **Slow Network Connection**: Topics load progressively with skeleton screens; user can interact with loaded topics while remaining load
+- **API Fetch Failure**: System retries up to 3 times with exponential backoff (1s, 2s, 4s); shows cached data if available; displays error message with "Try again" button if all retries fail
 
 ---
 
@@ -120,8 +131,8 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
   - [ ] Three toggle buttons are visible: Grid icon, Card icon, List icon
   - [ ] Only one mode is active at a time (visual indicator on active mode)
   - [ ] Clicking a mode button immediately re-renders topics in that layout
-  - [ ] User's preference is saved and applied on next visit (localStorage or user profile)
-  - [ ] Default mode is grid view for new/anonymous users
+  - [ ] User's preference is saved to localStorage and applied on next visit (device-specific, no cross-device sync)
+  - [ ] Default mode is grid view for new/anonymous users or if no preference saved
   - [ ] Responsive: Grid auto-adjusts columns (4 on desktop, 2 on tablet, 1 on mobile)
 - **Priority**: High
 
@@ -317,6 +328,13 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
 - **Responsive Rendering**: Layout reflows smoothly on window resize without jank (60fps)
 - **Data Pagination**: If topic count exceeds 50, implement infinite scroll or pagination to maintain performance
 
+### Reliability
+
+- **Retry Strategy**: Failed API requests retry up to 3 times with exponential backoff (1 second, 2 seconds, 4 seconds)
+- **Graceful Degradation**: Show cached topic data (if available) while retrying failed requests
+- **Error Recovery**: Display user-friendly error message with manual "Try again" option after all retries exhausted
+- **Cache Strategy**: TanStack Query caches topics for 5 minutes (staleTime); serves stale data during retry attempts
+
 ### Security
 
 - **Authentication**: Topic List is accessible to all authenticated students (JWT token required)
@@ -385,9 +403,12 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
 - **Topic Recommendations**: AI-suggested topics based on user history (future enhancement)
 - **Multi-language Support**: Translating topic names/descriptions to user's preferred language
 - **Offline Access**: Caching topics for offline browsing
+- **Comprehensive Analytics Tracking**: Detailed tracking of user interactions (page views, search queries, filter changes, view mode switches, time-on-page) - deferred to later phase
 
 ### Future Considerations
 
+- **Comprehensive Analytics & Tracking**: Track all user interactions (page views, topic clicks, search queries, filter changes, view mode switches, time-on-page, scroll depth) to measure success criteria and optimize UX
+- **Cross-Device Preference Sync**: Save view mode preference to user profile for sync across devices (currently localStorage only)
 - **Personalized Recommendations**: "Recommended for you" section based on user level and past activity
 - **Topic Categories/Tags**: Grouping topics into broader categories (e.g., "Travel & Tourism", "Professional English")
 - **Sorting Options**: Allow users to sort by popularity, newest, alphabetical, or estimated time
@@ -404,7 +425,6 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
 ### Internal Dependencies
 
 - **Authentication System**: JWT authentication must be implemented to protect Topic List route
-- **User Profile**: User preferences (view mode, level) may be stored in user profile (optional - can use localStorage initially)
 - **Topic Data Service**: Backend API endpoint `GET /api/topics` must return topic data with all required fields
 
 ### External Dependencies
@@ -427,6 +447,7 @@ This improves engagement and learning outcomes by making vocabulary acquisition 
 - Each topic belongs to exactly one difficulty level (no multi-level topics)
 - Word count is pre-calculated and stored (not computed on-demand)
 - Users access this screen from main navigation or homepage (breadcrumb reflects this)
+- Device-specific view mode preference (localStorage) is acceptable for MVP; cross-device sync not required initially
 
 ---
 

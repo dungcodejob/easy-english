@@ -1,33 +1,28 @@
 <!--
 Sync Impact Report:
-Version: 1.0.0 → 2.0.0
-Rationale: MAJOR version bump - Complete frontend stack migration from Angular to React
+Version: 2.0.1 → 2.1.0
+Rationale: MINOR version bump - Added comprehensive DTO field decorator guidance to Principle 4
 Modified Principles:
-  - Principle 1: Technology Stack Integrity (Angular → React, NgRx → Zustand + TanStack Query)
-  - Principle 2: Modular Architecture (Angular modules → React feature folders)
-  - Principle 4: Comprehensive Validation (Angular Reactive Forms → React Hook Form + Zod)
-  - Principle 7: Error Handling (Angular HttpInterceptor → Axios interceptors)
-  - Principle 8: Testing Discipline (Angular Testing Library → React Testing Library)
-  - Principle 9: Performance & Scalability (Angular OnPush → React.memo, TanStack Router lazy loading)
-  - Principle 10: Documentation (Updated Context7 references from Angular to React)
-Added Sections: None
+  - Principle 4: Added "Field Decorator Pattern" subsection with usage rules for composite decorators
+  - Principle 10: Updated to reference field decorators for API documentation consistency
+Added Sections:
+  - Principle 4 > Field Decorator Pattern (NestJS)
 Removed Sections: None
 Templates Status:
-  ⚠ .specify/templates/plan-template.md - PENDING (needs update for React stack)
-  ⚠ .specify/templates/spec-template.md - PENDING (needs update for React stack)
-  ⚠ .specify/templates/tasks-template.md - PENDING (needs update for React stack)
-  ⚠ .specify/templates/commands/*.md - PENDING (to be created)
-  ⚠ README.md - NEEDS UPDATE (references Angular in multiple places)
+  ✅ specs/1-topic-list-management/plan.md - Uses field decorators in DTOs
+  ✅ specs/1-topic-list-management/data-model.md - Updated with examples
+  ⚠ .specify/templates/plan-template.md - PENDING (needs creation)
+  ⚠ .specify/templates/spec-template.md - PENDING (needs creation)
+  ⚠ .specify/templates/tasks-template.md - PENDING (needs creation)
 Follow-up TODOs:
-  - Update README.md Technology Stack section
-  - Create template files aligned with React constitution
-  - Update any Angular-specific documentation
-  - Review existing code for constitutional compliance
+  - Audit existing DTOs to ensure they use field decorators
+  - Update any DTOs using raw @ApiProperty + @IsString patterns
+  - Create examples in data-model templates showing field decorator usage
 -->
 
 # EnglishMaster Project Constitution
 
-**Version**: 2.0.0  
+**Version**: 2.1.0  
 **Ratification Date**: 2025-11-17  
 **Last Amended**: 2025-11-18  
 **Status**: Active
@@ -46,10 +41,11 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
 - **Build Tool**: Rsbuild (Rspack-based) for fast builds
 - **Package Manager**: Bun for fast dependency management
 - **Backend**: NestJS with TypeScript strict mode
+- **ORM**: MikroORM v6+ for database management
 - **Database**: PostgreSQL v14+
 - **Authentication**: JWT with refresh token rotation
 - **API**: RESTful with OpenAPI/Swagger documentation
-- **Linting/Formatting**: Biome for unified code quality
+- **Linting/Formatting**: ESLint + Prettier for code quality
 - **Documentation**: Context7 integration for AI-assisted development
 
 ## Core Principles
@@ -112,7 +108,7 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
   - Type assertions MUST use `as Type` syntax, never angle-bracket `<Type>` (conflicts with JSX)
 - All function parameters, return types, and class properties MUST have explicit types
 - DTOs (Data Transfer Objects) MUST use `class-validator` decorators for runtime validation
-- Database entities MUST use TypeORM decorators with explicit column types
+- Database entities MUST use MikroORM decorators with explicit column types (`@Entity()`, `@Property()`, `@PrimaryKey()`, etc.)
 - API responses MUST be typed with interfaces matching OpenAPI schema definitions
 - Generic types MUST be used where applicable to maximize reusability (`Array<T>`, `Promise<T>`, custom generics)
 
@@ -143,6 +139,46 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
   - All incoming DTOs MUST use `class-validator` decorators (`@IsString()`, `@IsEmail()`, `@Min()`, `@Max()`, etc.)
   - Global validation pipe MUST be enabled: `app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))`
   - Custom validators MUST be created for business logic constraints (e.g., essay word count 100-1000)
+- **Field Decorator Pattern** (NestJS):
+  - DTOs MUST use composite field decorators from `@app/decorators/field.decorators` that combine validation, transformation, and OpenAPI documentation
+  - Available field decorators and their usage:
+    - `@StringField({ minLength?, maxLength?, toLowerCase?, toUpperCase?, isHexColor? })` - String validation with optional constraints
+    - `@StringFieldOptional()` - Optional string field
+    - `@NumberField({ min?, max?, int?, isPositive? })` - Number validation
+    - `@NumberFieldOptional()` - Optional number field
+    - `@BooleanField()` / `@BooleanFieldOptional()` - Boolean with automatic transformation
+    - `@EmailField()` / `@EmailFieldOptional()` - Email with automatic lowercase
+    - `@UUIDField()` / `@UUIDFieldOptional()` - UUID v4 validation
+    - `@URLField()` / `@URLFieldOptional()` - URL validation
+    - `@DateField()` / `@DateFieldOptional()` - Date with type transformation
+    - `@EnumField(() => EnumType)` / `@EnumFieldOptional(() => EnumType)` - Enum validation
+    - `@PasswordField()` / `@PasswordFieldOptional()` - Password with strength validation (min 6 chars)
+    - `@ClassField(() => NestedDto)` / `@ClassFieldOptional(() => NestedDto)` - Nested object validation
+  - Field decorators MUST be preferred over manual `@ApiProperty() + @IsString()` combinations
+  - Example DTO structure:
+    ```typescript
+    export class CreateTopicDto {
+      @StringField({ minLength: 3, maxLength: 50 })
+      name: string;
+
+      @StringField({ minLength: 3, maxLength: 60, toLowerCase: true })
+      slug: string;
+
+      @EnumField(() => TopicLevel)
+      level: TopicLevel;
+
+      @NumberField({ min: 0, int: true })
+      wordCount: number;
+
+      @StringFieldOptional({ maxLength: 7, isHexColor: true })
+      colorTheme?: string;
+
+      @URLFieldOptional({ maxLength: 500 })
+      bannerImageUrl?: string;
+    }
+    ```
+  - Field decorators automatically generate OpenAPI documentation; Swagger options can be passed: `@StringField({ description: '...', example: '...' })`
+  - Nullable fields MUST use `{ nullable: true }` option: `@StringField({ nullable: true })`
 - **Database Validation** (PostgreSQL):
   - Constraints MUST be defined: `NOT NULL`, `UNIQUE`, `CHECK`, foreign keys
   - Enums MUST be used for fixed-value columns (difficulty levels: A1, A2, B1, B2, C1, C2)
@@ -150,7 +186,7 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
   - Audio files (speaking module) MUST validate: file type (`.mp3`, `.wav`, `.m4a`), max size (10MB), duration (≤5 minutes)
   - File uploads MUST use streaming validation, not buffering entire file in memory
 
-**Rationale**: Multi-layer validation provides defense in depth. React Hook Form + Zod provides type-safe validation with excellent DX. Frontend validation improves UX; backend validation prevents malicious requests; database validation ensures data integrity.
+**Rationale**: Multi-layer validation provides defense in depth. React Hook Form + Zod provides type-safe validation with excellent DX. Frontend validation improves UX; backend validation prevents malicious requests; database validation ensures data integrity. Field decorators eliminate boilerplate, ensure consistency across DTOs, and automatically synchronize validation rules with OpenAPI documentation.
 
 ---
 
@@ -339,7 +375,7 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
   - Tailwind CSS MUST be configured to purge unused styles in production
 - **Backend Performance**:
   - Database queries MUST be optimized with indexes on frequently queried columns (user_id, skill_type, difficulty)
-  - N+1 query problems MUST be avoided (use eager loading with TypeORM relations)
+  - N+1 query problems MUST be avoided (use eager loading with MikroORM relations and `populate` option)
   - Expensive operations (audio transcription, essay feedback) MUST be processed asynchronously (job queue like Bull)
   - Response times MUST be monitored; P95 latency ≤500ms for API endpoints
 - **Caching**:
@@ -378,7 +414,9 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
   - Magic numbers MUST be replaced with named constants
 - **API Documentation**:
   - All backend endpoints MUST be documented with Swagger/OpenAPI decorators (`@ApiTags`, `@ApiOperation`, `@ApiResponse`)
-  - DTOs MUST include `@ApiProperty` decorators with descriptions and examples
+  - DTOs MUST use field decorators from `@app/decorators/field.decorators` which automatically generate `@ApiProperty` documentation
+  - Field decorators accept Swagger options for enhanced documentation: `@StringField({ description: 'Topic name', example: 'Food & Dining', minLength: 3, maxLength: 50 })`
+  - Response DTOs SHOULD include explicit `@ApiProperty` decorators for read-only fields or complex documentation requirements
   - Swagger UI MUST be accessible at `/api/docs` in development mode
 - **Architecture Documentation**:
   - High-level architecture diagram MUST be maintained (frontend, backend, database relationships)
@@ -386,7 +424,7 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
   - Database schema MUST be documented (ERD or schema.md)
 - **Context7 Integration**:
   - README MUST reference Context7 as the primary documentation source for dependency APIs
-  - When adding new dependencies, a Context7 query MUST be documented in comments (e.g., `// Context7: /facebook/react`, `// Context7: /tanstack/query`)
+  - When adding new dependencies, a Context7 query MUST be documented in comments (e.g., `// Context7: /facebook/react`, `// Context7: /mikro-orm/mikro-orm`)
   - AI prompts MUST reference this constitution for architectural decisions
   - Key Context7 libraries to reference:
     - `/facebook/react` - React core documentation
@@ -394,6 +432,8 @@ This constitution establishes the governing principles for **EnglishMaster**, a 
     - `/tanstack/query` - TanStack Query (React Query)
     - `/radix-ui/primitives` - Radix UI primitives (Shadcn UI foundation)
     - `/tailwindlabs/tailwindcss` - Tailwind CSS
+    - `/mikro-orm/mikro-orm` - MikroORM TypeScript ORM
+    - `/nestjs/nest` - NestJS backend framework
 - **Change Documentation**:
   - Commit messages MUST follow conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`
   - Breaking changes MUST be documented in commit body with `BREAKING CHANGE:` footer
@@ -451,16 +491,16 @@ This constitution governs the entire SpecKit development workflow:
 
 | Principle | Key Rule | Validation |
 |-----------|----------|------------|
-| 1. Tech Stack Integrity | React 19+, Shadcn UI, TanStack Router, Zustand, NestJS, PostgreSQL | Check `package.json`, no competing frameworks |
+| 1. Tech Stack Integrity | React 19+, Shadcn UI, TanStack Router, Zustand, NestJS, MikroORM, PostgreSQL | Check `package.json`, no competing frameworks |
 | 2. Modular Architecture | Feature folders with pages/components/hooks/stores, lazy routes | Verify TanStack Router code splitting, no cross-feature imports |
-| 3. Type Safety First | Strict mode, no `any` | Biome rule: TypeScript strict checks |
-| 4. Comprehensive Validation | React Hook Form + Zod, backend DTOs, DB constraints | Check Zod schemas, class-validator, constraints |
+| 3. Type Safety First | Strict mode, no `any`, MikroORM decorators | ESLint + TypeScript strict checks |
+| 4. Comprehensive Validation | React Hook Form + Zod, field decorators, DB constraints | Check Zod schemas, field decorator usage, constraints |
 | 5. Secure Auth & Authz | JWT, RBAC, rate limiting | Test guards, verify token expiry |
 | 6. Four Skills Standards | Consistent feature structure with Shadcn UI components | Verify each skill has required pages/hooks/stores |
 | 7. Error Handling & Observability | Error Boundaries, Axios interceptors, Sonner toasts | Check error handling, Axios config, log format |
 | 8. Testing Discipline | ≥80% coverage, Vitest, React Testing Library, Playwright | Run coverage report, check CI config |
-| 9. Performance & Scalability | React.memo, TanStack Router lazy loading, caching | Bundle size check, query performance, React DevTools |
-| 10. Documentation & Context7 | TSDoc, OpenAPI, React/TanStack Context7 refs | Verify Swagger UI, TSDoc, Context7 comments |
+| 9. Performance & Scalability | React.memo, TanStack Router lazy loading, MikroORM populate | Bundle size check, query performance, React DevTools |
+| 10. Documentation & Context7 | TSDoc, OpenAPI with field decorators, Context7 refs | Verify Swagger UI, TSDoc, field decorators, Context7 comments |
 
 ---
 

@@ -1,4 +1,4 @@
-import { Account, Tenant, User } from '@app/entities';
+import { Account, Tenant, Topic, User } from '@app/entities';
 import { EntityGenerator } from '@mikro-orm/entity-generator';
 import { Migrator } from '@mikro-orm/migrations';
 import { PostgreSqlDriver, defineConfig } from '@mikro-orm/postgresql';
@@ -17,8 +17,8 @@ export const databaseConfig = defineConfig({
   user: process.env.DATABASE_USER || 'postgres',
   password: process.env.DATABASE_PASSWORD || 'password',
   dbName: process.env.DATABASE_NAME || 'orbit',
-  entities: [Account, User, Tenant],
-  entitiesTs: [Account, User, Tenant],
+  entities: [Account, User, Tenant, Topic],
+  entitiesTs: [Account, User, Tenant, Topic],
 
   highlighter: new SqlHighlighter(),
   // metadataProvider: TsMorphMetadataProvider,

@@ -4,6 +4,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TopicsModule } from './modules/topics';
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 console.log('process.env.DATABASE_PASSWORD', process.env.DATABASE_PASSWORD);
@@ -28,6 +29,7 @@ console.log('process.env.DATABASE_PASSWORD', process.env.DATABASE_PASSWORD);
       isGlobal: true,
     }),
     AuthModule,
+    TopicsModule,
   ],
   providers: [],
 })

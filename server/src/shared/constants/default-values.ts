@@ -7,3 +7,4 @@ export const WEEK = 7 * DAY;
 export const DEFAULT_TOKEN_EXPIRED = HOUR;
 export const DEFAULT_TOKEN_SECRET = 'MySuperPassword!123';
 export const DEFAULT_TOKEN_SALT = 12;
+export const UUID_VERSION = 7;

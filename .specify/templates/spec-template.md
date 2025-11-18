@@ -1,459 +1,257 @@
 # Feature Specification: [FEATURE_NAME]
 
+**Feature ID**: [FEATURE_ID]  
 **Version**: 1.0.0  
-**Created**: [YYYY-MM-DD]  
-**Last Updated**: [YYYY-MM-DD]  
-**Status**: Draft | Approved | Implemented  
-**Author**: [NAME or AI Agent]
+**Created**: [DATE]  
+**Status**: Draft  
+**Constitutional Version**: 2.0.0
 
 ---
 
-## Executive Summary
+## Overview
 
-[Brief 2-3 sentence description of what this feature does and why it exists]
+### Purpose
 
----
+[Brief 2-3 sentence description of what this feature does and why it exists. Focus on user value, not implementation.]
 
-## Requirements
+### Target Users
 
-### Functional Requirements
+[Who will use this feature? List primary and secondary user types.]
 
-#### FR-1: [Requirement Name]
-**Priority**: High | Medium | Low  
-**Description**: [Detailed description]  
-**Acceptance Criteria**:
-- [ ] [Specific, testable criterion]
-- [ ] [Specific, testable criterion]
+### Business Value
 
-#### FR-2: [Requirement Name]
-**Priority**: High | Medium | Low  
-**Description**: [Detailed description]  
-**Acceptance Criteria**:
-- [ ] [Specific, testable criterion]
-- [ ] [Specific, testable criterion]
-
-### Non-Functional Requirements
-
-#### NFR-1: Performance
-- [Specific performance requirement with measurable target]
-
-#### NFR-2: Security
-- [Specific security requirement aligned with Principle 5]
-
-#### NFR-3: Scalability
-- [Specific scalability requirement aligned with Principle 9]
-
-#### NFR-4: Maintainability
-- [Specific maintainability requirement aligned with Principle 2]
-
-#### NFR-5: Accessibility
-- [Accessibility requirements (WCAG 2.1 Level AA where applicable)]
+[Why are we building this? What problem does it solve? What value does it deliver?]
 
 ---
 
-## User Interface Design
+## User Scenarios
 
-### Wireframes / Mockups
-[Link to designs or ASCII mockups for simple interfaces]
+### Primary Use Cases
 
-### User Flows
-```
-[User starts] → [Action 1] → [Action 2] → [Outcome]
-```
+1. **[Use Case Title]**
+   - **Actor**: [Who performs this action]
+   - **Goal**: [What they want to achieve]
+   - **Flow**: 
+     1. [Step 1]
+     2. [Step 2]
+     3. [Step 3]
+   - **Outcome**: [What happens when successful]
 
-### Interaction Patterns
-- [Button behaviors]
-- [Form interactions]
-- [Navigation flows]
-
-### Responsive Behavior
-- **Desktop**: [Behavior]
-- **Tablet**: [Behavior]
-- **Mobile**: [Behavior]
-
----
-
-## API Specification
-
-### Endpoints
-
-#### `GET /api/[resource]`
-**Description**: [What this endpoint does]  
-**Authentication**: Required (Roles: [Student/Teacher/Admin])  
-**Query Parameters**:
-- `param1` (optional): [Description]
-
-**Response** (200 OK):
-```typescript
-{
-  data: ResourceDto[],
-  meta: {
-    total: number,
-    page: number,
-    pageSize: number
-  }
-}
-```
-
-**Error Responses**:
-- `401 Unauthorized`: [When and why]
-- `404 Not Found`: [When and why]
-
----
-
-#### `POST /api/[resource]`
-**Description**: [What this endpoint does]  
-**Authentication**: Required (Roles: [Student/Teacher/Admin])  
-**Request Body**:
-```typescript
-{
-  field1: string,  // Required: [validation rules]
-  field2: number   // Optional: [validation rules]
-}
-```
-
-**Response** (201 Created):
-```typescript
-{
-  id: number,
-  field1: string,
-  field2: number,
-  createdAt: string
-}
-```
-
-**Error Responses**:
-- `400 Bad Request`: [Validation failures]
-- `401 Unauthorized`: [When and why]
-
----
-
-## Data Models
-
-### TypeScript Interfaces
-
-```typescript
-export interface ResourceDto {
-  id: number;
-  field1: string;
-  field2: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface CreateResourceDto {
-  field1: string;
-  field2?: number;
-}
-```
-
-### Database Entity
-
-```typescript
-@Entity('resources')
-export class Resource {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ type: 'varchar', length: 255 })
-  field1: string;
-
-  @Column({ type: 'int', nullable: true })
-  field2: number;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-}
-```
-
-### Validation Rules
-
-```typescript
-export class CreateResourceDto {
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(255)
-  field1: string;
-
-  @IsNumber()
-  @IsOptional()
-  @Min(0)
-  field2?: number;
-}
-```
-
----
-
-## State Management
-
-### NgRx Signal Store Structure
-
-```typescript
-export interface ResourceState {
-  resources: ResourceDto[];
-  selectedResource: ResourceDto | null;
-  loading: boolean;
-  error: string | null;
-}
-
-export const ResourceStore = signalStore(
-  { providedIn: 'root' },
-  withState<ResourceState>({
-    resources: [],
-    selectedResource: null,
-    loading: false,
-    error: null
-  }),
-  // ... methods and computed signals
-);
-```
-
-### State Transitions
-- [Action] → [State Change]
-- [Action] → [State Change]
-
----
-
-## Business Logic
-
-### Core Rules
-1. [Business rule with clear if/then logic]
-2. [Business rule with clear if/then logic]
-
-### Validation Logic
-1. [Validation rule implementation details]
-2. [Validation rule implementation details]
+2. **[Use Case Title]**
+   - [Repeat structure above]
 
 ### Edge Cases
-- **Case**: [Description]  
-  **Handling**: [How the system should behave]
+
+[List unusual or exceptional scenarios that must be handled]
+
+- [Edge case 1]
+- [Edge case 2]
 
 ---
 
-## Security Specification
+## Functional Requirements
 
-### Authentication Requirements
-- [Endpoint-level authentication requirements]
+### Core Functionality
 
-### Authorization Matrix
+**FR-1**: [Requirement Title]
+- **Description**: [What must the system do? Be specific and testable.]
+- **Acceptance Criteria**:
+  - [ ] [Criterion 1 - must be measurable]
+  - [ ] [Criterion 2]
+  - [ ] [Criterion 3]
+- **Priority**: High / Medium / Low
 
-| Role | Create | Read | Update | Delete |
-|------|--------|------|--------|--------|
-| Student | ✓ | ✓ | Own only | Own only |
-| Teacher | ✓ | ✓ | ✓ | Own only |
-| Admin | ✓ | ✓ | ✓ | ✓ |
+**FR-2**: [Next Requirement]
+- [Repeat structure above]
 
-### Data Sensitivity
-- [Field]: [Sensitivity level and protection measures]
+### Data Requirements
 
-### Rate Limiting
-- [Endpoint]: [Rate limit strategy]
+**DR-1**: [Data Entity Name]
+- **Description**: [What data must be captured/stored/displayed]
+- **Required Fields**:
+  - `field_name` (data type): Description and constraints
+  - `field_name` (data type): Description and constraints
+- **Optional Fields**:
+  - `field_name` (data type): Description
+- **Validation Rules**:
+  - [Rule 1]
+  - [Rule 2]
 
----
+**DR-2**: [Next Data Entity]
+- [Repeat structure above]
 
-## Error Handling Specification
+### User Interface Requirements
 
-### Error Categories
+**UI-1**: [UI Component/Screen]
+- **Description**: [What users see and interact with]
+- **Elements**:
+  - [Element 1]: Description and behavior
+  - [Element 2]: Description and behavior
+- **Interactions**:
+  - [User action] → [System response]
+  - [User action] → [System response]
+- **States**: [Loading, Error, Empty, Success, etc.]
 
-#### Validation Errors (400)
-```typescript
-{
-  statusCode: 400,
-  message: "Validation failed",
-  errors: [
-    { field: "field1", message: "field1 is required" }
-  ],
-  timestamp: "2025-11-17T10:30:00Z",
-  path: "/api/resource"
-}
-```
+**UI-2**: [Next UI Component]
+- [Repeat structure above]
 
-#### Authentication Errors (401)
-```typescript
-{
-  statusCode: 401,
-  message: "Unauthorized",
-  timestamp: "2025-11-17T10:30:00Z",
-  path: "/api/resource"
-}
-```
+### Business Rules
 
-#### Not Found Errors (404)
-```typescript
-{
-  statusCode: 404,
-  message: "Resource not found",
-  timestamp: "2025-11-17T10:30:00Z",
-  path: "/api/resource/123"
-}
-```
+**BR-1**: [Rule Title]
+- **Description**: [What business logic must be enforced]
+- **Conditions**: [When does this rule apply]
+- **Actions**: [What happens when rule is triggered]
 
-### Frontend Error Display
-- [Validation errors]: [Display strategy]
-- [Network errors]: [Display strategy]
-- [Permission errors]: [Display strategy]
+**BR-2**: [Next Business Rule]
+- [Repeat structure above]
 
 ---
 
-## Testing Specification
+## Non-Functional Requirements
 
-### Unit Test Cases
+### Performance
 
-#### Service Tests
-```typescript
-describe('ResourceService', () => {
-  it('should fetch resources successfully', () => {
-    // Test implementation
-  });
+- [Requirement 1: e.g., "Page load time under 2 seconds"]
+- [Requirement 2: e.g., "Support 1000 concurrent users"]
 
-  it('should handle fetch errors gracefully', () => {
-    // Test implementation
-  });
-});
-```
+### Security
 
-### Integration Test Cases
+- [Requirement 1: e.g., "Only authenticated users can access"]
+- [Requirement 2: e.g., "Data encrypted in transit and at rest"]
 
-#### API Tests
-```typescript
-describe('GET /api/resources', () => {
-  it('should return paginated resources', () => {
-    // Test implementation
-  });
+### Accessibility
 
-  it('should return 401 for unauthenticated requests', () => {
-    // Test implementation
-  });
-});
-```
+- [Requirement 1: e.g., "WCAG 2.1 AA compliance"]
+- [Requirement 2: e.g., "Keyboard navigation support"]
 
-### E2E Test Cases
+### Usability
 
-#### User Flows
-```typescript
-describe('Resource Management Flow', () => {
-  it('should allow user to create and view resource', () => {
-    // Test steps
-  });
-});
-```
-
-### Test Data
-```typescript
-const mockResource: ResourceDto = {
-  id: 1,
-  field1: 'Test Value',
-  field2: 42,
-  createdAt: new Date(),
-  updatedAt: new Date()
-};
-```
+- [Requirement 1: e.g., "Intuitive navigation with no training required"]
+- [Requirement 2: e.g., "Mobile-responsive design"]
 
 ---
 
-## Performance Requirements
+## Success Criteria
 
-### Response Time Targets
-- API endpoints: < 200ms (p95)
-- Page load: < 2s (FCP)
-- User interactions: < 100ms
+[Define measurable, technology-agnostic outcomes that indicate feature success. Focus on user/business value, not implementation details.]
 
-### Scalability Targets
-- Concurrent users: [Target number]
-- Requests per second: [Target number]
+### Quantitative Metrics
 
-### Optimization Strategies
-- [Database query optimization approach]
-- [Caching strategy]
-- [Frontend bundle optimization]
+- **[Metric 1]**: [Target value] (e.g., "Users complete task in under 30 seconds")
+- **[Metric 2]**: [Target value] (e.g., "95% of users successfully complete flow")
+- **[Metric 3]**: [Target value] (e.g., "Task completion rate improves by 40%")
+
+### Qualitative Measures
+
+- **[Measure 1]**: [Success indicator] (e.g., "Users report feature is easy to use")
+- **[Measure 2]**: [Success indicator] (e.g., "No support tickets related to confusion")
 
 ---
 
-## Documentation Requirements
+## Scope
 
-### Code Documentation
-- [ ] TSDoc comments on all public methods
-- [ ] Inline comments for complex logic
-- [ ] README updates for new setup steps
+### In Scope
 
-### API Documentation
-- [ ] OpenAPI/Swagger annotations
-- [ ] Example requests/responses
-- [ ] Authentication requirements documented
+[What IS included in this feature]
 
-### User Documentation
-- [ ] Feature guide (if user-facing)
-- [ ] Troubleshooting section
+- [Item 1]
+- [Item 2]
+
+### Out of Scope
+
+[What IS NOT included - to be addressed separately or later]
+
+- [Item 1]
+- [Item 2]
+
+### Future Considerations
+
+[Ideas for enhancement beyond initial release]
+
+- [Enhancement 1]
+- [Enhancement 2]
 
 ---
 
 ## Dependencies
 
-### External Libraries
-- [Library name] (version): [Purpose]
-
 ### Internal Dependencies
-- [Module/Feature]: [Why it's needed]
 
-### Environment Variables
-- `ENV_VAR_NAME`: [Description and example value]
+[Other features/systems within EnglishMaster that this depends on]
 
----
+- [Dependency 1]: [Why needed]
+- [Dependency 2]: [Why needed]
 
-## Migration Strategy
+### External Dependencies
 
-### Database Migrations
-```sql
--- Migration: [timestamp]_[description]
--- Description: [What this migration does]
+[Third-party services, libraries, or systems]
 
-[SQL statements]
-```
-
-### Data Migration
-[If existing data needs to be migrated or transformed]
-
-### Rollback Plan
-[How to safely roll back this feature if needed]
+- [Dependency 1]: [Why needed]
+- [Dependency 2]: [Why needed]
 
 ---
 
-## Deployment Checklist
+## Assumptions
 
-- [ ] Database migrations tested
-- [ ] Environment variables configured
-- [ ] API documentation published
-- [ ] Feature flags configured (if applicable)
-- [ ] Monitoring/logging configured
-- [ ] Performance benchmarks validated
-- [ ] Security review completed
-- [ ] Constitutional compliance verified
+[Documented assumptions made while creating this spec]
+
+- [Assumption 1]
+- [Assumption 2]
 
 ---
 
-## Open Questions
+## Risks & Mitigation
 
-1. [Question that needs resolution]
-   - **Status**: Open | Resolved
-   - **Resolution**: [Answer if resolved]
-
----
-
-## Changelog
-
-### Version 1.0.0 (2025-11-17)
-- Initial specification created
+| Risk | Impact | Likelihood | Mitigation Strategy |
+|------|--------|------------|---------------------|
+| [Risk description] | High/Medium/Low | High/Medium/Low | [How to mitigate] |
+| [Risk description] | High/Medium/Low | High/Medium/Low | [How to mitigate] |
 
 ---
 
-## Approval
+## Constitutional Compliance
 
-**Reviewed By**: [Name]  
-**Date**: [YYYY-MM-DD]  
-**Approved**: ☐ Yes ☐ No
+[Map this feature to constitutional principles]
 
-**Comments**:
-[Reviewer feedback]
+### Applicable Principles
+
+- **Principle 1 - Technology Stack Integrity**: [How feature complies]
+- **Principle 2 - Modular Architecture**: [How feature complies]
+- **Principle 3 - Type Safety First**: [How feature complies]
+- **Principle 4 - Comprehensive Validation**: [How feature complies]
+- **Principle 5 - Secure Authentication & Authorization**: [How feature complies]
+- **Principle 6 - Four Skills Implementation Standards**: [If applicable]
+- **Principle 7 - Error Handling & Observability**: [How feature complies]
+- **Principle 8 - Testing Discipline**: [How feature complies]
+- **Principle 9 - Performance & Scalability**: [How feature complies]
+- **Principle 10 - Documentation & Context7 Integration**: [How feature complies]
+
+---
+
+## Clarifications Needed
+
+[Remove this section if no clarifications needed]
+
+[NEEDS CLARIFICATION: Specific question about unclear requirement]
+
+---
+
+## Appendix
+
+### Glossary
+
+- **[Term]**: Definition
+- **[Term]**: Definition
+
+### References
+
+- [Link to related documentation]
+- [Link to research/competitor analysis]
+
+---
+
+**Notes**:
+- This specification is technology-agnostic - no implementation details (frameworks, languages, APIs)
+- All requirements must be testable and unambiguous
+- Success criteria must be measurable and user-focused
+- Maximum 3 [NEEDS CLARIFICATION] markers allowed

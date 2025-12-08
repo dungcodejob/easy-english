@@ -1,18 +1,10 @@
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-import { TanStackRouterRspack } from '@tanstack/router-plugin/rspack';
-
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      PUBLIC_API_URL?: string;
-    }
-  }
-}
-
+import { tanstackRouter } from '@tanstack/router-plugin/rspack';
+// Docs: https://rsbuild.rs/config/
 export default defineConfig({
   plugins: [pluginReact()],
-  output: {
+    output: {
     sourceMap: {
       js: 'source-map',
     },
@@ -20,10 +12,11 @@ export default defineConfig({
   source: {
     tsconfigPath: './tsconfig.json',
   },
-  tools: {
+  
+tools: {  // New section for bundler-specific plugins
     rspack: {
       plugins: [
-        TanStackRouterRspack({
+        tanstackRouter({
           target: 'react',
           virtualRouteConfig: './src/routes.ts',
           routesDirectory: './src',
@@ -32,4 +25,5 @@ export default defineConfig({
       ],
     },
   },
+  
 });

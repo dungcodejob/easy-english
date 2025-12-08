@@ -1,7 +1,11 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "vcs": {
     "enabled": true,
@@ -24,19 +28,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "complexity": {
-        "noStaticOnlyClass": "off"
-      },
-      "recommended": true,
-      "a11y": {
-        "noSvgWithoutTitle": "off",
-        "useSemanticElements": "off",
-        "useKeyWithClickEvents": "warn",
-        "noAriaHiddenOnFocusable": "info"
-      }
+      "recommended": true
     }
-  },
-  "files": {
-    "ignore": ["src/components/ui/*.tsx", "src/routeTree.gen.ts"]
   }
 }

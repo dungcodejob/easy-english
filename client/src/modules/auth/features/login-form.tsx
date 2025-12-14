@@ -1,3 +1,4 @@
+import { FieldGroup } from '@/shared/ui/shadcn/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PasswordInput } from '@shared/ui/common/password-input';
 import { Button } from '@shared/ui/shadcn/button';
@@ -45,12 +46,12 @@ export function LoginForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className="overflow-hidden">
-        <CardContent className="grid p-0 md:grid-cols-2">
+      <Card className="overflow-hidden p-0">
+        <CardContent className=" grid p-0 md:grid-cols-2">
           <Form {...form}>
             <form className="p-6 md:p-8" onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col items-center text-center">
+              <FieldGroup>
+                                <div className="flex flex-col items-center text-center">
                   <h1 className="text-2xl font-bold">
                     {t('auth.login.welcome')}
                   </h1>
@@ -58,6 +59,8 @@ export function LoginForm({
                     {t('auth.login.welcome_subtitle')}
                   </p>
                 </div>
+
+              
 
                 <FormField
                   control={form.control}
@@ -140,15 +143,16 @@ export function LoginForm({
                 </div>
                 <div className="text-center text-sm space-x-1">
                   <span>{t('auth.login.no_account')}</span>
-                  <a href="/" className="underline underline-offset-4">
+                  <a href="/" className="underline underline-offset-4"> 
                     {t('auth.login.sign_up')}
                   </a>
                 </div>
-              </div>
+              </FieldGroup>
             </form>
           </Form>
           <div className="relative hidden bg-muted md:block">
-            <div className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale" />
+            <img src="https://ui.shadcn.com/placeholder.svg" alt="login" className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale' />
+
           </div>
         </CardContent>
       </Card>

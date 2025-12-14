@@ -1,9 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@import "@fontsource/geist-sans";
+@import "@fontsource/geist-mono";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
+
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* Giữ fallback để an toàn */
+  --font-mono: "Geist Mono", ui-monospace, monospace; /* Nếu cần font mono cho code */
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

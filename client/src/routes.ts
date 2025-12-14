@@ -15,6 +15,7 @@ export const routes = rootRoute('root.tsx', [
     //   './features/account/pages/account-profile-page.tsx',
     // ),
     route('/topic', './modules/topic/pages/topic-page.tsx'),
+    route('/topic/$topicId', './modules/words/pages/word-list-page.tsx'),
   ]),
   layout(
     '(unauthenticated)',

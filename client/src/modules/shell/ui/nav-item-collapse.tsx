@@ -91,7 +91,7 @@ export function NavItemCollapse({
                       'justify-start',
                     )}
                   >
-                    {item.icon && <item.icon className="!w-5 !h-5" />}
+                    {item.icon && <item.icon className="w-5! h-5!" />}
                     {item.title}
                   </Link>
                 </DropdownMenuItem>
@@ -121,7 +121,7 @@ export function NavItemCollapse({
           )}
         >
           <div className="flex gap-2 dark:text-muted-foreground dark:hover:text-white">
-            {item.icon && <item.icon className="!w-5 !h-5" />}
+            {item.icon && <item.icon className="w-5! h-5!" />}
             {item.title}
           </div>
           <div
@@ -139,7 +139,7 @@ export function NavItemCollapse({
         </Link>
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-        <div className="grid gap-1 pl-7 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+        <div className="grid gap-1 pl-7 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2">
           {item.children?.map((item) => {
             const isActive =
               !!item.url && !item.groups && pathname.includes(item.url);

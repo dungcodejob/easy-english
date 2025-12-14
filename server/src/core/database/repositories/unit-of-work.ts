@@ -6,6 +6,7 @@ import {
   TenantEntity,
   TopicEntity,
   UserEntity,
+  WordEntity,
 } from '@app/entities';
 import { RequestContextService } from '@app/request';
 import { EntityManager } from '@mikro-orm/postgresql';
@@ -14,6 +15,7 @@ import { SessionRepository } from './session.repository';
 import { TenantRepository } from './tenant.repository';
 import { TopicRepository } from './topic.repository';
 import { UserRepository } from './user.repository';
+import { WordRepository } from './word.repository';
 
 export const UNIT_OF_WORK = Symbol('UnitOfWork');
 
@@ -23,10 +25,12 @@ export interface UnitOfWork {
   session: SessionRepository;
   tenant: TenantRepository;
   topic: TopicRepository;
+  word: WordRepository;
   save(): Promise<void>;
   start(): Promise<void>;
   commit(): Promise<void>;
   rollback(): Promise<void>;
+  release(): Promise<void>;
   transaction<T>(callback: () => Promise<T>): Promise<T>;
   getEntityManager(): EntityManager;
 }
@@ -38,11 +42,17 @@ export class UnitOfWorkImpl implements UnitOfWork {
   private _session?: SessionRepository;
   private _tenant?: TenantRepository;
   private _topic?: TopicRepository;
+  private _word?: WordRepository;
 
   constructor(
     private readonly _em: EntityManager,
-    private readonly _ctx: RequestContextService,
+    private readonly requestContext: RequestContextService,
   ) {
+    this._em = this._em.fork();
+    this.enableFilters();
+  }
+
+  private enableFilters() {
     this._em.addFilter('deleteFlag', { deleteFlag: false });
   }
 
@@ -88,6 +98,13 @@ export class UnitOfWorkImpl implements UnitOfWork {
     return this._topic;
   }
 
+  get word(): WordRepository {
+    if (!this._word) {
+      this._word = this._em.getRepository(WordEntity);
+    }
+    return this._word;
+  }
+
   save(): Promise<void> {
     return this._em.flush();
   }
@@ -116,6 +133,10 @@ export class UnitOfWorkImpl implements UnitOfWork {
   async rollback() {
     await this._em.rollback();
   }
+
+  async release() {
+    // No-op for now unless we need to manually clear context
+  }
 }
 
 export const provideUnitOfWork = (): Provider => ({
@@ -125,20 +146,7 @@ export const provideUnitOfWork = (): Provider => ({
 
 @Global()
 @Module({
-  providers: [
-    // {
-    //   provide: UNIT_OF_WORK,
-    //   scope: Scope.REQUEST,
-    //   inject: [EntityManager],
-    //   useFactory: (em: EntityManager) => {
-    //     // em.setFilterParams('tenant', {
-    //     //   tenantId: tenantProvider.getTenantId(),
-    //     // });
-    //     return new UnitOfWorkImpl(em);
-    //   },
-    // },
-    provideUnitOfWork(),
-  ],
+  providers: [provideUnitOfWork()],
   exports: [UNIT_OF_WORK],
 })
 export class UnitOfWorkModule {}

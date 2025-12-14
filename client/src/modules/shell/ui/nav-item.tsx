@@ -55,7 +55,7 @@ export function NavItem({ item, isCollapsed, isActive }: NavProps) {
         'justify-start',
       )}
     >
-      {item.icon && <item.icon className="!w-5 !h-5" />}
+      {item.icon && <item.icon className="w-5! h-5!" />}
       {item.title}
     </Link>
   );

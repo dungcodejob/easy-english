@@ -6,3 +6,4 @@ export * from './session.entity';
 export * from './tenant.entity';
 export * from './topic.entity';
 export * from './user.entity';
+export * from './word.entity';

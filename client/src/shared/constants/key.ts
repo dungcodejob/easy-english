@@ -12,6 +12,7 @@ export const QUERY_KEYS = {
     LOGOUT: 'auth-logout',
   },
   TOPIC: 'topic',
+  WORD: 'word',
   ACCOUNT: 'account',
   ME: 'me',
   PRODUCT: 'product',

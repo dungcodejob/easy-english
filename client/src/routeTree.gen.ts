@@ -14,6 +14,7 @@ import { Route as DotModulesShellPagesAuthenticatedLayoutRouteImport } from './m
 import { Route as DotModulesAuthPagesLoginPageRouteImport } from './modules/auth/pages/login-page'
 import { Route as DotModulesTopicPagesTopicPageRouteImport } from './modules/topic/pages/topic-page'
 import { Route as DotModulesHomePagesHomePageRouteImport } from './modules/home/pages/home-page'
+import { Route as DotModulesWordsPagesWordListPageRouteImport } from './modules/words/pages/word-list-page'
 
 const DotModulesShellPagesUnauthenticatedLayoutRoute =
   DotModulesShellPagesUnauthenticatedLayoutRouteImport.update({
@@ -43,30 +44,39 @@ const DotModulesHomePagesHomePageRoute =
     path: '/',
     getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
   } as any)
+const DotModulesWordsPagesWordListPageRoute =
+  DotModulesWordsPagesWordListPageRouteImport.update({
+    id: '/$topicId',
+    path: '/$topicId',
+    getParentRoute: () => DotModulesTopicPagesTopicPageRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof DotModulesHomePagesHomePageRoute
-  '/topic': typeof DotModulesTopicPagesTopicPageRoute
+  '/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/login': typeof DotModulesAuthPagesLoginPageRoute
+  '/topic/$topicId': typeof DotModulesWordsPagesWordListPageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof DotModulesHomePagesHomePageRoute
-  '/topic': typeof DotModulesTopicPagesTopicPageRoute
+  '/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/login': typeof DotModulesAuthPagesLoginPageRoute
+  '/topic/$topicId': typeof DotModulesWordsPagesWordListPageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_(authenticated)': typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren
   '/_(unauthenticated)': typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren
   '/_(authenticated)/': typeof DotModulesHomePagesHomePageRoute
-  '/_(authenticated)/topic': typeof DotModulesTopicPagesTopicPageRoute
+  '/_(authenticated)/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/_(unauthenticated)/login': typeof DotModulesAuthPagesLoginPageRoute
+  '/_(authenticated)/topic/$topicId': typeof DotModulesWordsPagesWordListPageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/topic' | '/login'
+  fullPaths: '/' | '/topic' | '/login' | '/topic/$topicId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/topic' | '/login'
+  to: '/' | '/topic' | '/login' | '/topic/$topicId'
   id:
     | '__root__'
     | '/_(authenticated)'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
     | '/_(authenticated)/'
     | '/_(authenticated)/topic'
     | '/_(unauthenticated)/login'
+    | '/_(authenticated)/topic/$topicId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,18 +129,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotModulesHomePagesHomePageRouteImport
       parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
     }
+    '/_(authenticated)/topic/$topicId': {
+      id: '/_(authenticated)/topic/$topicId'
+      path: '/$topicId'
+      fullPath: '/topic/$topicId'
+      preLoaderRoute: typeof DotModulesWordsPagesWordListPageRouteImport
+      parentRoute: typeof DotModulesTopicPagesTopicPageRoute
+    }
   }
 }
 
+interface DotModulesTopicPagesTopicPageRouteChildren {
+  DotModulesWordsPagesWordListPageRoute: typeof DotModulesWordsPagesWordListPageRoute
+}
+
+const DotModulesTopicPagesTopicPageRouteChildren: DotModulesTopicPagesTopicPageRouteChildren =
+  {
+    DotModulesWordsPagesWordListPageRoute:
+      DotModulesWordsPagesWordListPageRoute,
+  }
+
+const DotModulesTopicPagesTopicPageRouteWithChildren =
+  DotModulesTopicPagesTopicPageRoute._addFileChildren(
+    DotModulesTopicPagesTopicPageRouteChildren,
+  )
+
 interface DotModulesShellPagesAuthenticatedLayoutRouteChildren {
   DotModulesHomePagesHomePageRoute: typeof DotModulesHomePagesHomePageRoute
-  DotModulesTopicPagesTopicPageRoute: typeof DotModulesTopicPagesTopicPageRoute
+  DotModulesTopicPagesTopicPageRoute: typeof DotModulesTopicPagesTopicPageRouteWithChildren
 }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteChildren: DotModulesShellPagesAuthenticatedLayoutRouteChildren =
   {
     DotModulesHomePagesHomePageRoute: DotModulesHomePagesHomePageRoute,
-    DotModulesTopicPagesTopicPageRoute: DotModulesTopicPagesTopicPageRoute,
+    DotModulesTopicPagesTopicPageRoute:
+      DotModulesTopicPagesTopicPageRouteWithChildren,
   }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteWithChildren =

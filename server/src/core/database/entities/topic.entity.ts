@@ -1,7 +1,15 @@
 import { TopicRepository } from '@app/repositories';
-import { Entity, EntityRepositoryType, Enum, Property } from '@mikro-orm/core';
+import {
+  Collection,
+  Entity,
+  EntityRepositoryType,
+  Enum,
+  OneToMany,
+  Property,
+} from '@mikro-orm/core';
 import { v6 } from 'uuid';
-import { BaseEntity } from './base.entity';
+import { BaseEntityWithTenant } from './base-extend.entity';
+import { WordEntity } from './word.entity';
 
 export enum TopicCategory {
   VOCABULARY = 'VOCABULARY',
@@ -16,7 +24,7 @@ export enum TopicCategory {
 }
 
 @Entity({ repository: () => TopicRepository })
-export class TopicEntity extends BaseEntity {
+export class TopicEntity extends BaseEntityWithTenant {
   @Property()
   name: string;
 
@@ -43,6 +51,9 @@ export class TopicEntity extends BaseEntity {
 
   @Property({ nullable: true })
   shareUrl?: string;
+
+  @OneToMany(() => WordEntity, (word) => word.topic)
+  words = new Collection<WordEntity>(this);
 
   [EntityRepositoryType]?: TopicRepository;
 

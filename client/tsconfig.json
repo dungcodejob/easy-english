@@ -16,7 +16,7 @@
     "allowImportingTsExtensions": true,
     "noUncheckedSideEffectImports": true,
 
-        /* paths */
+    /* paths */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -26,7 +26,8 @@
       "@core": ["./src/core"],
       "@modules/*": ["./src/modules/*"],
       "@modules": ["./src/modules"],
-      
+      "@auth/*": ["./src/modules/auth/*"],
+      "@auth": ["./src/modules/auth"]
     },
 
     /* type checking */

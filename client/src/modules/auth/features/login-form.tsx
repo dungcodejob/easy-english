@@ -138,8 +138,8 @@ export function LoginForm({
                     </span>
                   </Button>
                 </div>
-                <div className="text-center text-sm">
-                  {t('auth.login.no_account')}
+                <div className="text-center text-sm space-x-1">
+                  <span>{t('auth.login.no_account')}</span>
                   <a href="/" className="underline underline-offset-4">
                     {t('auth.login.sign_up')}
                   </a>
@@ -152,10 +152,10 @@ export function LoginForm({
           </div>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        {t('auth.login.terms')}
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary space-x-1">
+        <span>{t('auth.login.terms')}</span>
         <a href="/">{t('auth.login.terms_of_service')}</a>
-        {t('common.and')}
+        <span>{t('common.and')}</span>
         <a href="/">{t('auth.login.privacy_policy')}</a>.
       </div>
     </div>

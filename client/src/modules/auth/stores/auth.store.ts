@@ -1,4 +1,4 @@
-import { STORAGE_KEYS } from '@/constants/storage';
+import { STORAGE_KEYS } from '@shared/constants';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { authApi } from '../services';
@@ -26,17 +26,18 @@ export const useAuthStore = create<AuthStore>()(
     (set) => ({
       isAuthenticated: false,
       tokens: null,
-      login: (data) => {
-        return authApi
+      login: async (data) => {
+        await authApi
           .login(data)
           .then((res) =>
             set({ isAuthenticated: true, tokens: res.data.tokens }),
           );
       },
-      logout: () =>
-        authApi
+      logout: async () => {
+        await authApi
           .logout()
-          .then(() => set({ isAuthenticated: false, tokens: null })),
+          .then(() => set({ isAuthenticated: false, tokens: null }));
+      },
     }),
     {
       name: STORAGE_KEYS.AUTH,

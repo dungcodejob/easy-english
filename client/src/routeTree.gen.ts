@@ -8,155 +8,155 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './root';
-import { Route as DotModulesShellPagesUnauthenticatedLayoutRouteImport } from './modules/shell/pages/unauthenticated-layout';
-import { Route as DotModulesShellPagesAuthenticatedLayoutRouteImport } from './modules/shell/pages/authenticated-layout';
-import { Route as DotModulesAuthPagesLoginPageRouteImport } from './modules/auth/pages/login-page';
-import { Route as DotModulesTopicPagesTopicPageRouteImport } from './modules/topic/pages/topic-page';
-import { Route as DotModulesHomePagesHomePageRouteImport } from './modules/home/pages/home-page';
+import { Route as rootRouteImport } from './root'
+import { Route as DotModulesShellPagesUnauthenticatedLayoutRouteImport } from './modules/shell/pages/unauthenticated-layout'
+import { Route as DotModulesShellPagesAuthenticatedLayoutRouteImport } from './modules/shell/pages/authenticated-layout'
+import { Route as DotModulesAuthPagesLoginPageRouteImport } from './modules/auth/pages/login-page'
+import { Route as DotModulesTopicPagesTopicPageRouteImport } from './modules/topic/pages/topic-page'
+import { Route as DotModulesHomePagesHomePageRouteImport } from './modules/home/pages/home-page'
 
 const DotModulesShellPagesUnauthenticatedLayoutRoute =
   DotModulesShellPagesUnauthenticatedLayoutRouteImport.update({
     id: '/_(unauthenticated)',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const DotModulesShellPagesAuthenticatedLayoutRoute =
   DotModulesShellPagesAuthenticatedLayoutRouteImport.update({
     id: '/_(authenticated)',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const DotModulesAuthPagesLoginPageRoute =
   DotModulesAuthPagesLoginPageRouteImport.update({
     id: '/login',
     path: '/login',
     getParentRoute: () => DotModulesShellPagesUnauthenticatedLayoutRoute,
-  } as any);
+  } as any)
 const DotModulesTopicPagesTopicPageRoute =
   DotModulesTopicPagesTopicPageRouteImport.update({
     id: '/topic',
     path: '/topic',
     getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
-  } as any);
+  } as any)
 const DotModulesHomePagesHomePageRoute =
   DotModulesHomePagesHomePageRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
-  } as any);
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof DotModulesHomePagesHomePageRoute;
-  '/topic': typeof DotModulesTopicPagesTopicPageRoute;
-  '/login': typeof DotModulesAuthPagesLoginPageRoute;
+  '/': typeof DotModulesHomePagesHomePageRoute
+  '/topic': typeof DotModulesTopicPagesTopicPageRoute
+  '/login': typeof DotModulesAuthPagesLoginPageRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof DotModulesHomePagesHomePageRoute;
-  '/topic': typeof DotModulesTopicPagesTopicPageRoute;
-  '/login': typeof DotModulesAuthPagesLoginPageRoute;
+  '/': typeof DotModulesHomePagesHomePageRoute
+  '/topic': typeof DotModulesTopicPagesTopicPageRoute
+  '/login': typeof DotModulesAuthPagesLoginPageRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  '/_(authenticated)': typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren;
-  '/_(unauthenticated)': typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren;
-  '/_(authenticated)/': typeof DotModulesHomePagesHomePageRoute;
-  '/_(authenticated)/topic': typeof DotModulesTopicPagesTopicPageRoute;
-  '/_(unauthenticated)/login': typeof DotModulesAuthPagesLoginPageRoute;
+  __root__: typeof rootRouteImport
+  '/_(authenticated)': typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren
+  '/_(unauthenticated)': typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren
+  '/_(authenticated)/': typeof DotModulesHomePagesHomePageRoute
+  '/_(authenticated)/topic': typeof DotModulesTopicPagesTopicPageRoute
+  '/_(unauthenticated)/login': typeof DotModulesAuthPagesLoginPageRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/topic' | '/login';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/topic' | '/login';
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/topic' | '/login'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/topic' | '/login'
   id:
     | '__root__'
     | '/_(authenticated)'
     | '/_(unauthenticated)'
     | '/_(authenticated)/'
     | '/_(authenticated)/topic'
-    | '/_(unauthenticated)/login';
-  fileRoutesById: FileRoutesById;
+    | '/_(unauthenticated)/login'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  DotModulesShellPagesAuthenticatedLayoutRoute: typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren;
-  DotModulesShellPagesUnauthenticatedLayoutRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren;
+  DotModulesShellPagesAuthenticatedLayoutRoute: typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren
+  DotModulesShellPagesUnauthenticatedLayoutRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_(unauthenticated)': {
-      id: '/_(unauthenticated)';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/_(unauthenticated)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_(authenticated)': {
-      id: '/_(authenticated)';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof DotModulesShellPagesAuthenticatedLayoutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/_(authenticated)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DotModulesShellPagesAuthenticatedLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_(unauthenticated)/login': {
-      id: '/_(unauthenticated)/login';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof DotModulesAuthPagesLoginPageRouteImport;
-      parentRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRoute;
-    };
+      id: '/_(unauthenticated)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof DotModulesAuthPagesLoginPageRouteImport
+      parentRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRoute
+    }
     '/_(authenticated)/topic': {
-      id: '/_(authenticated)/topic';
-      path: '/topic';
-      fullPath: '/topic';
-      preLoaderRoute: typeof DotModulesTopicPagesTopicPageRouteImport;
-      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute;
-    };
+      id: '/_(authenticated)/topic'
+      path: '/topic'
+      fullPath: '/topic'
+      preLoaderRoute: typeof DotModulesTopicPagesTopicPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
     '/_(authenticated)/': {
-      id: '/_(authenticated)/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof DotModulesHomePagesHomePageRouteImport;
-      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute;
-    };
+      id: '/_(authenticated)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof DotModulesHomePagesHomePageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
   }
 }
 
 interface DotModulesShellPagesAuthenticatedLayoutRouteChildren {
-  DotModulesHomePagesHomePageRoute: typeof DotModulesHomePagesHomePageRoute;
-  DotModulesTopicPagesTopicPageRoute: typeof DotModulesTopicPagesTopicPageRoute;
+  DotModulesHomePagesHomePageRoute: typeof DotModulesHomePagesHomePageRoute
+  DotModulesTopicPagesTopicPageRoute: typeof DotModulesTopicPagesTopicPageRoute
 }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteChildren: DotModulesShellPagesAuthenticatedLayoutRouteChildren =
   {
     DotModulesHomePagesHomePageRoute: DotModulesHomePagesHomePageRoute,
     DotModulesTopicPagesTopicPageRoute: DotModulesTopicPagesTopicPageRoute,
-  };
+  }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteWithChildren =
   DotModulesShellPagesAuthenticatedLayoutRoute._addFileChildren(
     DotModulesShellPagesAuthenticatedLayoutRouteChildren,
-  );
+  )
 
 interface DotModulesShellPagesUnauthenticatedLayoutRouteChildren {
-  DotModulesAuthPagesLoginPageRoute: typeof DotModulesAuthPagesLoginPageRoute;
+  DotModulesAuthPagesLoginPageRoute: typeof DotModulesAuthPagesLoginPageRoute
 }
 
 const DotModulesShellPagesUnauthenticatedLayoutRouteChildren: DotModulesShellPagesUnauthenticatedLayoutRouteChildren =
   {
     DotModulesAuthPagesLoginPageRoute: DotModulesAuthPagesLoginPageRoute,
-  };
+  }
 
 const DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren =
   DotModulesShellPagesUnauthenticatedLayoutRoute._addFileChildren(
     DotModulesShellPagesUnauthenticatedLayoutRouteChildren,
-  );
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   DotModulesShellPagesAuthenticatedLayoutRoute:
     DotModulesShellPagesAuthenticatedLayoutRouteWithChildren,
   DotModulesShellPagesUnauthenticatedLayoutRoute:
     DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()

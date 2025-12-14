@@ -1,6 +1,5 @@
 export * from './cookie';
 export * from './default-values';
-export * from './message-patterns';
+export * from './key';
+export * from './message';
 export * from './regex';
-export * from './service-tokens';
-

@@ -1,36 +1,85 @@
-import { AuthModule } from '@app/auth';
-import { appConfig, cookieConfig, databaseConfig } from '@app/configs';
+import {
+  appConfig,
+  cookieConfig,
+  databaseConfig,
+  httpConfig,
+  jwtConfig,
+  ThrottlerConfig,
+} from '@app/configs';
+import { HttpExceptionFilter } from '@app/filters';
+import { TransformInterceptor } from '@app/interceptors';
+import { RequestMiddlewareModule } from '@app/middlewares';
+import { UnitOfWorkModule } from '@app/repositories';
+import {
+  AlsThreadContext,
+  AlsThreadContextModule,
+  RequestModule,
+} from '@app/request';
+import { UserSessionStorage } from '@app/services/user-session';
+import { UserSessionInMemoryStorage } from '@app/services/user-session.in-memory-storage';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { CacheModule } from '@nestjs/cache-manager';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TopicsModule } from './modules/topics';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth';
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-console.log('process.env.DATABASE_PASSWORD', process.env.DATABASE_PASSWORD);
+import { HealthModule } from './modules/health/health.module';
+import { TopicModule } from './modules/topic/topic.module';
+import { UserModule } from './modules/user';
+
 @Module({
   imports: [
+    AlsThreadContextModule,
+    RequestMiddlewareModule,
+    RequestModule,
+    UnitOfWorkModule,
+    AuthModule,
+    UserModule,
+    TopicModule,
+
+    HealthModule,
     ConfigModule.forRoot({
-      load: [appConfig, cookieConfig],
+      load: [appConfig, cookieConfig, jwtConfig, httpConfig],
       envFilePath: `./.env.${process.env.NODE_ENV || 'dev'}`,
       isGlobal: true,
     }),
-
     MikroOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: () => databaseConfig,
     }),
-    // CacheModule.registerAsync({
-    //   isGlobal: true,
-    //   imports: [ConfigModule],
-    //   useClass: CacheConfig,
-    // }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: ThrottlerConfig,
+    }),
     CacheModule.register({
       isGlobal: true,
     }),
-    AuthModule,
-    TopicsModule,
   ],
-  providers: [],
+  controllers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+    {
+      provide: UserSessionStorage,
+      useClass: UserSessionInMemoryStorage,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  constructor(private readonly alsThreadContext: AlsThreadContext) {}
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      .apply((_req, _res, next) => this.alsThreadContext.run(next))
+      .forRoutes('{*splat}');
+  }
+}

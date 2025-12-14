@@ -11,6 +11,7 @@ export const QUERY_KEYS = {
     LOGIN: 'auth-login',
     LOGOUT: 'auth-logout',
   },
+  TOPIC: 'topic',
   ACCOUNT: 'account',
   ME: 'me',
   PRODUCT: 'product',

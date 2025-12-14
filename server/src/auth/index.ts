@@ -1,3 +1,5 @@
 export * from './auth.module';
 export * from './auth.service';
-export * from './enums/token-type.enum';
+export * from './guards/jwt-auth.guard';
+export * from './models';
+export * from './services';

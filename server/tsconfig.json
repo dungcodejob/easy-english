@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -11,61 +15,50 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@app/constants": [
-        "src/shared/constants"
-      ],
-      "@app/constants/*": [
-        "src/shared/constants/*"
-      ],
-      "@app/decorators": [
-        "src/shared/decorators"
-      ],
-      "@app/decorators/*": [
-        "src/shared/decorators/*"
-      ],
-      "@app/interfaces": [
-        "src/shared/interfaces"
-      ],
-      "@app/interfaces/*": [
-        "src/shared/interfaces/*"
-      ],
-      "@app/entities": [
-        "src/shared/entities"
-      ],
-      "@app/entities/*": [
-        "src/shared/entities/*"
-      ],
-      "@app/utils": [
-        "src/shared/utils"
-      ],
-      "@app/utils/*": [
-        "src/shared/utils/*"
-      ],
-      "@app/account": [
-        "src/account"
-      ],
-      "@app/account/*": [
-        "src/account/*"
-      ],
-      "@app/tenant": [
-        "src/tenant"
-      ],
-      "@app/tenant/*": [
-        "src/tenant/*"
-      ],
-      "@app/auth": [
-        "src/auth"
-      ],
-      "@app/auth/*": [
-        "src/auth/*"
-      ],
-      "@app/configs": [
-        "src/configs"
-      ],
-      "@app/configs/*": [
-        "src/configs/*"
-      ]
-
+      "@app/configs": ["src/core/configs"],
+      "@app/configs/*": ["src/core/configs/*"],
+      "@app/entities": ["src/core/database/entities"],
+      "@app/entities/*": ["src/core/database/entities/*"],
+      "@app/repositories": ["src/core/database/repositories"],
+      "@app/repositories/*": ["src/core/database/repositories/*"],
+      "@app/account": ["src/account"],
+      "@app/account/*": ["src/account/*"],
+      "@app/constants": ["src/shared/constants"],
+      "@app/constants/*": ["src/shared/constants/*"],
+      "@app/utils": ["src/shared/utils"],
+      "@app/utils/*": ["src/shared/utils/*"],
+      "@app/errors": ["src/shared/errors"],
+      "@app/errors/*": ["src/shared/errors/*"],
+      "@app/session": ["src/modules/session"],
+      "@app/session/*": ["src/modules/session/*"],
+      "@app/auth": ["src/auth"],
+      "@app/auth/*": ["src/auth/*"],
+      "@app/user": ["src/modules/user"],
+      "@app/user/*": ["src/modules/user/*"],
+      "@app/decorators": ["src/shared/decorators"],
+      "@app/decorators/*": ["src/shared/decorators/*"],
+      "@app/interceptors": ["src/shared/interceptors"],
+      "@app/interceptors/*": ["src/shared/interceptors/*"],
+      "@app/filters": ["src/shared/filters"],
+      "@app/filters/*": ["src/shared/filters/*"],
+      "@app/models": ["src/shared/models"],
+      "@app/models/*": ["src/shared/models/*"],
+      "@app/tests": ["src/core/tests"],
+      "@app/tests/*": ["src/core/tests/*"],
+      "@app/factories": ["src/core/database/factories"],
+      "@app/factories/*": ["src/core/database/factories/*"],
+      "@app/services": ["src/shared/services"],
+      "@app/services/*": ["src/shared/services/*"],
+      "@app/middlewares": ["src/shared/middlewares"],
+      "@app/middlewares/*": ["src/shared/middlewares/*"],
+      "@app/background": ["src/core/background"],
+      "@app/background/*": ["src/core/background/*"],
+      "@app/database": ["src/core/database"],
+      "@app/database/*": ["src/core/database/*"],
+      "@app/tenant": ["src/modules/tenant"],
+      "@app/tenant/*": ["src/modules/tenant/*"],
+      "@app/request": ["src/core/request"],
+      "@app/request/*": ["src/core/request/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

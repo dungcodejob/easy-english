@@ -1,3 +1,5 @@
+import { WordCacheEntity } from '@app/entities';
+import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   BadRequestException,
@@ -20,6 +22,7 @@ export class OxfordDictionaryService {
   constructor(
     private readonly configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    @Inject(UNIT_OF_WORK) private readonly _unitOfWork: UnitOfWork,
   ) {
     this.appId = this.configService.get<string>('OXFORD_APP_ID') || '';
     this.appKey = this.configService.get<string>('OXFORD_API_KEY') || '';
@@ -50,8 +53,12 @@ export class OxfordDictionaryService {
       );
 
       const data = response.data;
-      // Cache for 24 hours (86400 seconds)
+      // Cache for 24 hours (86400 seconds) in memory
       await this.cacheManager.set(cacheKey, data, 86400000);
+
+      // Save to DB cache asynchronously
+      void this.saveToCache(word, data);
+
       return data;
     } catch (error) {
       this.logger.error(`Oxford API error for word ${word}: ${error.message}`);
@@ -63,6 +70,51 @@ export class OxfordDictionaryService {
       }
       throw new BadRequestException(
         'Failed to fetch word from Oxford Dictionary',
+      );
+    }
+  }
+
+  async saveToCache(word: string, rawData: any): Promise<void> {
+    try {
+      const parsed = this.parseOxfordData(rawData);
+      if (!parsed) return;
+
+      const existing = await this._unitOfWork.wordCache.findOne({
+        word: word.toLowerCase(),
+        source: 'oxford',
+      });
+
+      if (existing) {
+        this._unitOfWork.wordCache.assign(existing, {
+          raw: rawData,
+          definition: parsed.definition,
+          pronunciation: parsed.pronunciation,
+          audioUrl: parsed.audioUrl,
+          examples: parsed.examples,
+          synonyms: parsed.synonyms,
+          partOfSpeech: parsed.partOfSpeech,
+          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        });
+      } else {
+        const cacheEntry = new WordCacheEntity({
+          word: word.toLowerCase(),
+          source: 'oxford',
+          raw: rawData,
+          definition: parsed.definition,
+          pronunciation: parsed.pronunciation,
+          audioUrl: parsed.audioUrl,
+          examples: parsed.examples,
+          synonyms: parsed.synonyms,
+          partOfSpeech: parsed.partOfSpeech,
+          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        });
+        this._unitOfWork.wordCache.create(cacheEntry);
+      }
+
+      await this._unitOfWork.save();
+    } catch (error) {
+      this.logger.error(
+        `Failed to save word ${word} to DB cache: ${error.message}`,
       );
     }
   }

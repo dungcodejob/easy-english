@@ -26,6 +26,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth';
 
 import { HealthModule } from './modules/health/health.module';
+import { LookupModule } from './modules/lookup/lookup.module';
 import { TopicModule } from './modules/topic/topic.module';
 import { UserModule } from './modules/user';
 
@@ -38,6 +39,7 @@ import { UserModule } from './modules/user';
     AuthModule,
     UserModule,
     TopicModule,
+    LookupModule,
 
     HealthModule,
     ConfigModule.forRoot({

@@ -6,6 +6,7 @@ import {
   TenantEntity,
   TopicEntity,
   UserEntity,
+  WordCacheEntity,
   WordEntity,
 } from '@app/entities';
 import { RequestContextService } from '@app/request';
@@ -15,6 +16,7 @@ import { SessionRepository } from './session.repository';
 import { TenantRepository } from './tenant.repository';
 import { TopicRepository } from './topic.repository';
 import { UserRepository } from './user.repository';
+import { WordCacheRepository } from './word-cache.repository';
 import { WordRepository } from './word.repository';
 
 export const UNIT_OF_WORK = Symbol('UnitOfWork');
@@ -26,6 +28,7 @@ export interface UnitOfWork {
   tenant: TenantRepository;
   topic: TopicRepository;
   word: WordRepository;
+  wordCache: WordCacheRepository;
   save(): Promise<void>;
   start(): Promise<void>;
   commit(): Promise<void>;
@@ -43,6 +46,7 @@ export class UnitOfWorkImpl implements UnitOfWork {
   private _tenant?: TenantRepository;
   private _topic?: TopicRepository;
   private _word?: WordRepository;
+  private _wordCache?: WordCacheRepository;
 
   constructor(
     private readonly _em: EntityManager,
@@ -103,6 +107,13 @@ export class UnitOfWorkImpl implements UnitOfWork {
       this._word = this._em.getRepository(WordEntity);
     }
     return this._word;
+  }
+
+  get wordCache(): WordCacheRepository {
+    if (!this._wordCache) {
+      this._wordCache = this._em.getRepository(WordCacheEntity);
+    }
+    return this._wordCache;
   }
 
   save(): Promise<void> {

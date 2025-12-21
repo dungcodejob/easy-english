@@ -58,9 +58,6 @@ export class WordEntity extends BaseEntityWithTenant {
   @Property({ default: false })
   fromOxfordApi: boolean = false;
 
-  @Property({ type: JsonType, nullable: true })
-  oxfordData?: any;
-
   @Property({ default: 0 })
   reviewCount: number = 0;
 

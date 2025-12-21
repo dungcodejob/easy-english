@@ -21,7 +21,6 @@ export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 
   @ApiAuth({
-    auths: ['jwt'],
     summary: 'Create a new topic',
   })
   @Post()
@@ -31,7 +30,6 @@ export class TopicController {
   }
 
   @ApiAuth({
-    auths: ['jwt'],
     summary: 'Get all topics',
   })
   @Get()
@@ -46,7 +44,6 @@ export class TopicController {
   }
 
   @ApiAuth({
-    auths: ['jwt'],
     summary: 'Get a topic by id',
   })
   @Get(':id')
@@ -56,7 +53,6 @@ export class TopicController {
   }
 
   @ApiAuth({
-    auths: ['jwt'],
     summary: 'Update a topic',
   })
   @Put(':id')
@@ -69,7 +65,6 @@ export class TopicController {
   }
 
   @ApiAuth({
-    auths: ['jwt'],
     summary: 'Delete a topic',
   })
   @Delete(':id')

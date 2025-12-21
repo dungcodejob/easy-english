@@ -3,6 +3,7 @@ import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
 import { wrap } from '@mikro-orm/core';
 import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { OxfordDictionaryService } from '../../shared/services/oxford-dictionary.service';
+import { LookupService } from '../lookup/lookup.service';
 import { CreateWordDto, UpdateWordDto } from './models';
 
 @Injectable()
@@ -11,6 +12,7 @@ export class WordService {
 
   constructor(
     @Inject(UNIT_OF_WORK) private readonly uow: UnitOfWork,
+    private readonly lookupService: LookupService,
     private readonly oxfordService: OxfordDictionaryService,
   ) {}
 
@@ -49,15 +51,15 @@ export class WordService {
       throw new NotFoundException('Topic not found');
     }
 
-    const oxfordData = await this.oxfordService.lookupWord(wordText);
-    const parsedData = this.oxfordService.parseOxfordData(oxfordData);
+    const parsedData = await this.lookupService.lookup(wordText);
+    // const parsedData = this.oxfordService.parseOxfordData(oxfordData);
 
     const word = new WordEntity({
       word: wordText,
       topic,
       tenant: topic.tenant,
       fromOxfordApi: true,
-      oxfordData,
+      oxfordData: parsedData,
       definition: parsedData?.definition,
       examples: parsedData?.examples,
       pronunciation: parsedData?.pronunciation,

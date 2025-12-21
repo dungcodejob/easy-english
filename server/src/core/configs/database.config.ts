@@ -4,6 +4,7 @@ import {
   TenantEntity,
   TopicEntity,
   UserEntity,
+  WordCacheEntity,
   WordEntity,
 } from '@app/entities';
 import { Migrator } from '@mikro-orm/migrations';
@@ -30,6 +31,7 @@ export const databaseConfig = defineConfig({
     TenantEntity,
     TopicEntity,
     WordEntity,
+    WordCacheEntity,
   ],
   entitiesTs: [
     AccountEntity,
@@ -38,13 +40,15 @@ export const databaseConfig = defineConfig({
     TenantEntity,
     TopicEntity,
     WordEntity,
+    WordCacheEntity,
   ],
   debug: NODE_ENV === 'dev',
   highlighter: new SqlHighlighter(),
   extensions: [Migrator, SeedManager],
+
   migrations: {
-    path: 'dist/@core/database/migrations',
-    pathTs: 'src/@core/database/migrations',
+    path: 'dist/core/database/migrations',
+    pathTs: 'src/core/database/migrations',
   },
   seeder: {
     path: 'dist/core/database/seeders',

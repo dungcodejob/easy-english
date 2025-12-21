@@ -52,7 +52,6 @@ export class JwtTokenService {
       tenantId: tenant?.id,
       tenantSlug: tenant?.slug,
     };
-
     return this.generateToken(payload, secret, jwtOptions);
   }
 

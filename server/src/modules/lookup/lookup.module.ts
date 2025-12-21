@@ -25,5 +25,6 @@ import { OxfordProvider } from './providers/oxford.provider';
     // But better to check. Assuming it is available via dependency injection.
     OxfordDictionaryService,
   ],
+  exports: [LookupService],
 })
 export class LookupModule {}

@@ -1,3 +1,4 @@
+import { FEATURE_KEY } from '@app/constants';
 import { ApiAuth } from '@app/decorators';
 import { ResponseBuilder } from '@app/models';
 import {
@@ -15,8 +16,8 @@ import { CreateTopicDto } from './models/create-topic.dto';
 import { UpdateTopicDto } from './models/update-topic.dto';
 import { TopicService } from './topic.service';
 
-@ApiTags('topics')
-@Controller('topics')
+@ApiTags(FEATURE_KEY.TOPIC)
+@Controller(FEATURE_KEY.TOPIC)
 export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 

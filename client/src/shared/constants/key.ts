@@ -17,3 +17,9 @@ export const QUERY_KEYS = {
   ME: 'me',
   PRODUCT: 'product',
 } as const;
+
+
+export const API_KEYS = {
+    TOPIC: 'topic',
+    WORD: 'word',
+}

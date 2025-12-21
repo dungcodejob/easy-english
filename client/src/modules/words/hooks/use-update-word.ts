@@ -4,16 +4,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { wordApi } from '../services/word.api';
+import type { UpdateWordDto } from '../types';
 
-export const useCreateWordFromOxford = (topicId: string) => {
+export const useUpdateWord = (topicId: string) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-
   const { handleError } = useErrorHandler();
 
   return useMutation({
-    mutationFn: async (word: string) => {
-      const result = await wordApi.createFromOxford(topicId, word);
+    mutationFn: async ({ id, data }: { id: string; data: UpdateWordDto }) => {
+      const result = await wordApi.updateWord(id, data);
       if (result.isErr()) {
         throw result.error;
       }
@@ -21,8 +21,7 @@ export const useCreateWordFromOxford = (topicId: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('word.oxford_success'));
+      toast.success(t('common.update_success'));
     },
     onError: (error) => {
       handleError(error as any);

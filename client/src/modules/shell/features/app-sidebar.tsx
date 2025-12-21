@@ -1,6 +1,7 @@
 import {
   RiBankCardLine,
   RiBarChartBoxLine,
+  RiBookOpenLine,
   RiCoinsLine,
   RiCoupon2Line,
   RiDatabase2Line,
@@ -28,7 +29,7 @@ import {
   RiTruckLine,
   RiUser6Line,
   RiUserAddLine,
-  RiWebhookLine,
+  RiWebhookLine
 } from '@remixicon/react';
 import { Separator } from '@shared/ui/shadcn/separator';
 import {
@@ -92,6 +93,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           url: '/daily-menus',
         },
       ],
+
+    },
+    {
+      id: useId(),
+      title: 'Topics',
+      icon: RiBookOpenLine,
+      url: '/topic',
     },
     {
       id: useId(),

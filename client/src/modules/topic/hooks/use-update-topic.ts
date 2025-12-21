@@ -1,4 +1,5 @@
 import { QUERY_KEYS } from "@/shared/constants";
+import { useErrorHandler } from "@/shared/hooks/use-error-handler";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from 'sonner';
@@ -11,11 +12,17 @@ export const useUpdateTopic = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
+  const { handleError } = useErrorHandler();
+
   return useMutation({
     mutationFn: async (input: { id: string; data: UpdateTopicDto }) => {
-      const response = await topicApi.updateTopic(input.id, input.data);
-      const {data} = response.data.result;
-      return data;
+      const result = await topicApi.updateTopic(input.id, input.data);
+      
+      if (result.isErr()) {
+        throw result.error;
+      }
+      
+      return result.value.data;
     },
     onSuccess: (updatedTopic) => {
       // Update cache for this specific topic
@@ -28,10 +35,7 @@ export const useUpdateTopic = () => {
       toast.success(t('topic.update_success', { defaultValue: 'Topic updated successfully!' }));
     },
     onError: (error) => {
-      const errorMessage = error instanceof Error
-        ? error.message
-        : t('topic.update_error', { defaultValue: 'Failed to update topic' });
-      toast.error(errorMessage);
+      handleError(error as any);
     },
   });
 };

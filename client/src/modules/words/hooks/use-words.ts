@@ -6,9 +6,13 @@ export const useWords = (topicId: string, params?: any) => {
   return useQuery({
     queryKey: [QUERY_KEYS.WORD, topicId, params],
     queryFn: async () => {
-      const res = await wordApi.getWords(topicId, params);
+      const result = await wordApi.getWords(topicId, params);
 
-      return res.result;
+      if (result.isErr()) {
+        throw result.error;
+      }
+
+      return result.value;
     },
     enabled: !!topicId,
   });

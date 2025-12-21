@@ -5,15 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { wordApi } from '../services/word.api';
 
-export const useCreateWordFromOxford = (topicId: string) => {
+export const useDeleteWord = (topicId: string) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-
   const { handleError } = useErrorHandler();
 
   return useMutation({
-    mutationFn: async (word: string) => {
-      const result = await wordApi.createFromOxford(topicId, word);
+    mutationFn: async (id: string) => {
+      const result = await wordApi.deleteWord(id);
       if (result.isErr()) {
         throw result.error;
       }
@@ -21,8 +20,8 @@ export const useCreateWordFromOxford = (topicId: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('word.oxford_success'));
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] }); // update count
+      toast.success(t('common.delete_success'));
     },
     onError: (error) => {
       handleError(error as any);

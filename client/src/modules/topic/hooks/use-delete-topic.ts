@@ -1,4 +1,5 @@
 import { QUERY_KEYS } from "@/shared/constants";
+import { useErrorHandler } from "@/shared/hooks/use-error-handler";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -11,9 +12,15 @@ export const useDeleteTopic = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
+  const { handleError } = useErrorHandler();
+
   return useMutation({
     mutationFn: async (id: string) => {
-      await topicApi.deleteTopic(id);
+      const result = await topicApi.deleteTopic(id);
+      
+      if (result.isErr()) {
+        throw result.error;
+      }
       return id;
     },
     onSuccess: () => {
@@ -21,10 +28,7 @@ export const useDeleteTopic = () => {
       toast.success(t('topic.delete_success', { defaultValue: 'Topic deleted successfully!' }));
     },
     onError: (error) => {
-      const errorMessage = error instanceof Error
-        ? error.message
-        : t('topic.delete_error', { defaultValue: 'Failed to delete topic' });
-      toast.error(errorMessage);
+      handleError(error as any);
     },
   });
 };

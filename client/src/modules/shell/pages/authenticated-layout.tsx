@@ -485,7 +485,7 @@ export function AuthenticatedLayout() {
   }, [groups, pathname]);
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className='block'>
       <AppSidebar />
 
       <div className="flex h-full">

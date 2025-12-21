@@ -9,9 +9,13 @@ export const useTopicById = (id: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.TOPIC, id],
     queryFn: async () => {
-      const response = await topicApi.getTopicById(id);
-      const {data} = response.data.result;
-      return data;
+      const result = await topicApi.getTopicById(id);
+      
+      if (result.isErr()) {
+        throw result.error;
+      }
+      
+      return result.value.data;
     },
     enabled: !!id,
   });

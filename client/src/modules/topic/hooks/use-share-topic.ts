@@ -1,4 +1,5 @@
 import { QUERY_KEYS } from "@/shared/constants";
+import { useErrorHandler } from "@/shared/hooks/use-error-handler";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -12,11 +13,17 @@ export const useShareTopic = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
+  const { handleError } = useErrorHandler();
+
   return useMutation({
     mutationFn: async (id: string) => {
-      const response = await topicApi.shareTopic(id);
-      const {data} = response.data.result;
-      return { id, shareUrl: data.shareUrl };
+      const result = await topicApi.shareTopic(id);
+      
+      if (result.isErr()) {
+        throw result.error;
+      }
+      
+      return { id, shareUrl: result.value.data.shareUrl };
     },
     onSuccess: ({ id }) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC, id] });
@@ -24,10 +31,7 @@ export const useShareTopic = () => {
       toast.success(t('topic.share_success', { defaultValue: 'Topic shared successfully!' }));
     },
     onError: (error) => {
-      const errorMessage = error instanceof Error
-        ? error.message
-        : t('topic.share_error', { defaultValue: 'Failed to share topic' });
-      toast.error(errorMessage);
+      handleError(error as any);
     },
   });
 };

@@ -80,6 +80,8 @@ export class AuthService {
       tenant,
     });
 
+    this._em.persist(session);
+
     await this._em.flush();
 
     const accessToken = await this._jwtTokenService.generateAccessToken(

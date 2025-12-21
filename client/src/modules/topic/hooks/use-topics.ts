@@ -14,9 +14,13 @@ export const useTopics = (filters?: TopicFilters & { page?: number; limit?: numb
   return useQuery({
     queryKey: [QUERY_KEYS.TOPIC, filters],
     queryFn: async () => {
-      const response = await topicApi.getTopics(filters);
-      const {items} = response.data.result;
-      return items ;
+      const result = await topicApi.getTopics(filters);
+      
+      if (result.isErr()) {
+        throw result.error;
+      }
+
+      return result.value.items;
     },
   });
 };

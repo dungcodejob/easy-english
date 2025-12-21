@@ -1,35 +1,24 @@
+import { apiCall } from '@/shared/api/api-wrapper';
 import { apiClient } from '@/shared/api/api.client';
 import type { ListResponseDto, SingleResponseDto, SuccessResponseDto } from '@/shared/types/success-response.dto';
 import type { CreateWordDto, UpdateWordDto, Word } from '../types';
 
 export const wordApi = {
-  getWords: async (topicId: string, params?: any) => {
-    const response = await apiClient.get<ListResponseDto<Word>>(`/topics/${topicId}/words`, { params });
-    return response.data;
-  },
+  getWords: (topicId: string, params?: any) => 
+    apiCall(() => apiClient.get<ListResponseDto<Word>>(`/topics/${topicId}/words`, { params })),
 
-  getWordById: async (id: string) => {
-    const response = await apiClient.get<SingleResponseDto<Word>>(`/words/${id}`);
-    return response.data;
-  },
+  getWordById: (id: string) => 
+    apiCall(() => apiClient.get<SingleResponseDto<Word>>(`/words/${id}`)),
 
-  createWord: async (topicId: string, data: CreateWordDto) => {
-    const response = await apiClient.post<SuccessResponseDto<Word>>(`/topics/${topicId}/words`, data);
-    return response.data;
-  },
+  createWord: (topicId: string, data: CreateWordDto) => 
+    apiCall(() => apiClient.post<SuccessResponseDto<Word>>(`/topics/${topicId}/words`, data)),
 
-  createFromOxford: async (topicId: string, word: string) => {
-    const response = await apiClient.post<SuccessResponseDto<Word>>(`/topics/${topicId}/words/oxford`, { word });
-    return response.data;
-  },
+  createFromOxford: (topicId: string, word: string) => 
+    apiCall(() => apiClient.post<SuccessResponseDto<Word>>(`/topics/${topicId}/words/oxford`, { word })),
 
-  updateWord: async (id: string, data: UpdateWordDto) => {
-    const response = await apiClient.patch<SuccessResponseDto<Word>>(`/words/${id}`, data);
-    return response.data;
-  },
+  updateWord: (id: string, data: UpdateWordDto) => 
+    apiCall(() => apiClient.patch<SuccessResponseDto<Word>>(`/words/${id}`, data)),
 
-  deleteWord: async (id: string) => {
-    const response = await apiClient.delete<SuccessResponseDto<void>>(`/words/${id}`);
-    return response.data;
-  },
+  deleteWord: (id: string) => 
+    apiCall(() => apiClient.delete<SuccessResponseDto<void>>(`/words/${id}`)),
 };

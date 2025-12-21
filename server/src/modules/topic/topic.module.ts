@@ -1,16 +1,14 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { OxfordDictionaryService } from '../../shared/services/oxford-dictionary.service';
+import { WordModule } from '../word/word.module';
 import { TopicController } from './topic.controller';
 import { TopicService } from './topic.service';
-import { SingleWordController, WordController } from './word.controller';
-import { WordService } from './word.service';
 
 @Module({
-  imports: [ConfigModule, CacheModule.register()],
-  controllers: [TopicController, WordController, SingleWordController],
-  providers: [TopicService, WordService, OxfordDictionaryService],
-  exports: [TopicService, WordService],
+  imports: [ConfigModule, WordModule, CacheModule.register()],
+  controllers: [TopicController],
+  providers: [TopicService],
+  exports: [TopicService],
 })
 export class TopicModule {}

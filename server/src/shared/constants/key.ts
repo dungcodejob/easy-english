@@ -35,4 +35,7 @@ export const FEATURE_KEY = {
   BOOKMARK: 'bookmark',
   UPLOAD_FILE: 'upload-file',
   TAG: 'tag',
+  TOPIC: 'topic',
+  WORD: 'word',
+  LOOKUP: 'lookup',
 } as const;

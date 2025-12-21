@@ -1,20 +1,17 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { useCreateWord } from '../hooks/use-create-word';
-import { useWords } from '../hooks/use-words';
-// import { useUpdateWord } from '../hooks/use-update-word'; // Todo: create this hook
-// import { useDeleteWord } from '../hooks/use-delete-word'; // Todo: create this hook
 import { useTopicById } from '@/modules/topic/hooks';
-import { QUERY_KEYS } from '@/shared/constants/key';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Skeleton } from '@/shared/ui/shadcn/skeleton';
-import { useQueryClient } from '@tanstack/react-query';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ArrowLeft, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 import { WordCard } from '../components/word-card';
 import { WordDialog } from '../components/word-dialog';
-import { wordApi } from '../services/word.api'; // Temporary direct use until hooks created
+import { useCreateWord } from '../hooks/use-create-word';
+import { useDeleteWord } from '../hooks/use-delete-word';
+import { useUpdateWord } from '../hooks/use-update-word';
+import { useWords } from '../hooks/use-words';
+// import { wordApi } from '../services/word.api'; // Temporary direct use until hooks created
 import type { Word } from '../types';
 
 export const Route = createFileRoute('/_(authenticated)/topic/$topicId')({
@@ -25,12 +22,14 @@ export function WordListPage() {
   const { topicId } = Route.useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+
   
   const { data: topic, isLoading: isTopicLoading } = useTopicById(topicId!);
   const { data: wordsData, isLoading: isWordsLoading } = useWords(topicId!);
   
   const createWord = useCreateWord(topicId!);
+  const updateWord = useUpdateWord(topicId!);
+  const deleteWord = useDeleteWord(topicId!);
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingWord, setEditingWord] = useState<Word | undefined>(undefined);
@@ -41,25 +40,12 @@ export function WordListPage() {
 
   const handleUpdate = async (data: any) => {
     if (!editingWord) return;
-    try {
-      await wordApi.updateWord(editingWord.id, data);
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
-      toast.success(t('common.update_success'));
-    } catch (e) {
-      toast.error(t('common.update_error'));
-    }
+    await updateWord.mutateAsync({ id: editingWord.id, data });
   };
 
   const handleDelete = async (word: Word) => {
     if (confirm(t('common.confirm_delete'))) {
-       try {
-        await wordApi.deleteWord(word.id);
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] }); // update count
-        toast.success(t('common.delete_success'));
-      } catch (e) {
-        toast.error(t('common.delete_error'));
-      }
+       await deleteWord.mutateAsync(word.id);
     }
   };
 
@@ -124,7 +110,8 @@ export function WordListPage() {
         topicId={topicId!}
         wordToEdit={editingWord}
         onSubmit={editingWord ? handleUpdate : handleCreate}
-        isSubmitting={createWord.isPending}
+        isSubmitting={createWord.isPending || updateWord.isPending}
+        error={(createWord.error || updateWord.error) as any}
       />
     </div>
   );

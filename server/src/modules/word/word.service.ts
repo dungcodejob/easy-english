@@ -59,7 +59,6 @@ export class WordService {
       topic,
       tenant: topic.tenant,
       fromOxfordApi: true,
-      oxfordData: parsedData,
       definition: parsedData?.definition,
       examples: parsedData?.examples,
       pronunciation: parsedData?.pronunciation,

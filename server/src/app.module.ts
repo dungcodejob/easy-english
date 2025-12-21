@@ -29,6 +29,7 @@ import { HealthModule } from './modules/health/health.module';
 import { LookupModule } from './modules/lookup/lookup.module';
 import { TopicModule } from './modules/topic/topic.module';
 import { UserModule } from './modules/user';
+import { WordModule } from './modules/word/word.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { UserModule } from './modules/user';
     UserModule,
     TopicModule,
     LookupModule,
+    WordModule,
 
     HealthModule,
     ConfigModule.forRoot({

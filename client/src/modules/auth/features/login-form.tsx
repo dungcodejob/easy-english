@@ -19,7 +19,7 @@ import { z } from 'zod';
 import { useLogin } from '../hooks/use-login';
 
 const loginFormSchema = z.object({
-  username: z.string(),
+  emailOrUsername: z.string(),
   password: z.string().min(8),
 });
 
@@ -35,7 +35,7 @@ export function LoginForm({
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      username: '',
+      emailOrUsername: '',
       password: '',
     },
   });
@@ -64,7 +64,7 @@ export function LoginForm({
 
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="emailOrUsername"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('auth.login.username')}</FormLabel>

@@ -1,21 +1,23 @@
+import { useValidationErrors } from '@/shared/hooks/use-validation-errors';
+import type { AppError } from '@/shared/lib/errors/app-error';
 import { TagInput } from '@/shared/ui/common/tag-input';
 import { Button } from '@/shared/ui/shadcn/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from '@/shared/ui/shadcn/dialog';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Label } from '@/shared/ui/shadcn/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from '@/shared/ui/shadcn/select';
 import { Textarea } from '@/shared/ui/shadcn/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -71,6 +73,8 @@ export function TopicDialog({ open, onOpenChange, topic }: TopicDialogProps) {
       isPublic: topic.isPublic,
     } : initialFormValues,
   });
+
+  useValidationErrors((createTopic.error || updateTopic.error) as unknown as AppError, form.setError);
 
   React.useEffect(() => {
     if (topic) {

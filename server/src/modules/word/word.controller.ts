@@ -1,3 +1,4 @@
+import { FEATURE_KEY } from '@app/constants';
 import {
   Body,
   Controller,
@@ -16,7 +17,7 @@ import { WordService } from './word.service';
 // Skipping guards in import if globally applied, but good to check.
 // I'll assume usage of standard decorators.
 
-@Controller('topics/:topicId/words')
+@Controller(`${FEATURE_KEY.TOPIC}/:topicId/${FEATURE_KEY.WORD}`)
 export class WordController {
   constructor(private readonly wordService: WordService) {}
 
@@ -54,7 +55,7 @@ export class WordController {
 // Let's create another controller class or method for single word.
 // NestJS allows multiple controllers or multiple paths.
 
-@Controller('words')
+@Controller(`${FEATURE_KEY.WORD}/:id`)
 export class SingleWordController {
   constructor(private readonly wordService: WordService) {}
 

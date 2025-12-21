@@ -1,6 +1,15 @@
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { tanstackRouter } from '@tanstack/router-plugin/rspack';
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      PUBLIC_API_URL?: string;
+    }
+  }
+}
+
 // Docs: https://rsbuild.rs/config/
 export default defineConfig({
   plugins: [pluginReact()],

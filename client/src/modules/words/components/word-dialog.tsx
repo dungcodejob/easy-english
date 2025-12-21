@@ -1,3 +1,5 @@
+import { useValidationErrors } from '@/shared/hooks/use-validation-errors';
+import type { AppError } from '@/shared/lib/errors/app-error';
 import { Button } from '@/shared/ui/shadcn/button';
 import {
     Dialog,
@@ -44,6 +46,7 @@ interface WordDialogProps {
   wordToEdit?: Word;
   onSubmit: (data: CreateWordDto) => Promise<void>;
   isSubmitting?: boolean;
+  error?: AppError | null;
 }
 
 export const WordDialog = ({
@@ -53,6 +56,7 @@ export const WordDialog = ({
   wordToEdit,
   onSubmit,
   isSubmitting,
+  error,
 }: WordDialogProps) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'manual' | 'oxford'>('manual');
@@ -70,6 +74,8 @@ export const WordDialog = ({
       personalNote: '',
     },
   });
+
+  useValidationErrors(error, form.setError);
 
   useEffect(() => {
     if (wordToEdit) {

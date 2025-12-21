@@ -1,8 +1,12 @@
-export type AuthResult = {
-  tokens: Tokens;
-};
+export interface AuthResultDto {
 
-type Tokens = {
-  access: string;
-  refresh: string;
-};
+  user: {
+    id: string,
+    name: string,
+  };
+
+  accessToken: string;
+
+  refreshToken: string;
+}
+

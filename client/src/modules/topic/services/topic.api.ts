@@ -31,7 +31,7 @@ export const topicApi = {
    * Update an existing topic
    */
   updateTopic: (id: string, data: UpdateTopicDto) =>
-    apiCall(() => apiClient.patch<SingleResponseDto<Topic>>(`${API_KEYS.TOPIC}/${id}`, data)),
+    apiCall(() => apiClient.put<SingleResponseDto<Topic>>(`${API_KEYS.TOPIC}/${id}`, data)),
 
   /**
    * Delete a topic

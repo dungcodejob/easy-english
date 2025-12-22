@@ -18,7 +18,7 @@ export class CreateTopicDto {
   description?: string;
 
   @IsEnum(TopicCategory)
-  category: TopicCategory = TopicCategory.VOCABULARY;
+  category: TopicCategory = TopicCategory.Vocabulary;
 
   @IsArray()
   @IsString({ each: true })

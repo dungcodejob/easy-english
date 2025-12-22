@@ -1,5 +1,15 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/shared/ui/shadcn/alert-dialog';
 import { Badge } from '@/shared/ui/shadcn/badge';
-import { RiBookmarkLine, RiGlobalLine, RiMoreLine } from '@remixicon/react';
+import { RiBookmarkLine, RiGlobalLine, RiMoreLine, RiPencilLine } from '@remixicon/react';
 import { Button } from '@shared/ui/shadcn/button';
 import {
   Card,
@@ -17,22 +27,33 @@ import {
   DropdownMenuTrigger,
 } from '@shared/ui/shadcn/dropdown-menu';
 import { Link } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 import { useDeleteTopic, useDuplicateTopic, useShareTopic } from '../hooks';
-import type { Topic } from '../types';
+import { formatLanguagePair, type Topic } from '../types';
+import { TopicDialog } from './topic-dialog';
 
 interface TopicCardProps {
   topic: Topic;
 }
+
+
 
 export function TopicCard({ topic }: TopicCardProps) {
   const deleteTopic = useDeleteTopic();
   const shareTopic = useShareTopic();
   const duplicateTopic = useDuplicateTopic();
 
+  const languagePairLabel = useMemo(() => formatLanguagePair(topic.languagePair), [topic.languagePair]);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
   const handleDelete = () => {
-    if (confirm('Are you sure you want to delete this topic?')) {
-      deleteTopic.mutate(topic.id);
-    }
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    deleteTopic.mutate(topic.id);
+    setIsDeleteDialogOpen(false);
   };
 
   const handleShare = () => {
@@ -43,13 +64,19 @@ export function TopicCard({ topic }: TopicCardProps) {
     duplicateTopic.mutate(topic.id);
   };
 
+  const handleEdit = () => {
+    setIsEditDialogOpen(true);
+  };
+
   return (
-    <Card className="transition-all hover:shadow-md cursor-pointer group">
+    <>
       <Link
         to="/topic/$topicId"
         params={{ topicId: topic.id }}
         className="block"
       >
+        <Card className="transition-all hover:shadow-md cursor-pointer group">
+
         {/* Cover Image */}
         {topic.coverImageUrl && (
           <div className="relative w-full h-32 overflow-hidden rounded-t-xl">
@@ -86,6 +113,13 @@ export function TopicCard({ topic }: TopicCardProps) {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={(e) => {
                   e.preventDefault();
+                  handleEdit();
+                }}>
+                  <RiPencilLine className="mr-2 h-4 w-4" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={(e) => {
+                  e.preventDefault();
                   handleDuplicate();
                 }}>
                   Duplicate
@@ -104,18 +138,16 @@ export function TopicCard({ topic }: TopicCardProps) {
             </DropdownMenu>
           </div>
 
-          {topic.description && (
-            <CardDescription className="line-clamp-2">
-              {topic.description}
+          <CardDescription className="line-clamp-2">
+              {topic.description || 'No description'}
             </CardDescription>
-          )}
         </CardHeader>
 
         <CardContent className="space-y-3">
           {/* Category and Language badges */}
           <div className="flex flex-wrap gap-2">
             <Badge variant="secondary">{topic.category}</Badge>
-            <Badge variant="outline">{topic.languagePair}</Badge>
+            <Badge variant="outline">{languagePairLabel}</Badge>
             {topic.isPublic && (
               <Badge variant="default">
                 <RiGlobalLine className="mr-1 h-3 w-3" />
@@ -147,7 +179,30 @@ export function TopicCard({ topic }: TopicCardProps) {
             <span>{topic.wordCount} words</span>
           </div>
         </CardFooter>
+      
+      </Card>
       </Link>
-    </Card>
+      <TopicDialog
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        topic={topic}
+      />
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Topic</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{topic.name}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmDelete} className="bg-destructive hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

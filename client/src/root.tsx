@@ -1,6 +1,8 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import * as React from 'react';
+
 import { Providers } from './shared/contexts';
+import { Toaster } from './shared/ui/shadcn/sonner';
 // import { Providers } from './providers/providers';
 
 export const Route = createRootRoute({
@@ -12,6 +14,7 @@ function RootComponent() {
     <React.Fragment>
       <Providers>
         <Outlet />
+         <Toaster />
         {/* <TanStackRouterDevtools position="bottom-left" /> */}
       </Providers>
     </React.Fragment>

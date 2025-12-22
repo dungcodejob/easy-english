@@ -1,29 +1,50 @@
-export enum TopicCategory {
-  VOCABULARY = 'VOCABULARY',
-  GRAMMAR = 'GRAMMAR',
-  IDIOMS = 'IDIOMS',
-  PHRASES = 'PHRASES',
-  PRONUNCIATION = 'PRONUNCIATION',
-  LISTENING = 'LISTENING',
-  SPEAKING = 'SPEAKING',
-  READING = 'READING',
-  WRITING = 'WRITING',
+import type { ObjectValues } from "@/shared/utils";
+import type { Topic } from "./topic";
+
+
+export const topicCategory = {
+  Vocabulary: 'Vocabulary',
+  Grammar: 'Grammar',
+  Idioms: 'Idioms',
+  Phrases: 'Phrases',
+  Pronunciation: 'Pronunciation',
+  Listening: 'Listening',
+  Speaking: 'Speaking',
+  Reading: 'Reading',
+  Writing: 'Writing',
+} as const
+
+
+
+export type TopicCategory = ObjectValues<typeof topicCategory>
+
+export const language = {
+  EN: 'EN',
+  VI: 'VI',
+  FR: 'FR',
+  ES: 'ES',
+  DE: 'DE',
+  JA: 'JA',
+  KO: 'KO',
+  ZH: 'ZH',
+} as const
+
+export type Language = ObjectValues<typeof language>
+
+export const languageLabels: Record<Language, string> = {
+  EN: 'English',
+  VI: 'Vietnamese',
+  FR: 'French',
+  ES: 'Spanish',
+  DE: 'German',
+  JA: 'Japanese',
+  KO: 'Korean',
+  ZH: 'Chinese',
 }
 
-export interface Topic {
-  id: string;
-  name: string;
-  description?: string;
-  category: TopicCategory;
-  tags: string[];
-  languagePair: string;
-  coverImageUrl?: string;
-  isPublic: boolean;
-  shareUrl?: string;
-  wordCount: number;
-  createdAt: string;
-  updatedAt: string;
-}
+
+
+
 
 
 

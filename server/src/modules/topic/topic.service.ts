@@ -1,8 +1,9 @@
 import { TopicEntity } from '@app/entities';
+import { AuthEventContext, QueryDto } from '@app/models';
 import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
-import { FilterQuery } from '@mikro-orm/core';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTopicDto } from './models/create-topic.dto';
+import { GetTopicsDto } from './models/get-topics.dto';
 import { UpdateTopicDto } from './models/update-topic.dto';
 
 @Injectable()
@@ -12,19 +13,32 @@ export class TopicService {
     private readonly _unitOfWork: UnitOfWork,
   ) {}
 
-  async create(data: CreateTopicDto): Promise<TopicEntity> {
+  async create(data: CreateTopicDto & AuthEventContext): Promise<TopicEntity> {
     const topic = new TopicEntity(data);
+    topic.tenant = this._unitOfWork.tenant.getReference(data.tenantId);
+    topic.user = this._unitOfWork.user.getReference(data.userId);
     this._unitOfWork.topic.create(topic);
     await this._unitOfWork.save();
     return topic;
   }
 
-  async findAll(
-    query: FilterQuery<TopicEntity> = {},
-  ): Promise<[TopicEntity[], number]> {
-    return this._unitOfWork.topic.findAndCount(query, {
-      orderBy: { createAt: 'DESC' },
-    });
+  async findAll(dto: GetTopicsDto): Promise<[TopicEntity[], number]> {
+    console.log(dto);
+    // Build filter query from parsed filters
+    const filterQuery = QueryDto.setConditionFilter<TopicEntity>(
+      {},
+      dto.filters,
+    );
+
+    // Build options with sorts
+    const options: any = QueryDto.setConditionSort<TopicEntity>(
+      {
+        orderBy: { createAt: 'DESC' },
+      },
+      dto.sorts,
+    );
+
+    return this._unitOfWork.topic.findAndCount(filterQuery, options);
   }
 
   async findOne(id: string): Promise<TopicEntity> {
@@ -37,7 +51,9 @@ export class TopicService {
 
   async update(id: string, data: UpdateTopicDto): Promise<TopicEntity> {
     const topic = await this.findOne(id);
+
     this._unitOfWork.topic.assign(topic, data);
+
     await this._unitOfWork.save();
     return topic;
   }

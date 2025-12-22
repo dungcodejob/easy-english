@@ -1,6 +1,6 @@
 import { FEATURE_KEY } from '@app/constants';
-import { ApiAuth } from '@app/decorators';
-import { ResponseBuilder } from '@app/models';
+import { ApiAuth, CurrentTenant, CurrentUser } from '@app/decorators';
+import { ApiCustomQuery, ResponseBuilder } from '@app/models';
 import {
   Body,
   Controller,
@@ -12,7 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateTopicDto } from './models/create-topic.dto';
+import { CreateTopicDto, GetTopicsDto } from './models';
 import { UpdateTopicDto } from './models/update-topic.dto';
 import { TopicService } from './topic.service';
 
@@ -25,16 +25,25 @@ export class TopicController {
     summary: 'Create a new topic',
   })
   @Post()
-  async create(@Body() createTopicDto: CreateTopicDto) {
-    const topic = await this.topicService.create(createTopicDto);
+  async create(
+    @Body() createTopicDto: CreateTopicDto,
+    @CurrentTenant('id') tenantId: string,
+    @CurrentUser('id') userId: string,
+  ) {
+    const topic = await this.topicService.create({
+      ...createTopicDto,
+      tenantId,
+      userId,
+    });
     return ResponseBuilder.toSingle({ data: topic });
   }
 
   @ApiAuth({
     summary: 'Get all topics',
   })
+  @ApiCustomQuery()
   @Get()
-  async findAll(@Query() query: any) {
+  async findAll(@Query() query: GetTopicsDto) {
     const [items, total] = await this.topicService.findAll(query);
     return ResponseBuilder.toList({
       items,

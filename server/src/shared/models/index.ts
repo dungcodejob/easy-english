@@ -1,3 +1,4 @@
+export * from './auth-event-context';
 export * from './pagination-meta.dto';
 export * from './pagination-parameter.dto';
 export * from './pagination.dto';

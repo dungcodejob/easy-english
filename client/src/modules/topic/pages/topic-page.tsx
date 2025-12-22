@@ -13,7 +13,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import * as React from 'react';
 import { TopicCard, TopicDialog } from '../components';
 import { useTopics } from '../hooks';
-import { TopicCategory, type TopicFilters } from '../types';
+import { type TopicCategory, type TopicFilters } from '../types';
+import { topicCategoryOptions } from '../types/topic.meta';
 
 export const Route = createFileRoute('/_(authenticated)/topic')({
   component: TopicPage,
@@ -48,8 +49,8 @@ export function TopicPage() {
             Organize your vocabulary into topics
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} size="lg">
-          <RiAddLine className="mr-2 h-5 w-5" />
+        <Button onClick={() => setDialogOpen(true)}    >
+          <RiAddLine className=" h-4 w-4" />
           New Topic
         </Button>
       </div>
@@ -83,9 +84,9 @@ export function TopicPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Categories</SelectItem>
-            {Object.values(TopicCategory).map((cat) => (
-              <SelectItem key={cat} value={cat}>
-                {cat.replace('_', ' ')}
+            {topicCategoryOptions.map((cat) => (
+              <SelectItem key={cat.value} value={cat.value}>
+                {cat.label}
               </SelectItem>
             ))}
           </SelectContent>
@@ -123,7 +124,7 @@ export function TopicPage() {
             Get started by creating your first topic to organize your vocabulary
           </p>
           <Button onClick={() => setDialogOpen(true)} className="mt-4">
-            <RiAddLine className="mr-2 h-4 w-4" />
+            <RiAddLine className=" h-4 w-4" />
             Create Topic
           </Button>
         </div>

@@ -4,23 +4,25 @@ import {
   Entity,
   EntityRepositoryType,
   Enum,
+  ManyToOne,
   OneToMany,
   Property,
 } from '@mikro-orm/core';
 import { v6 } from 'uuid';
 import { BaseEntityWithTenant } from './base-extend.entity';
+import { UserEntity } from './user.entity';
 import { WordEntity } from './word.entity';
 
 export enum TopicCategory {
-  VOCABULARY = 'VOCABULARY',
-  GRAMMAR = 'GRAMMAR',
-  IDIOMS = 'IDIOMS',
-  PHRASES = 'PHRASES',
-  PRONUNCIATION = 'PRONUNCIATION',
-  LISTENING = 'LISTENING',
-  SPEAKING = 'SPEAKING',
-  READING = 'READING',
-  WRITING = 'WRITING',
+  Vocabulary = 'Vocabulary',
+  Grammar = 'Grammar',
+  Idioms = 'Idioms',
+  Phrases = 'Phrases',
+  Pronunciation = 'Pronunciation',
+  Listening = 'Listening',
+  Speaking = 'Speaking',
+  Reading = 'Reading',
+  Writing = 'Writing',
 }
 
 @Entity({ repository: () => TopicRepository })
@@ -32,7 +34,7 @@ export class TopicEntity extends BaseEntityWithTenant {
   description?: string;
 
   @Enum(() => TopicCategory)
-  category: TopicCategory = TopicCategory.VOCABULARY;
+  category: TopicCategory = TopicCategory.Vocabulary;
 
   @Property({ type: 'array' })
   tags: string[] = [];
@@ -54,6 +56,9 @@ export class TopicEntity extends BaseEntityWithTenant {
 
   @OneToMany(() => WordEntity, (word) => word.topic)
   words = new Collection<WordEntity>(this);
+
+  @ManyToOne(() => UserEntity)
+  user: UserEntity;
 
   [EntityRepositoryType]?: TopicRepository;
 

@@ -44,6 +44,13 @@ export const USER_ERROR_CODES = {
   ACCOUNT_DELETION_FAILED: 'User.AccountDeletionFailed',
 } as const;
 
+// Lookup Error Codes
+export const LOOKUP_ERROR_CODES = {
+  NOT_FOUND: 'Lookup.NotFound',
+  PROVIDER_ERROR: 'Lookup.ProviderError',
+  ADAPTER_ERROR: 'Lookup.AdapterError',
+} as const;
+
 // Collection Error Codes
 export const COLLECTION_ERROR_CODES = {
   NOT_FOUND: 'Collection.NotFound',

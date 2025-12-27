@@ -31,3 +31,26 @@ export class LookupResult {
   @ApiProperty()
   raw?: any;
 }
+
+export interface NormalizedData {
+  word: {
+    text: string;
+    normalizedText: string;
+    language: string;
+  };
+  pronunciations: Array<{
+    ipa?: string;
+    audioUrl?: string;
+    region?: string;
+  }>;
+  senses: Array<{
+    partOfSpeech: string;
+    definition: string;
+    shortDefinition?: string;
+    examples: string[];
+    synonyms: string[];
+    antonyms: string[];
+    senseIndex: number;
+    source: string;
+  }>;
+}

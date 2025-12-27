@@ -1,77 +1,48 @@
+import { WordRepository } from '@app/repositories';
 import {
+  Collection,
   Entity,
   EntityRepositoryType,
-  JsonType,
-  ManyToOne,
+  Index,
+  OneToMany,
   Property,
+  Unique,
 } from '@mikro-orm/core';
-// We use forward reference for WordRepository to avoid circular dependency issues during module loading if repository imports entity
-// But actually repository imports entity.
-// Let's import WordRepository from @app/repositories which is just index.ts.
-// Ideally we should import from local file if possible to avoid circular deps with index.ts
 import { v6 } from 'uuid';
-import { WordRepository } from '../repositories/word.repository'; // Import directly
-import { BaseEntityWithTenant } from './base-extend.entity';
-import { TopicEntity } from './topic.entity';
+import { BaseEntity } from './base.entity';
+import { PronunciationEntity } from './pronunciation.entity';
+import { WordSenseEntity } from './word-sense.entity';
+
+export enum Language {
+  EN = 'en',
+}
 
 @Entity({ repository: () => WordRepository })
-export class WordEntity extends BaseEntityWithTenant {
+@Unique({ properties: ['normalizedText', 'language'] })
+export class WordEntity extends BaseEntity {
   @Property()
-  word: string;
+  text: string;
 
-  @Property({ type: 'text', nullable: true })
-  definition?: string;
+  @Index()
+  @Property({ fieldName: 'normalized_text' })
+  normalizedText: string;
 
-  @Property({ type: JsonType, nullable: true })
-  definitions?: any[];
+  @Property({ default: Language.EN })
+  language: string = Language.EN;
 
-  @Property({ nullable: true })
-  pronunciation?: string;
+  @OneToMany(() => PronunciationEntity, (pronunciation) => pronunciation.word)
+  pronunciations = new Collection<PronunciationEntity>(this);
 
-  @Property({ nullable: true })
-  audioUrl?: string;
-
-  @Property({ type: 'array', nullable: true })
-  partOfSpeech?: string[];
-
-  @Property({ type: 'array', nullable: true })
-  examples?: string[];
-
-  @Property({ type: 'array', nullable: true })
-  synonyms?: string[];
-
-  @Property({ type: 'array', nullable: true })
-  antonyms?: string[];
-
-  @Property({ type: 'text', nullable: true })
-  personalNote?: string;
-
-  @Property({ type: JsonType, nullable: true })
-  mediaUrls?: { images: string[]; audios: string[]; videos: string[] };
-
-  @Property({ default: 1 })
-  difficulty: number = 1;
-
-  @Property({ type: JsonType, nullable: true })
-  customFields?: Record<string, any>;
-
-  @Property({ default: false })
-  fromOxfordApi: boolean = false;
-
-  @Property({ default: 0 })
-  reviewCount: number = 0;
-
-  @Property({ nullable: true })
-  lastReviewedAt?: Date;
-
-  @ManyToOne(() => TopicEntity)
-  topic: TopicEntity;
+  @OneToMany(() => WordSenseEntity, (sense) => sense.word)
+  senses = new Collection<WordSenseEntity>(this);
 
   [EntityRepositoryType]?: WordRepository;
 
   constructor(data: Partial<WordEntity>) {
     super();
-    Object.assign(this, data);
     this.id = v6();
+    this.text = data.text!;
+    this.normalizedText = data.normalizedText!;
+    if (data.language) this.language = data.language;
   }
 }

@@ -2,6 +2,7 @@ import * as authentication from './error.authentication';
 import * as bookmark from './error.bookmark';
 import * as collection from './error.collection';
 import * as crawl from './error.crawl';
+import * as lookup from './error.lookup';
 import * as tag from './error.tag';
 import * as user from './error.user';
 
@@ -27,6 +28,7 @@ export const Errors = {
   ...crawl,
   ...tag,
   ...user,
+  ...lookup,
 };
 
 // // Centralized error registry for easy access

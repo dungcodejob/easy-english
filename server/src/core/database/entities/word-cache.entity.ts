@@ -9,6 +9,11 @@ import {
 import { v6 } from 'uuid';
 import { BaseEntity } from './base.entity';
 
+export enum DictionarySource {
+  OXFORD = 'oxford',
+  DICTIONARY_API = 'dictionaryapi',
+}
+
 @Entity({ repository: () => WordCacheRepository })
 @Unique({ properties: ['word', 'source'] })
 export class WordCacheEntity extends BaseEntity {
@@ -18,35 +23,8 @@ export class WordCacheEntity extends BaseEntity {
   @Property()
   source: string;
 
-  @Property({ type: JsonType, nullable: true })
-  raw?: any;
-
-  @Property({ type: 'text', nullable: true })
-  definition?: string;
-
-  @Property({ type: JsonType, nullable: true })
-  definitions?: any[];
-
-  @Property({ nullable: true })
-  pronunciation?: string;
-
-  @Property({ nullable: true })
-  audioUrl?: string;
-
-  @Property({ type: 'array', nullable: true })
-  partOfSpeech?: string[];
-
-  @Property({ type: 'array', nullable: true })
-  examples?: string[];
-
-  @Property({ type: 'array', nullable: true })
-  synonyms?: string[];
-
-  @Property({ type: 'array', nullable: true })
-  antonyms?: string[];
-
-  @Property({ type: JsonType, nullable: true })
-  mediaUrls?: { images: string[]; audios: string[]; videos: string[] };
+  @Property({ type: JsonType })
+  raw: any;
 
   @Property({ nullable: true })
   expiresAt?: Date;
@@ -55,7 +33,10 @@ export class WordCacheEntity extends BaseEntity {
 
   constructor(data: Partial<WordCacheEntity>) {
     super();
-    Object.assign(this, data);
     this.id = v6();
+    this.word = data.word!;
+    this.source = data.source!;
+    this.raw = data.raw!;
+    if (data.expiresAt) this.expiresAt = data.expiresAt;
   }
 }

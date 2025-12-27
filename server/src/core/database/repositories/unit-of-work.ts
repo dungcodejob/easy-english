@@ -2,21 +2,25 @@ import { Global, Injectable, Module, Provider } from '@nestjs/common';
 
 import {
   AccountEntity,
+  PronunciationEntity,
   SessionEntity,
   TenantEntity,
   TopicEntity,
   UserEntity,
   WordCacheEntity,
   WordEntity,
+  WordSenseEntity,
 } from '@app/entities';
 import { RequestContextService } from '@app/request';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { AccountRepository } from './account.repository';
+import { PronunciationRepository } from './pronunciation.repository';
 import { SessionRepository } from './session.repository';
 import { TenantRepository } from './tenant.repository';
 import { TopicRepository } from './topic.repository';
 import { UserRepository } from './user.repository';
 import { WordCacheRepository } from './word-cache.repository';
+import { WordSenseRepository } from './word-sense.repository';
 import { WordRepository } from './word.repository';
 
 export const UNIT_OF_WORK = Symbol('UnitOfWork');
@@ -29,6 +33,8 @@ export interface UnitOfWork {
   topic: TopicRepository;
   word: WordRepository;
   wordCache: WordCacheRepository;
+  pronunciation: PronunciationRepository;
+  wordSense: WordSenseRepository;
   save(): Promise<void>;
   start(): Promise<void>;
   commit(): Promise<void>;
@@ -47,6 +53,8 @@ export class UnitOfWorkImpl implements UnitOfWork {
   private _topic?: TopicRepository;
   private _word?: WordRepository;
   private _wordCache?: WordCacheRepository;
+  private _pronunciation?: PronunciationRepository;
+  private _wordSense?: WordSenseRepository;
 
   constructor(
     private readonly _em: EntityManager,
@@ -114,6 +122,20 @@ export class UnitOfWorkImpl implements UnitOfWork {
       this._wordCache = this._em.getRepository(WordCacheEntity);
     }
     return this._wordCache;
+  }
+
+  get pronunciation(): PronunciationRepository {
+    if (!this._pronunciation) {
+      this._pronunciation = this._em.getRepository(PronunciationEntity);
+    }
+    return this._pronunciation;
+  }
+
+  get wordSense(): WordSenseRepository {
+    if (!this._wordSense) {
+      this._wordSense = this._em.getRepository(WordSenseEntity);
+    }
+    return this._wordSense;
   }
 
   save(): Promise<void> {

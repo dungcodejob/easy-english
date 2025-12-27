@@ -1,8 +1,14 @@
-import { WordCacheEntity } from '@app/entities';
+import {
+  DictionarySource,
+  Language,
+  PronunciationEntity,
+  WordCacheEntity,
+  WordEntity,
+  WordSenseEntity,
+} from '@app/entities';
 import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { DictionaryProviderFactory } from './factories/dictionary-provider.factory';
-import { LookupResult } from './models/lookup-result.model';
+import { DictionaryProviderFactory } from './providers';
 
 @Injectable()
 export class LookupService {
@@ -16,66 +22,55 @@ export class LookupService {
 
   async lookup(
     word: string,
-    source: string = 'oxford',
-  ): Promise<LookupResult | null> {
-    const normalizedWord = word.toLowerCase().trim();
+    source: DictionarySource,
+    language: Language,
+  ): Promise<WordEntity | null> {
+    const normalizedText = word.toLowerCase().trim();
 
-    // 1. Cache-Aside: Check DB Cache first
-    const cached = await this._unitOfWork.wordCache.findOne({
-      word: normalizedWord,
-      source: source,
-    });
+    // 1. Level 1 Cache: Check 'words' table (Normalized DB)
+    const existingWord = await this._unitOfWork.word.findOne(
+      { normalizedText, language },
+      { populate: ['pronunciations', 'senses'] },
+    );
 
-    if (cached && this.isCacheValid(cached)) {
-      this.logger.log(`Cache hit for word: ${normalizedWord} (${source})`);
-      return this.mapCacheToResult(cached);
+    if (existingWord) {
+      this.logger.log(`DB Hit for word: ${normalizedText}`);
+      return existingWord;
     }
 
-    // 2. Cache Miss: Call Provider via Strategy/Factory
+    // 2. Fetch from External API via Provider (Provider handles adapter internally)
     this.logger.log(
-      `Cache miss for word: ${normalizedWord} (${source}). Fetching from provider.`,
+      `DB Miss for word: ${normalizedText}. Fetching from provider.`,
     );
     const provider = this.providerFactory.getProvider(source);
-    const result = await provider.lookup(normalizedWord);
-
-    if (result) {
-      // 3. Save to Cache
-      // Note: OxfordService might have already saved it if we used its internal method,
-      // but to be explicit about the pattern in THIS module, we save it here too or ensure it's saved.
-      // Since OxfordProvider uses OxfordService which we modified to save cache, it's redundant but safe.
-      // Ideally, the Provider should return pure data and THIS service manages persistence.
-      // For now, let's explicitly save using our entity to ensure the pattern is followed here.
-
-      await this.saveToCache(normalizedWord, source, result);
+    if (!provider) {
+      this.logger.error(`Provider ${source} not found`);
+      return null;
     }
 
-    return result;
+    const normalizedData = await provider.lookup(normalizedText, language);
+
+    if (!normalizedData) {
+      // Word not found in provider
+      return null;
+    }
+
+    // Note: We could save raw data to word_cache here if provider exposed it
+    // For now, we skip raw cache and directly persist normalized data
+
+    // 3. Persist to DB (Transactional)
+    return await this.persistWordData(normalizedData);
   }
 
   private isCacheValid(cache: WordCacheEntity): boolean {
-    if (!cache.expiresAt) return true; // No expiration means valid
+    if (!cache.expiresAt) return true;
     return cache.expiresAt > new Date();
   }
 
-  private mapCacheToResult(cache: WordCacheEntity): LookupResult {
-    const result = new LookupResult();
-    result.word = cache.word;
-    result.source = cache.source;
-    result.definition = cache.definition;
-    result.pronunciation = cache.pronunciation;
-    result.audioUrl = cache.audioUrl;
-    result.examples = cache.examples;
-    result.synonyms = cache.synonyms;
-    result.antonyms = cache.antonyms;
-    result.partOfSpeech = cache.partOfSpeech;
-    result.raw = cache.raw;
-    return result;
-  }
-
-  private async saveToCache(
+  private async saveResultToCache(
     word: string,
     source: string,
-    result: LookupResult,
+    raw: any,
   ): Promise<void> {
     try {
       const existing = await this._unitOfWork.wordCache.findOne({
@@ -83,38 +78,76 @@ export class LookupService {
         source,
       });
 
+      const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
       if (existing) {
         this._unitOfWork.wordCache.assign(existing, {
-          definition: result.definition,
-          pronunciation: result.pronunciation,
-          audioUrl: result.audioUrl,
-          examples: result.examples,
-          synonyms: result.synonyms,
-          antonyms: result.antonyms,
-          partOfSpeech: result.partOfSpeech,
-          raw: result.raw,
-          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+          raw,
+          expiresAt,
         });
       } else {
         const cacheEntry = new WordCacheEntity({
           word,
           source,
-          definition: result.definition,
-          pronunciation: result.pronunciation,
-          audioUrl: result.audioUrl,
-          examples: result.examples,
-          synonyms: result.synonyms,
-          antonyms: result.antonyms,
-          partOfSpeech: result.partOfSpeech,
-          raw: result.raw,
-          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+          raw,
+          expiresAt,
         });
         this._unitOfWork.wordCache.create(cacheEntry);
       }
-
       await this._unitOfWork.save();
     } catch (e) {
-      this.logger.error(`Failed to save cache in LookupService: ${e.message}`);
+      this.logger.error(`Failed to save cache: ${e.message}`);
+      // Don't throw, proceed flow
     }
+  }
+
+  private async persistWordData(data: any): Promise<WordEntity> {
+    return await this._unitOfWork.transaction(async () => {
+      // Create Word
+      const wordEntity = new WordEntity({
+        text: data.word.text,
+        normalizedText: data.word.normalizedText,
+        language: data.word.language,
+      });
+      this._unitOfWork.word.create(wordEntity);
+
+      // Create Pronunciations
+      if (data.pronunciations && data.pronunciations.length > 0) {
+        for (const p of data.pronunciations) {
+          const pron = new PronunciationEntity({
+            word: wordEntity,
+            ipa: p.ipa,
+            audioUrl: p.audioUrl,
+            region: p.region,
+          });
+          this._unitOfWork.pronunciation.create(pron);
+        }
+      }
+
+      // Create Senses
+      if (data.senses && data.senses.length > 0) {
+        for (const s of data.senses) {
+          const sense = new WordSenseEntity({
+            word: wordEntity,
+            partOfSpeech: s.partOfSpeech,
+            definition: s.definition,
+            senseIndex: s.senseIndex,
+            source: s.source,
+            shortDefinition: s.shortDefinition,
+            examples: s.examples,
+            synonyms: s.synonyms,
+            antonyms: s.antonyms,
+          });
+          this._unitOfWork.wordSense.create(sense);
+        }
+      }
+
+      // Handle Conflict (Conceptually):
+      // If concurrent insert happens, transaction might fail or we handle it here.
+      // For now, let's assume standard flow.
+      // Ideally we should try/catch UniqueConstraintError and return existing if specific error occurs.
+
+      return wordEntity;
+    });
   }
 }

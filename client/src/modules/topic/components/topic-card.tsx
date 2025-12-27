@@ -1,13 +1,5 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/shared/ui/shadcn/alert-dialog';
+
+import { ConfirmationDialog } from '@/shared/ui/common';
 import { Badge } from '@/shared/ui/shadcn/badge';
 import { RiBookmarkLine, RiGlobalLine, RiMoreLine, RiPencilLine } from '@remixicon/react';
 import { Button } from '@shared/ui/shadcn/button';
@@ -75,7 +67,7 @@ export function TopicCard({ topic }: TopicCardProps) {
         params={{ topicId: topic.id }}
         className="block"
       >
-        <Card className="transition-all hover:shadow-md cursor-pointer group">
+        <Card className="hover:shadow-md cursor-pointer group">
 
         {/* Cover Image */}
         {topic.coverImageUrl && (
@@ -187,22 +179,16 @@ export function TopicCard({ topic }: TopicCardProps) {
         onOpenChange={setIsEditDialogOpen}
         topic={topic}
       />
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Topic</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to delete "{topic.name}"? This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirmDelete} className="bg-destructive hover:bg-destructive/90">
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmationDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        variant="destructive"
+        title="Delete Topic"
+        description={`Are you sure you want to delete "${topic.name}"? This action cannot be undone.`}
+        confirmLabel="Delete"
+        onConfirm={handleConfirmDelete}
+        isLoading={deleteTopic.isPending}
+      />
     </>
   );
 }

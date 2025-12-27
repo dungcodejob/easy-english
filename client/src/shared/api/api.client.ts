@@ -50,7 +50,14 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as any;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Check if the request is to an auth endpoint (login, refresh, register)
+    // These endpoints should not trigger token refresh
+    const isAuthEndpoint =
+      originalRequest.url?.includes('/auth/login') ||
+      originalRequest.url?.includes('/auth/refresh') ||
+      originalRequest.url?.includes('/auth/register');
+
+    if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -70,20 +77,24 @@ apiClient.interceptors.response.use(
         const { refreshToken } = useAuthStore.getState();
 
         if (!refreshToken) {
-            throw new Error('No refresh token available');
+          throw new Error('No refresh token available');
         }
 
         // Call refresh endpoint directly to avoid circular dependency or interceptor loops
-        // Assuming your refresh endpoint is /auth/refresh and expects { refreshToken }
-        // Adjust the URL and payload as per your backend API
-        const response = await axios.post(`${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/auth/refresh`, { refreshToken });
+        const response = await axios.post(
+          `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/auth/refresh`,
+          { refreshToken }
+        );
 
-        // Assuming response structure: { success: true, result: { accessToken: '...' } }
-        const newAccessToken = response.data.result.accessToken;
+        // Extract tokens from response
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.result;
 
-        // Update store
-        useAuthStore.setState({ accessToken: newAccessToken });
-        
+        // Update store with new tokens (save both if new refresh token is provided)
+        useAuthStore.setState({
+          accessToken: newAccessToken,
+          ...(newRefreshToken && { refreshToken: newRefreshToken }),
+        });
+
         processQueue(null, newAccessToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -102,3 +113,4 @@ apiClient.interceptors.response.use(
 );
 
 export { apiClient };
+

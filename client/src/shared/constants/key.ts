@@ -13,6 +13,8 @@ export const QUERY_KEYS = {
   },
   TOPIC: 'topic',
   WORD: 'word',
+  WORD_SENSE: 'word-sense',
+  DICTIONARY: 'dictionary',
   ACCOUNT: 'account',
   ME: 'me',
   PRODUCT: 'product',
@@ -20,6 +22,8 @@ export const QUERY_KEYS = {
 
 
 export const API_KEYS = {
-    TOPIC: 'topic',
-    WORD: 'word',
+  TOPIC: 'topic',
+  WORD: 'word',
+  USER_WORD_SENSE: 'user-word-sense',
+  LOOKUP: 'lookup',
 }

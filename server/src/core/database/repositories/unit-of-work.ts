@@ -7,6 +7,7 @@ import {
   TenantEntity,
   TopicEntity,
   UserEntity,
+  UserWordSenseEntity,
   WordCacheEntity,
   WordEntity,
   WordSenseEntity,
@@ -18,6 +19,7 @@ import { PronunciationRepository } from './pronunciation.repository';
 import { SessionRepository } from './session.repository';
 import { TenantRepository } from './tenant.repository';
 import { TopicRepository } from './topic.repository';
+import { UserWordSenseRepository } from './user-word-sense.repository';
 import { UserRepository } from './user.repository';
 import { WordCacheRepository } from './word-cache.repository';
 import { WordSenseRepository } from './word-sense.repository';
@@ -35,6 +37,7 @@ export interface UnitOfWork {
   wordCache: WordCacheRepository;
   pronunciation: PronunciationRepository;
   wordSense: WordSenseRepository;
+  userWordSense: UserWordSenseRepository;
   save(): Promise<void>;
   start(): Promise<void>;
   commit(): Promise<void>;
@@ -55,6 +58,7 @@ export class UnitOfWorkImpl implements UnitOfWork {
   private _wordCache?: WordCacheRepository;
   private _pronunciation?: PronunciationRepository;
   private _wordSense?: WordSenseRepository;
+  private _userWordSense?: UserWordSenseRepository;
 
   constructor(
     private readonly _em: EntityManager,
@@ -136,6 +140,13 @@ export class UnitOfWorkImpl implements UnitOfWork {
       this._wordSense = this._em.getRepository(WordSenseEntity);
     }
     return this._wordSense;
+  }
+
+  get userWordSense(): UserWordSenseRepository {
+    if (!this._userWordSense) {
+      this._userWordSense = this._em.getRepository(UserWordSenseEntity);
+    }
+    return this._userWordSense;
   }
 
   save(): Promise<void> {

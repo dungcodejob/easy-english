@@ -1,6 +1,6 @@
 import { DictionarySource, Language } from '@app/entities';
 import { Injectable, Logger } from '@nestjs/common';
-import { NormalizedData } from '../dictionary-normalizer.service';
+import { NormalizedData } from '../../models/lookup-result.model';
 
 @Injectable()
 export class FreeDictionaryAdapter {

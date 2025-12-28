@@ -1,6 +1,5 @@
-import { NormalizedData } from '../dictionary-normalizer.service';
-
 import { Result } from 'neverthrow';
+import { NormalizedData } from '../models/lookup-result.model';
 
 /**
  * Dictionary Provider Interface

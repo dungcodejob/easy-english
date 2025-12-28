@@ -2,7 +2,7 @@ import { Errors } from '@app/errors';
 import { OxfordDictionaryService } from '@app/services/oxford-dictionary.service';
 import { Injectable, Logger } from '@nestjs/common';
 import { err, ok, Result } from 'neverthrow';
-import { NormalizedData } from '../../dictionary-normalizer.service';
+import { NormalizedData } from '../../models/lookup-result.model';
 import { DictionaryProvider } from '../dictionary-provider.interface';
 import { OxfordAdapter } from './oxford.adapter';
 
@@ -19,7 +19,9 @@ export class OxfordProvider implements DictionaryProvider {
   async lookup(word: string): Promise<Result<NormalizedData, Error>> {
     try {
       // 1. Fetch raw data
-      const res = await this.oxfordService.lookupWord(word);
+      // const res = await this.oxfordService.lookupWord(word);
+
+      const res = {} as any;
 
       if (!res.data) {
         return err(Errors.LookupNotFound);

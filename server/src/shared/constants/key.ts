@@ -38,4 +38,5 @@ export const FEATURE_KEY = {
   TOPIC: 'topic',
   WORD: 'word',
   LOOKUP: 'lookup',
+  USER_WORD_SENSE: 'user-word-sense',
 } as const;

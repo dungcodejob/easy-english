@@ -1,12 +1,4 @@
-import {
-  AccountEntity,
-  SessionEntity,
-  TenantEntity,
-  TopicEntity,
-  UserEntity,
-  WordCacheEntity,
-  WordEntity,
-} from '@app/entities';
+import { ENV_KEY } from '@app/constants';
 import { Migrator } from '@mikro-orm/migrations';
 import { PostgreSqlDriver, defineConfig } from '@mikro-orm/postgresql';
 import { SeedManager } from '@mikro-orm/seeder';
@@ -19,29 +11,12 @@ dotenv.config({ path: `.env.${NODE_ENV}` });
 
 export const databaseConfig = defineConfig({
   driver: PostgreSqlDriver,
-  host: process.env.DATABASE_HOST || 'localhost',
-  port: parseInt(process.env.DATABASE_PORT || '5433', 10),
-  user: process.env.DATABASE_USER || 'postgres',
-  password: process.env.DATABASE_PASSWORD || 'password',
-  dbName: process.env.DATABASE_NAME || 'pokemon',
+  clientUrl: process.env[ENV_KEY.DATABASE_URL],
   entities: [
-    AccountEntity,
-    UserEntity,
-    SessionEntity,
-    TenantEntity,
-    TopicEntity,
-    WordEntity,
-    WordCacheEntity,
+    'dist/core/database/entities/**/*.entity.js',
+    'src/core/database/entities/**/*.entity.ts',
   ],
-  entitiesTs: [
-    AccountEntity,
-    UserEntity,
-    SessionEntity,
-    TenantEntity,
-    TopicEntity,
-    WordEntity,
-    WordCacheEntity,
-  ],
+  entitiesTs: ['src/core/database/entities/**/*.entity.ts'],
   debug: NODE_ENV === 'dev',
   highlighter: new SqlHighlighter(),
   extensions: [Migrator, SeedManager],

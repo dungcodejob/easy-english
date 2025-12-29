@@ -40,3 +40,7 @@ export const FEATURE_KEY = {
   LOOKUP: 'lookup',
   USER_WORD_SENSE: 'user-word-sense',
 } as const;
+
+export const ENV_KEY = {
+  DATABASE_URL: 'DATABASE_URL',
+} as const;

@@ -1,0 +1,129 @@
+name: Deploy to Railway
+
+on:
+  # Auto-deploy khi merge vào master
+  # push:
+  #   branches:
+  #     - master
+  
+  # Manual deploy với branch selection
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'master'
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy Server to Railway
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'master' }}
+          fetch-depth: 0  # Fetch all history for tag creation
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm ci
+      
+      - name: Build server
+        working-directory: ./server
+        run: npm run build
+      
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          cd server
+          railway up --service ${{ secrets.RAILWAY_BACKEND_SERVICE_ID || 'server' }}
+      
+      - name: Get latest tag
+        id: get_version
+        run: |
+          # Fetch all tags
+          git fetch --tags
+          
+          # Get latest tag matching v*.*.* pattern
+          LATEST_TAG=$(git tag -l "v*.*.*" | sort -V | tail -n1)
+          
+          if [ -z "$LATEST_TAG" ]; then
+            # No tags exist, start with v1.0.0
+            NEW_VERSION="v1.0.0"
+          else
+            # Parse version and increment patch
+            VERSION=${LATEST_TAG#v}  # Remove 'v' prefix
+            MAJOR=$(echo $VERSION | cut -d. -f1)
+            MINOR=$(echo $VERSION | cut -d. -f2)
+            PATCH=$(echo $VERSION | cut -d. -f3)
+            
+            # Increment patch version
+            NEW_PATCH=$((PATCH + 1))
+            NEW_VERSION="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+          fi
+          
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Previous version: $LATEST_TAG"
+          echo "New version: $NEW_VERSION"
+      
+      - name: Create and push tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          NEW_VERSION="${{ steps.get_version.outputs.new_version }}"
+          BRANCH="${{ github.event.inputs.branch || 'master' }}"
+          COMMIT_SHA="${{ github.sha }}"
+          
+          # Create annotated tag
+          git tag -a "$NEW_VERSION" -m "Release $NEW_VERSION from branch $BRANCH (commit: ${COMMIT_SHA:0:7})"
+          
+          # Push tag to remote
+          git push origin "$NEW_VERSION"
+          
+          echo "✅ Created and pushed tag: $NEW_VERSION"
+      
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.new_version }}
+          release_name: Release ${{ steps.get_version.outputs.new_version }}
+          body: |
+            ## Deployment Info
+            - **Branch:** ${{ github.event.inputs.branch || 'master' }}
+            - **Commit:** ${{ github.sha }}
+            - **Previous Version:** ${{ steps.get_version.outputs.latest_tag || 'None' }}
+            - **Deployed at:** ${{ github.event.repository.updated_at }}
+            
+            ### Changes
+            Auto-deployed to Railway
+          draft: false
+          prerelease: false
+      
+      - name: Deployment Summary
+        run: |
+          echo "# 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** ${{ steps.get_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** ${{ github.event.inputs.branch || 'master' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Previous Version:** ${{ steps.get_version.outputs.latest_tag || 'None' }}" >> $GITHUB_STEP_SUMMARY

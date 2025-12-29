@@ -10,10 +10,10 @@ on:
       service:
         description: 'Railway service to rollback'
         required: true
-        default: 'server'
+        default: 'API'
         type: choice
         options:
-          - server
+          - API
       create_rollback_tag:
         description: 'Create a new rollback tag'
         required: false
@@ -113,9 +113,10 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          SERVICE_NAME="${{ github.event.inputs.service }}"
+          SERVICE_CHOICE="${{ github.event.inputs.service }}"
+        
           
-          echo "🔄 Rolling back to version ${{ github.event.inputs.tag }}"
+          echo "🔄 Rolling back $SERVICE_CHOICE to version ${{ github.event.inputs.tag }}"
           echo "Service: $SERVICE_NAME"
           echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}"
           

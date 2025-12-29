@@ -52,4 +52,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
 ENTRYPOINT ["dumb-init", "--"]
 
 # Run migrations and start application
+# MikroORM CLI is now in production dependencies
 CMD ["sh", "-c", "npx mikro-orm migration:up --config ./src/core/configs/database.config.ts && node dist/main"]

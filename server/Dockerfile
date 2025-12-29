@@ -6,15 +6,18 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production && \
-    npm cache clean --force
+# Install ALL dependencies (including devDependencies for building TypeScript)
+RUN npm ci
 
 # Copy source code
 COPY . .
 
-# Build application
+# Build application (needs devDependencies like @nestjs/testing)
 RUN npm run build
+
+# Install only production dependencies for final image
+RUN npm ci --only=production && \
+  npm cache clean --force
 
 # Production stage
 FROM node:20-alpine
@@ -26,7 +29,7 @@ RUN apk add --no-cache dumb-init
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nestjs -u 1001
+  adduser -S nestjs -u 1001
 
 # Copy built application from builder
 COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist

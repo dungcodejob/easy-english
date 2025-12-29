@@ -24,8 +24,7 @@
     "migration:fresh": "mikro-orm migration:fresh --config ./src/core/configs/database.config.ts",
     "schema:drop": "mikro-orm schema:drop --run --config ./src/core/configs/database.config.ts",
     "seed:run": "mikro-orm seeder:run --config ./src/core/configs/database.config.ts",
-    "seed:create": "mikro-orm seeder:create --config ./src/core/configs/database.config.ts",
-    "prepare": "husky"
+    "seed:create": "mikro-orm seeder:create --config ./src/core/configs/database.config.ts"
   },
   "dependencies": {
     "@mikro-orm/core": "^6.4.16",
@@ -68,7 +67,7 @@
     "@mikro-orm/migrations": "^6.4.16",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
-    "@nestjs/testing": "^11.1.6",
+    "@nestjs/testing": "^11.1.10",
     "@railway/cli": "^4.16.1",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.9",

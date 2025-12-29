@@ -15,17 +15,12 @@ on:
         default: 'master'
         type: string
       service:
-        description: 'Service to deploy'
+        description: 'Railway service to deploy'
         required: true
         default: 'API'
         type: choice
         options:
           - API
-      service_name:
-        description: 'Railway service name'
-        required: true
-        default: 'server'
-        type: string
 
 env:
   REGISTRY: ghcr.io
@@ -114,10 +109,9 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          SERVICE_CHOICE="${{ github.event.inputs.service }}"
-          SERVICE_NAME="${{ github.event.inputs.service_name }}"
+          SERVICE_NAME="${{ github.event.inputs.service }}"
           
-          echo "🚀 Deploying $SERVICE_CHOICE to Railway"
+          echo "🚀 Deploying to Railway"
           echo "Service: $SERVICE_NAME"
           echo "Branch: ${{ github.event.inputs.branch }}"
           

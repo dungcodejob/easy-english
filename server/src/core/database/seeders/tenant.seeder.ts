@@ -45,6 +45,18 @@ export class TenantSeeder extends Seeder {
    * Create a demo tenant with predefined data
    */
   private async createDemoTenant(em: EntityManager): Promise<TenantEntity> {
+    // Check if demo tenant already exists
+    const existingTenant = await em.findOne(TenantEntity, {
+      slug: 'easy-english',
+    });
+
+    if (existingTenant) {
+      console.log(
+        '  ⚠️ Demo tenant "easy-english" already exists. Skipping creation.',
+      );
+      return existingTenant;
+    }
+
     // Create demo tenant
     const tenant = new TenantEntity({
       name: 'Easy English Academy',

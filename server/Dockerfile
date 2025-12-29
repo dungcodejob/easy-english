@@ -52,6 +52,6 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
-# Run migrations and start application
+# Run migrations, seeds, and start application
 # Use compiled JS config (now using relative paths)
-CMD ["sh", "-c", "npx mikro-orm migration:up --config ./dist/core/configs/database.config.js && node dist/main"]
+CMD ["sh", "-c", "npx mikro-orm migration:up --config ./dist/core/configs/database.config.js && npx mikro-orm seeder:run --config ./dist/core/configs/database.config.js && node dist/main"]

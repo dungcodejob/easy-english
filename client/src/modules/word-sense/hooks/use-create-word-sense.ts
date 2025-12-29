@@ -1,6 +1,7 @@
 import { QUERY_KEYS } from '@/shared/constants/key';
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { wordSenseApi } from '../services/word-sense.api';
 import type { CreateUserWordSenseDto } from '../types/word-sense.types';
@@ -9,7 +10,9 @@ export function useCreateWordSense(topicId: string) {
   const queryClient = useQueryClient();
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const { t } = useTranslation();
+
+  const mutation = useMutation({
     mutationFn: async (data: CreateUserWordSenseDto) => {
       const result = await wordSenseApi.createBatch(data);
       if (result.isErr()) {
@@ -23,7 +26,16 @@ export function useCreateWordSense(topicId: string) {
         queryKey: [QUERY_KEYS.WORD_SENSE, topicId],
       });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success('Words added successfully');
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (data: CreateUserWordSenseDto) =>
+      toast.promise(mutation.mutateAsync(data), {
+        loading: t('word_sense.create.creating'),
+        success: t('word_sense.create.success'),
+        error: t('word_sense.create.error'),
+      }),
+  };
 }

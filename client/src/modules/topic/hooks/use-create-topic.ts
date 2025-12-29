@@ -14,7 +14,7 @@ export const useCreateTopic = () => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (data: CreateTopicDto) => {
       const result = await topicApi.createTopic(data);
       
@@ -27,12 +27,24 @@ export const useCreateTopic = () => {
     onSuccess: () => {
       // Invalidate and refetch topics list
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('topic.create_success', { defaultValue: 'Topic created successfully!' }));
+     
     },
     onError: (error) => {
       // Use the global error handler for backend/network errors
       // Validation errors should be handled by the form component via useValidationErrors
       handleError(error as any); 
     },
-  });
+  })
+
+    return {
+      ...mutation,
+      mutateAsync: (data: CreateTopicDto) =>
+        toast.promise(mutation.mutateAsync(data), {
+          loading: t('topic.create.creating'),
+          success: t('topic.create.success'),
+          error: t('topic.create.error'),
+        }),
+    };
+
+
 };

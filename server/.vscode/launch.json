@@ -5,12 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch via NPM",
+      "type": "node-terminal",
+      "name": "Run Script: start:dev",
       "request": "launch",
-      "runtimeArgs": ["run", "start:dev"],
-      "runtimeExecutable": "npm",
-      "skipFiles": ["<node_internals>/**"],
-      "type": "node"
+      "command": "npm run start:dev",
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

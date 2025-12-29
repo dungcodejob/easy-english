@@ -14,7 +14,7 @@ export const useUpdateTopic = () => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (input: { id: string; data: UpdateTopicDto }) => {
       const result = await topicApi.updateTopic(input.id, input.data);
       
@@ -32,10 +32,19 @@ export const useUpdateTopic = () => {
       );
       // Invalidate list to refetch
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('topic.update_success', { defaultValue: 'Topic updated successfully!' }));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (input: { id: string; data: UpdateTopicDto }) =>
+      toast.promise(mutation.mutateAsync(input), {
+        loading: t('topic.update.updating'),
+        success: t('topic.update.success'),
+        error: t('topic.update.error'),
+      }),
+  };
 };

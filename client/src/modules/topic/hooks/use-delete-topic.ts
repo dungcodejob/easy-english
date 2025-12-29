@@ -14,7 +14,7 @@ export const useDeleteTopic = () => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (id: string) => {
       const result = await topicApi.deleteTopic(id);
       
@@ -25,10 +25,19 @@ export const useDeleteTopic = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('topic.delete_success', { defaultValue: 'Topic deleted successfully!' }));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (id: string) =>
+      toast.promise(mutation.mutateAsync(id), {
+        loading: t('topic.delete.deleting'),
+        success: t('topic.delete.success'),
+        error: t('topic.delete.error'),
+      }),
+  };
 };

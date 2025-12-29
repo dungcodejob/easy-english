@@ -11,7 +11,7 @@ export const useUpdateWord = (topicId: string) => {
   const { t } = useTranslation();
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: UpdateWordDto }) => {
       const result = await wordApi.updateWord(id, data);
       if (result.isErr()) {
@@ -21,10 +21,19 @@ export const useUpdateWord = (topicId: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
-      toast.success(t('common.update_success'));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (variables: { id: string; data: UpdateWordDto }) =>
+      toast.promise(mutation.mutateAsync(variables), {
+        loading: t('word.update.updating'),
+        success: t('word.update.success'),
+        error: t('word.update.error'),
+      }),
+  };
 };

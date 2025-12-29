@@ -91,6 +91,7 @@ export const Route = createFileRoute('/_(authenticated)')({
       // Returning false prevents the route from loading
       // return false;
     }
+    
     // Allow route to load
     return true;
   },

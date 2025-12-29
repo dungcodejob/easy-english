@@ -12,7 +12,7 @@ export const useCreateWord = (topicId: string) => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (data: CreateWordDto) => {
       const result = await wordApi.createWord(topicId, data);
       if (result.isErr()) {
@@ -24,10 +24,19 @@ export const useCreateWord = (topicId: string) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
       // Also invalidate topic to update word count if topic detail is cached
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('common.create_success', { resource: t('word.resource') }));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (data: CreateWordDto) =>
+      toast.promise(mutation.mutateAsync(data), {
+        loading: t('word.create.creating'),
+        success: t('word.create.success'),
+        error: t('word.create.error'),
+      }),
+  };
 };

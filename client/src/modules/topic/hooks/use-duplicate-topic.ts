@@ -14,7 +14,7 @@ export const useDuplicateTopic = () => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (id: string) => {
       const result = await topicApi.duplicateTopic(id);
       
@@ -26,10 +26,19 @@ export const useDuplicateTopic = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('topic.duplicate_success', { defaultValue: 'Topic duplicated successfully!' }));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (id: string) =>
+      toast.promise(mutation.mutateAsync(id), {
+        loading: t('topic.duplicate.duplicating'),
+        success: t('topic.duplicate.success'),
+        error: t('topic.duplicate.error'),
+      }),
+  };
 };

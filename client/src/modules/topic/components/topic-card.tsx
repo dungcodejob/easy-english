@@ -44,16 +44,16 @@ export function TopicCard({ topic }: TopicCardProps) {
   };
 
   const handleConfirmDelete = () => {
-    deleteTopic.mutate(topic.id);
+    deleteTopic.mutateAsync(topic.id);
     setIsDeleteDialogOpen(false);
   };
 
   const handleShare = () => {
-    shareTopic.mutate(topic.id);
+    shareTopic.mutateAsync(topic.id);
   };
 
   const handleDuplicate = () => {
-    duplicateTopic.mutate(topic.id);
+    duplicateTopic.mutateAsync(topic.id);
   };
 
   const handleEdit = () => {

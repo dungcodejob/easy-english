@@ -10,7 +10,7 @@ export const useDeleteWord = (topicId: string) => {
   const { t } = useTranslation();
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (id: string) => {
       const result = await wordApi.deleteWord(id);
       if (result.isErr()) {
@@ -21,10 +21,19 @@ export const useDeleteWord = (topicId: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] }); // update count
-      toast.success(t('common.delete_success'));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (id: string) =>
+      toast.promise(mutation.mutateAsync(id), {
+        loading: t('word.delete.deleting'),
+        success: t('word.delete.success'),
+        error: t('word.delete.error'),
+      }),
+  };
 };

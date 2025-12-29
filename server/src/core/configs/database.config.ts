@@ -12,10 +12,7 @@ dotenv.config({ path: `.env.${NODE_ENV}` });
 export const databaseConfig = defineConfig({
   driver: PostgreSqlDriver,
   clientUrl: process.env[ENV_KEY.DATABASE_URL],
-  entities: [
-    'dist/core/database/entities/**/*.entity.js',
-    'src/core/database/entities/**/*.entity.ts',
-  ],
+  entities: ['dist/core/database/entities/**/*.entity.js'],
   entitiesTs: ['src/core/database/entities/**/*.entity.ts'],
   debug: NODE_ENV === 'dev',
   highlighter: new SqlHighlighter(),

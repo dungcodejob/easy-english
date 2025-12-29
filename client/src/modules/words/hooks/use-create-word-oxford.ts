@@ -11,7 +11,7 @@ export const useCreateWordFromOxford = (topicId: string) => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (word: string) => {
       const result = await wordApi.createFromOxford(topicId, word);
       if (result.isErr()) {
@@ -22,10 +22,19 @@ export const useCreateWordFromOxford = (topicId: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.WORD, topicId] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('word.oxford_success'));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (word: string) =>
+      toast.promise(mutation.mutateAsync(word), {
+        loading: t('word.create.creating'),
+        success: t('word.create.success'),
+        error: t('word.create.error'),
+      }),
+  };
 };

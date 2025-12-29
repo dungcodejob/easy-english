@@ -8,8 +8,7 @@
     "build:dev": "rsbuild build --env-mode dev",
     "build:stag": "rsbuild build --env-mode stag",
 
-    "deploy:stag": "rsbuild build --env-mode stag && firebase deploy --only hosting:stag",
-    "deploy:prod": "rsbuild build --env-mode prod && firebase deploy --only hosting:prod",
+    "deploy": "rsbuild build --env-mode stag && firebase deploy",
     "build:prod": "rsbuild build --env-mode prod",
     "check": "biome check --write",
     "dev": "rsbuild dev --open --port 4200",

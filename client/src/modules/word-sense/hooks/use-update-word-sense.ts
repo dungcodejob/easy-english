@@ -1,6 +1,7 @@
 import { QUERY_KEYS } from '@/shared/constants/key';
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { wordSenseApi } from '../services/word-sense.api';
 import type { UpdateUserWordSenseDto } from '../types/word-sense.types';
@@ -9,7 +10,9 @@ export function useUpdateWordSense(topicId: string) {
   const queryClient = useQueryClient();
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const { t } = useTranslation();
+
+  const mutation = useMutation({
     mutationFn: async ({
       id,
       data,
@@ -28,7 +31,16 @@ export function useUpdateWordSense(topicId: string) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.WORD_SENSE, topicId],
       });
-      toast.success('Word sense updated successfully');
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (variables: { id: string; data: UpdateUserWordSenseDto }) =>
+      toast.promise(mutation.mutateAsync(variables), {
+        loading: t('word_sense.update.updating'),
+        success: t('word_sense.update.success'),
+        error: t('word_sense.update.error'),
+      }),
+  };
 }

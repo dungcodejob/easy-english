@@ -15,7 +15,7 @@ export const useShareTopic = () => {
 
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (id: string) => {
       const result = await topicApi.shareTopic(id);
       
@@ -28,10 +28,19 @@ export const useShareTopic = () => {
     onSuccess: ({ id }) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC, id] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TOPIC] });
-      toast.success(t('topic.share_success', { defaultValue: 'Topic shared successfully!' }));
     },
     onError: (error) => {
       handleError(error as any);
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (id: string) =>
+      toast.promise(mutation.mutateAsync(id), {
+        loading: t('topic.share.sharing'),
+        success: t('topic.share.success'),
+        error: t('topic.share.error'),
+      }),
+  };
 };

@@ -1,5 +1,7 @@
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { dictionaryApi } from '../services/dictionary.api';
 
 interface LookupParams {
@@ -10,7 +12,9 @@ interface LookupParams {
 export function useDictionary() {
   const { handleError } = useErrorHandler();
 
-  return useMutation({
+  const { t } = useTranslation();
+
+  const mutation = useMutation({
     mutationFn: async ({ word, language }: LookupParams) => {
       const result = await dictionaryApi.lookup({ word, language });
       if (result.isErr()) {
@@ -20,4 +24,14 @@ export function useDictionary() {
       return result.value.data;
     },
   });
+
+  return {
+    ...mutation,
+    mutateAsync: (data: LookupParams) =>
+      toast.promise(mutation.mutateAsync(data), {
+        loading: t('dictionary.lookup.searching'),
+        success: t('dictionary.lookup.success'),
+        error: t('dictionary.lookup.error'),
+      }),
+  };
 }

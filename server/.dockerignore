@@ -1,0 +1,61 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist
+build
+
+# Testing
+coverage
+.nyc_output
+
+# Development
+.env
+.env.local
+.env.*.local
+.env.dev
+.env.test
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+
+# CI/CD
+.github
+
+# MikroORM
+temp
+
+# Husky
+.husky
+
+# Logs
+logs
+*.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Test
+test
+*.spec.ts
+*.test.ts
+jest.json

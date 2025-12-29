@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rsbuild build",
+    "build": "rsbuild build --env-mode prod",
+    "build:dev": "rsbuild build --env-mode dev",
+    "build:prod": "rsbuild build --env-mode prod",
     "check": "biome check --write",
     "dev": "rsbuild dev --open --port 4200",
     "format": "biome format --write",
@@ -64,6 +66,7 @@
     "@tanstack/router-plugin": "^1.140.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "firebase-tools": "^15.1.0",
     "typescript": "^5.9.3"
   }
 }

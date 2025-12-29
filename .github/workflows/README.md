@@ -28,7 +28,6 @@ Thêm secret sau vào GitHub repository:
 | Secret Name | Description | Required |
 |-------------|-------------|----------|
 | `RAILWAY_TOKEN` | Railway API token | ✅ Yes |
-| `RAILWAY_BACKEND_SERVICE_ID` | Railway service ID | ⚠️ Optional |
 
 **Note:** `GITHUB_TOKEN` tự động available, không cần thêm.
 

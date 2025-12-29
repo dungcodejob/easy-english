@@ -21,6 +21,11 @@ on:
         type: choice
         options:
           - API
+      service_name:
+        description: 'Railway service name'
+        required: true
+        default: 'server'
+        type: string
 
 env:
   REGISTRY: ghcr.io
@@ -108,24 +113,16 @@ jobs:
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_BACKEND_SERVICE_ID: ${{ secrets.RAILWAY_BACKEND_SERVICE_ID }}
         run: |
-          # Map service name to Railway service ID
-          SERVICE_NAME="${{ github.event.inputs.service }}"
+          SERVICE_CHOICE="${{ github.event.inputs.service }}"
+          SERVICE_NAME="${{ github.event.inputs.service_name }}"
           
-          case "$SERVICE_NAME" in
-            "API")
-              SERVICE_ID="${RAILWAY_BACKEND_SERVICE_ID:-server}"
-              ;;
-            *)
-              echo "❌ Unknown service: $SERVICE_NAME"
-              exit 1
-              ;;
-          esac
+          echo "🚀 Deploying $SERVICE_CHOICE to Railway"
+          echo "Service: $SERVICE_NAME"
+          echo "Branch: ${{ github.event.inputs.branch }}"
           
-          echo "🚀 Deploying $SERVICE_NAME to Railway (Service ID: $SERVICE_ID)"
-          # Railway sẽ pull image từ GHCR
-          railway up --service "$SERVICE_ID"
+          # Railway CLI --service accepts SERVICE NAME only (not ID)
+          railway up --service "$SERVICE_NAME"
         # Note: Railway needs to be configured to use the GHCR image
         # Set in Railway dashboard: Settings > Deploy > Image
         # Image URL: ghcr.io/${{ github.repository }}/backend:latest

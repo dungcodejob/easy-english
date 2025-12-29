@@ -14,6 +14,11 @@ on:
         type: choice
         options:
           - API
+      service_name:
+        description: 'Railway service name'
+        required: true
+        default: 'server'
+        type: string
       create_rollback_tag:
         description: 'Create a new rollback tag'
         required: false
@@ -112,26 +117,16 @@ jobs:
       - name: Deploy rollback to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_BACKEND_SERVICE_ID: ${{ secrets.RAILWAY_BACKEND_SERVICE_ID }}
         run: |
-          # Map service name to Railway service ID
-          SERVICE_NAME="${{ github.event.inputs.service }}"
+          SERVICE_CHOICE="${{ github.event.inputs.service }}"
+          SERVICE_NAME="${{ github.event.inputs.service_name }}"
           
-          case "$SERVICE_NAME" in
-            "API")
-              SERVICE_ID="${RAILWAY_BACKEND_SERVICE_ID:-server}"
-              ;;
-            *)
-              echo "❌ Unknown service: $SERVICE_NAME"
-              exit 1
-              ;;
-          esac
-          
-          echo "🔄 Rolling back $SERVICE_NAME to version ${{ github.event.inputs.tag }}"
+          echo "🔄 Rolling back $SERVICE_CHOICE to version ${{ github.event.inputs.tag }}"
+          echo "Service: $SERVICE_NAME"
           echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}"
           
-          # Railway will pull the specific tag image
-          railway up --service "$SERVICE_ID"
+          # Railway CLI --service accepts SERVICE NAME only (not ID)
+          railway up --service "$SERVICE_NAME"
         # Note: Ensure Railway is configured to use image with tag: ${{ github.event.inputs.tag }}
       
       - name: Create rollback tag

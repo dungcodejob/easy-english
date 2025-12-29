@@ -8,7 +8,7 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { WordEntity } from './word.entity';
 
@@ -48,7 +48,7 @@ export class WordSenseEntity extends BaseEntity {
 
   constructor(data: Partial<WordSenseEntity>) {
     super();
-    this.id = v6();
+    this.id = v7();
     this.word = data.word!;
     this.partOfSpeech = data.partOfSpeech!;
     this.definition = data.definition!;

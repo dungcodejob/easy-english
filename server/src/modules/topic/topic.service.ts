@@ -14,9 +14,18 @@ export class TopicService {
   ) {}
 
   async create(data: CreateTopicDto & AuthEventContext): Promise<TopicEntity> {
+    const workspace = await this._unitOfWork.workspace.findOne({
+      id: data.workspaceId,
+      userId: data.userId,
+    });
+    if (!workspace) {
+      throw new NotFoundException('Workspace not found');
+    }
+
     const topic = new TopicEntity(data);
     topic.tenant = this._unitOfWork.tenant.getReference(data.tenantId);
     topic.user = this._unitOfWork.user.getReference(data.userId);
+    topic.workspace = workspace;
     this._unitOfWork.topic.create(topic);
     await this._unitOfWork.save();
     return topic;
@@ -26,7 +35,7 @@ export class TopicService {
     console.log(dto);
     // Build filter query from parsed filters
     const filterQuery = QueryDto.setConditionFilter<TopicEntity>(
-      {},
+      { workspace: dto.workspaceId },
       dto.filters,
     );
 

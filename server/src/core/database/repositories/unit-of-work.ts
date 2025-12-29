@@ -14,6 +14,7 @@ import {
 } from '@app/entities';
 import { RequestContextService } from '@app/request';
 import { EntityManager } from '@mikro-orm/postgresql';
+import { WorkspaceEntity } from '../entities/workspace.entity';
 import { AccountRepository } from './account.repository';
 import { PronunciationRepository } from './pronunciation.repository';
 import { SessionRepository } from './session.repository';
@@ -24,6 +25,7 @@ import { UserRepository } from './user.repository';
 import { WordCacheRepository } from './word-cache.repository';
 import { WordSenseRepository } from './word-sense.repository';
 import { WordRepository } from './word.repository';
+import { WorkspaceRepository } from './workspace.repository';
 
 export const UNIT_OF_WORK = Symbol('UnitOfWork');
 
@@ -38,6 +40,7 @@ export interface UnitOfWork {
   pronunciation: PronunciationRepository;
   wordSense: WordSenseRepository;
   userWordSense: UserWordSenseRepository;
+  workspace: WorkspaceRepository;
   save(): Promise<void>;
   start(): Promise<void>;
   commit(): Promise<void>;
@@ -59,6 +62,7 @@ export class UnitOfWorkImpl implements UnitOfWork {
   private _pronunciation?: PronunciationRepository;
   private _wordSense?: WordSenseRepository;
   private _userWordSense?: UserWordSenseRepository;
+  private _workspace?: WorkspaceRepository;
 
   constructor(
     private readonly _em: EntityManager,
@@ -147,6 +151,13 @@ export class UnitOfWorkImpl implements UnitOfWork {
       this._userWordSense = this._em.getRepository(UserWordSenseEntity);
     }
     return this._userWordSense;
+  }
+
+  get workspace(): WorkspaceRepository {
+    if (!this._workspace) {
+      this._workspace = this._em.getRepository(WorkspaceEntity);
+    }
+    return this._workspace;
   }
 
   save(): Promise<void> {

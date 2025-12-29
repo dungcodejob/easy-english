@@ -9,10 +9,11 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { TopicEntity } from './topic.entity';
 import { WordSenseEntity } from './word-sense.entity';
+import { WorkspaceEntity } from './workspace.entity';
 
 export enum DifficultyLevel {
   Easy = 'easy',
@@ -42,6 +43,9 @@ export class UserWordSenseEntity extends BaseEntity {
   @ManyToOne(() => TopicEntity)
   @Index()
   topic: TopicEntity;
+
+  @ManyToOne(() => WorkspaceEntity)
+  workspace: WorkspaceEntity;
 
   @Property()
   word: string;
@@ -90,7 +94,7 @@ export class UserWordSenseEntity extends BaseEntity {
 
   constructor(data: Partial<UserWordSenseEntity>) {
     super();
-    this.id = v6();
+    this.id = v7();
     Object.assign(this, data);
     // Ensure array/object initialization if needed, though Object.assign handles provided data.
   }

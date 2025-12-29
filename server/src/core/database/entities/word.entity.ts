@@ -8,14 +8,11 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { PronunciationEntity } from './pronunciation.entity';
 import { WordSenseEntity } from './word-sense.entity';
-
-export enum Language {
-  EN = 'en',
-}
+import { Language } from './workspace.entity';
 
 @Entity({ repository: () => WordRepository })
 @Unique({ properties: ['normalizedText', 'language'] })
@@ -40,7 +37,7 @@ export class WordEntity extends BaseEntity {
 
   constructor(data: Partial<WordEntity>) {
     super();
-    this.id = v6();
+    this.id = v7();
     this.text = data.text!;
     this.normalizedText = data.normalizedText!;
     if (data.language) this.language = data.language;

@@ -9,7 +9,7 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { AccountEntity } from './account.entity';
 import { BaseEntity } from './base.entity';
 import { TenantEntity } from './tenant.entity';
@@ -27,7 +27,7 @@ export enum Gender {
 @Entity({ repository: () => UserRepository })
 export class UserEntity extends BaseEntity {
   @PrimaryKey()
-  id: string = v6();
+  id: string = v7();
 
   @Property()
   name: string;

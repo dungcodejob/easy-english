@@ -11,7 +11,13 @@ import {
 export class CreateTopicDto {
   @IsString()
   @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  workspaceId: string;
 
   @IsString()
   @IsOptional()

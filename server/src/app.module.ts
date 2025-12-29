@@ -31,6 +31,7 @@ import { TopicModule } from './modules/topic/topic.module';
 import { UserModule } from './modules/user';
 import { UserWordSenseModule } from './modules/user-word-sense/user-word-sense.module';
 import { WordModule } from './modules/word/word.module';
+import { WorkspaceModule } from './modules/workspace/workspace.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { WordModule } from './modules/word/word.module';
     LookupModule,
     WordModule,
     UserWordSenseModule,
+    WorkspaceModule,
 
     HealthModule,
     ConfigModule.forRoot({

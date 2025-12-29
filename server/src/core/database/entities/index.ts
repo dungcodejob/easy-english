@@ -11,3 +11,4 @@ export * from './user.entity';
 export * from './word-cache.entity';
 export * from './word-sense.entity';
 export * from './word.entity';
+export * from './workspace.entity';

@@ -9,3 +9,4 @@ export * from './user.repository';
 export * from './word-cache.repository';
 export * from './word-sense.repository';
 export * from './word.repository';
+export * from './workspace.repository';

@@ -6,7 +6,7 @@ import {
   ManyToOne,
   Property,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { WordEntity } from './word.entity';
 
@@ -29,7 +29,7 @@ export class PronunciationEntity extends BaseEntity {
 
   constructor(data: Partial<PronunciationEntity>) {
     super();
-    this.id = v6();
+    this.id = v7();
     this.word = data.word!;
     if (data.ipa) this.ipa = data.ipa;
     if (data.audioUrl) this.audioUrl = data.audioUrl;

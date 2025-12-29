@@ -6,9 +6,10 @@ import {
   ManyToOne,
   Property,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { BaseEntityWithTenant } from './base-extend.entity';
 import { UserEntity } from './user.entity';
+import { WorkspaceEntity } from './workspace.entity';
 
 export enum TopicCategory {
   Vocabulary = 'Vocabulary',
@@ -54,11 +55,14 @@ export class TopicEntity extends BaseEntityWithTenant {
   @ManyToOne(() => UserEntity)
   user: UserEntity;
 
+  @ManyToOne(() => WorkspaceEntity)
+  workspace: WorkspaceEntity;
+
   [EntityRepositoryType]?: TopicRepository;
 
   constructor(data: Partial<TopicEntity>) {
     super();
     Object.assign(this, data);
-    this.id = v6();
+    this.id = v7();
   }
 }

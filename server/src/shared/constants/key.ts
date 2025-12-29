@@ -39,6 +39,7 @@ export const FEATURE_KEY = {
   WORD: 'word',
   LOOKUP: 'lookup',
   USER_WORD_SENSE: 'user-word-sense',
+  WORKSPACE: 'workspace',
 } as const;
 
 export const ENV_KEY = {

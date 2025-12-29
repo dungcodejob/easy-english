@@ -1,6 +1,6 @@
-import { UserWordSenseEntity, WordSenseEntity } from '@app/entities';
+import { UserWordSenseEntity } from '@app/entities';
 import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
-import { Loaded, wrap } from '@mikro-orm/core';
+import { wrap } from '@mikro-orm/core';
 import {
   ForbiddenException,
   Inject,
@@ -29,33 +29,24 @@ export class UserWordSenseService {
       throw new ForbiddenException('You do not own this topic');
     }
 
+    const workspace = await this.uow.workspace.findOne({
+      id: dto.workspaceId,
+      userId,
+    });
+    if (!workspace) {
+      throw new NotFoundException('Workspace not found');
+    }
+
     return await this.uow.transaction(async () => {
       const createdSenses: UserWordSenseEntity[] = [];
 
       for (const senseDto of senses) {
-        // Enforce uniqueness validation manually if needed, or rely on DB constraint.
-        // Doing a check here allows for a friendlier error message.
-        // const existing = await this.uow.userWordSense.findOne({
-        //   userId,
-        //   word,
-        //   partOfSpeech: senseDto.partOfSpeech,
-        // });
-
-        // if (existing) {
-        //   throw new ConflictException(
-        //     `Word sense for "${word}" (${senseDto.partOfSpeech}) already exists`,
-        //   );
-        // }
-
         let dictionarySense: Loaded<WordSenseEntity, never, '*', never> | null =
           null;
         if (senseDto.dictionarySenseId) {
           dictionarySense = await this.uow.wordSense.findOne({
             id: senseDto.dictionarySenseId,
           });
-          // If dictionary sense not found, we can either ignore or throw.
-          // requirement says nullable reference, so if logic is strictly "reference if exists", we keep it.
-          // But usually providing an ID implies expectation of existence.
           if (!dictionarySense) {
             // Optional: throw new NotFoundException('Dictionary sense not found');
             // Or just ignore. Let's ignore to safely create manual sense if ID is stale.
@@ -77,6 +68,7 @@ export class UserWordSenseService {
           learningStatus: senseDto.learningStatus,
           media: senseDto.media,
           dictionarySense: dictionarySense,
+          workspace: workspace,
         });
 
         this.uow.userWordSense.create(newSense);

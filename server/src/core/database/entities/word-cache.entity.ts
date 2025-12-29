@@ -6,7 +6,7 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import { v6 } from 'uuid';
+import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 
 export enum DictionarySource {
@@ -33,7 +33,7 @@ export class WordCacheEntity extends BaseEntity {
 
   constructor(data: Partial<WordCacheEntity>) {
     super();
-    this.id = v6();
+    this.id = v7();
     this.word = data.word!;
     this.source = data.source!;
     this.raw = data.raw!;

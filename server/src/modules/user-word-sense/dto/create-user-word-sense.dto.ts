@@ -81,6 +81,10 @@ export class CreateUserWordSenseDto {
 
   @IsNotEmpty()
   @IsString()
+  workspaceId: string;
+
+  @IsNotEmpty()
+  @IsString()
   word: string;
 
   @IsNotEmpty()

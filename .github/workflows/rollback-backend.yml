@@ -7,6 +7,13 @@ on:
         description: 'Tag version to rollback to (e.g., v1.0.5)'
         required: true
         type: string
+      service:
+        description: 'Service to rollback'
+        required: true
+        default: 'API'
+        type: choice
+        options:
+          - API
       create_rollback_tag:
         description: 'Create a new rollback tag'
         required: false
@@ -105,12 +112,26 @@ jobs:
       - name: Deploy rollback to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_BACKEND_SERVICE_ID: ${{ secrets.RAILWAY_BACKEND_SERVICE_ID }}
         run: |
-          echo "🔄 Rolling back to version ${{ github.event.inputs.tag }}"
+          # Map service name to Railway service ID
+          SERVICE_NAME="${{ github.event.inputs.service }}"
+          
+          case "$SERVICE_NAME" in
+            "API")
+              SERVICE_ID="${RAILWAY_BACKEND_SERVICE_ID:-server}"
+              ;;
+            *)
+              echo "❌ Unknown service: $SERVICE_NAME"
+              exit 1
+              ;;
+          esac
+          
+          echo "🔄 Rolling back $SERVICE_NAME to version ${{ github.event.inputs.tag }}"
           echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}"
           
           # Railway will pull the specific tag image
-          railway up --service ${{ secrets.RAILWAY_BACKEND_SERVICE_ID || 'server' }}
+          railway up --service "$SERVICE_ID"
         # Note: Ensure Railway is configured to use image with tag: ${{ github.event.inputs.tag }}
       
       - name: Create rollback tag

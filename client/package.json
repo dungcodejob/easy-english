@@ -6,6 +6,10 @@
   "scripts": {
     "build": "rsbuild build --env-mode prod",
     "build:dev": "rsbuild build --env-mode dev",
+    "build:stag": "rsbuild build --env-mode stag",
+
+    "deploy:stag": "rsbuild build --env-mode stag && firebase deploy --only hosting:stag",
+    "deploy:prod": "rsbuild build --env-mode prod && firebase deploy --only hosting:prod",
     "build:prod": "rsbuild build --env-mode prod",
     "check": "biome check --write",
     "dev": "rsbuild dev --open --port 4200",

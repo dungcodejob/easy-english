@@ -26,7 +26,7 @@ async function bootstrap() {
 
   const globalPrefix = 'api';
   app.enableCors({
-    origin: 'http://localhost:4200', // cho phép Angular gọi
+    origin: appConfigValues.corsOrigins, // cho phép Angular gọi
     credentials: true, // nếu bạn gửi cookie/token
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',

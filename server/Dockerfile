@@ -35,6 +35,7 @@ RUN addgroup -g 1001 -S nodejs && \
 COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /app/package*.json ./
+COPY --from=builder --chown=nestjs:nodejs /app/tsconfig.json ./  
 COPY --from=builder --chown=nestjs:nodejs /app/src/core/database/migrations ./src/core/database/migrations
 COPY --from=builder --chown=nestjs:nodejs /app/src/core/configs ./src/core/configs
 
@@ -52,5 +53,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
 ENTRYPOINT ["dumb-init", "--"]
 
 # Run migrations and start application
-# MikroORM CLI is now in production dependencies
-CMD ["sh", "-c", "npx mikro-orm migration:up --config ./src/core/configs/database.config.ts && node dist/main"]
+# Use compiled JS config (now using relative paths)
+CMD ["sh", "-c", "npx mikro-orm migration:up --config ./dist/core/configs/database.config.js && node dist/main"]

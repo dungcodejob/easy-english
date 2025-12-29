@@ -116,12 +116,21 @@ jobs:
           SERVICE_NAME="${{ github.event.inputs.service }}"
         
           
-          echo "🔄 Rolling back $SERVICE_NAME to version ${{ github.event.inputs.tag }}"
-          echo "Service: $SERVICE_NAME"
-          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}"
+          # Retag strategy: Make the rollback version 'latest' so Railway pulls it
+          # 1. Pull the target version
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}
           
-          # Railway CLI --service accepts SERVICE NAME only (not ID)
-          railway up --service "$SERVICE_NAME"
+          # 2. Tag as latest
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          
+          # 3. Push 'latest' (overwriting current latest)
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          
+          echo "✅ Updated 'latest' tag to point to ${{ github.event.inputs.tag }}"
+          
+          # 4. Trigger redeploy on Railway
+          echo "🔄 Triggering Railway redeploy..."
+          railway redeploy --service "$SERVICE_NAME"
         # Note: Ensure Railway is configured to use image with tag: ${{ github.event.inputs.tag }}
       
       - name: Create rollback tag

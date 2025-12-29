@@ -296,9 +296,10 @@ curl http://localhost:3000/api/v1/health
 ## 💡 Tips
 
 ### Cost Optimization
-- ✅ Railway auto-build = no extra GitHub Actions minutes
-- ✅ Docker layer caching reduces build time
-- ✅ Multi-stage build = smaller image = faster deploy
+ - ✅ **GitHub Actions Build:** Use free 2000 minutes/month on GitHub instead of Railway build minutes
+ - ✅ **No Railway Build Minutes:** Railway only runs the image, doesn't build it
+ - ✅ **Docker Layer Caching:** Faster builds on GitHub
+ - ✅ **Multi-stage build:** Smaller image = faster deploy/pull
 
 ### Deployment Strategy
 1. **Feature branches:** Test locally first

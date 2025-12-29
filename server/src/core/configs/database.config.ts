@@ -1,9 +1,9 @@
-import { ENV_KEY } from '@app/constants';
 import { Migrator } from '@mikro-orm/migrations';
 import { PostgreSqlDriver, defineConfig } from '@mikro-orm/postgresql';
 import { SeedManager } from '@mikro-orm/seeder';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import * as dotenv from 'dotenv';
+import { ENV_KEY } from '../../shared/constants';
 
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 

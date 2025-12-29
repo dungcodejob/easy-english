@@ -116,8 +116,9 @@ jobs:
           echo "Service: $SERVICE_NAME"
           echo "Branch: ${{ github.event.inputs.branch }}"
           
-          # Railway CLI --service accepts SERVICE NAME only (not ID)
-          railway up --service "$SERVICE_NAME"
+          # Use 'railway redeploy' to trigger a new deployment of the configured image
+          # Note: Railway service must be configured with Source: Image -> ghcr.io/...:latest
+          railway redeploy --service "$SERVICE_NAME"
         # Note: Railway needs to be configured to use the GHCR image
         # Set in Railway dashboard: Settings > Deploy > Image
         # Image URL: ghcr.io/${{ github.repository }}/backend:latest

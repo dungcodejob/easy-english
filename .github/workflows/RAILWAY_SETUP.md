@@ -99,48 +99,57 @@ Nếu repo private, Railway cần GHCR credentials:
      - `DOCKER_PASSWORD`: your PAT token
 
 ### Step 4: Test Deployment
-
-1. **Trigger deployment:**
-   - Vào GitHub Actions
-   - Run workflow **"Deploy Backend to Railway"**
-   - Chọn branch `master`
-
-2. **Monitor Railway logs:**
-   ```bash
-   # Using Railway CLI
-   railway logs
-   
-   # Or in Railway UI
-   # Service → Deployments → Click deployment → Logs
-   ```
-
-3. **Verify deployment:**
-   - Check logs for:
-     - ✅ "Pulling image from ghcr.io..."
-     - ✅ "Image pulled successfully"
-     - ✅ "Migrations completed"
-     - ✅ "Server is running on port 3000"
-
-## 🔄 How It Works
-
-### Deployment Flow
-
-```mermaid
-graph TD
-    A[GitHub Actions] -->|1. Build| B[Docker Image]
-    B -->|2. Push| C[GHCR]
-    C -->|3. Railway pulls| D[Railway Service]
-    D -->|4. Run| E[Container]
-    E -->|5. Migrations| F[Database]
-    F -->|6. Start| G[App Running]
-```
-
-### What GitHub Actions Does
-1. ✅ Build Docker image from Dockerfile
-2. ✅ Push image to GHCR với tags:
-   - `v1.0.X` (version tag)
-   - `latest` (always points to newest)
-3. ✅ Trigger Railway deployment
+ 
+ 1. **Trigger deployment:**
+    - Vào GitHub Actions
+    - Run workflow **"Deploy Backend to Railway"**
+    - Chọn branch `master`
+    - **Note:** Workflow sử dụng `railway redeploy` (không phải `railway up`) để trigger Railway pull image mới nhất từ GHCR.
+ 
+ 2. **Monitor Railway logs:**
+    ```bash
+    # Using Railway CLI
+    railway logs
+    
+    # Or in Railway UI
+    # Service → Deployments → Click deployment → Logs
+    ```
+ 
+ 3. **Verify deployment:**
+    - Check logs for:
+      - ✅ "Pulling image from ghcr.io..."
+      - ✅ "Image pulled successfully"
+      - ✅ "Migrations completed"
+      - ✅ "Server is running on port 3000"
+ 
+ ## 🔄 How It Works
+ 
+ ### Deployment Flow
+ 
+ ```mermaid
+ graph TD
+     A[GitHub Actions] -->|1. Build & Push| B[GHCR :latest]
+     A -->|2. Trigger Redeploy| C[Railway Service]
+     C -->|3. Pull :latest| B
+     C -->|4. Run Container| D[App Running]
+ ```
+ 
+ ### Rollback Strategy (Retagging)
+ 
+ Khi rollback về version cũ (ví dụ `v1.0.5`), workflow sẽ:
+ 1. Pull image `v1.0.5`
+ 2. Retag thành `latest`
+ 3. Push `latest` đè lên tag cũ
+ 4. `railway redeploy` (vẫn pull `latest` nhưng giờ nội dung là code cũ)
+ 
+ Điều này đảm bảo Railway config không cần thay đổi source image tag.
+ 
+ ### What GitHub Actions Does
+ 1. ✅ Build Docker image from Dockerfile
+ 2. ✅ Push image to GHCR với tags:
+    - `v1.0.X` (version tag)
+    - `latest` (pointer to active version)
+ 3. ✅ Trigger Railway deployment using `railway redeploy`
 
 ### What Railway Does
 1. ✅ Pull image từ GHCR
@@ -204,12 +213,34 @@ railway variables set DOCKER_PASSWORD=<PAT>
 - Check GHCR status
 
 ### Issue: "Container fails to start"
-
-**Check:**
-1. Railway logs: `railway logs`
-2. Environment variables are set
-3. Image has correct CMD
-4. Health check endpoint works
+ 
+ **Check:**
+ 1. Railway logs: `railway logs`
+ 2. Environment variables are set
+ 3. Image has correct CMD
+ 4. Health check endpoint works
+ 
+ ### Issue: "Could not find root directory"
+ 
+ **Error:** `Could not find root directory: ghcr.io/...`
+ 
+ **Cause:**
+ Lỗi này xảy ra khi dùng `railway up` kèm với image URL hoặc workflow chạy `railway up` trong context không phù hợp khi source là image.
+ 
+ **Solution:**
+ - Sử dụng `railway redeploy` thay vì `railway up` khi source là Docker Image.
+ - Workflow của dự án đã được update để dùng `railway redeploy`.
+ 
+ ### Issue: "Error [ERR_MODULE_NOT_FOUND]: @app/..."
+ 
+ **Error:** `Cannot find package '@app/constants' imported from database.config.ts`
+ 
+ **Cause:**
+ - Docker container (production) không có `tsconfig-paths` để resolve alias (`@app/...`).
+ 
+ **Solution:**
+ - Trong các file config dùng cho CLI (như `database.config.ts`), hãy dùng **relative path** (ví dụ: `../../shared/constants`) thay vì alias.
+ - Dockerfile CMD nên trỏ vào file JS đã compile: `--config ./dist/core/configs/database.config.js`.
 
 ## 📊 Monitoring
 

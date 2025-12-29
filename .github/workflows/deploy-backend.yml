@@ -109,10 +109,10 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          SERVICE_CHOICE="${{ github.event.inputs.service }}"
+          SERVICE_NAME="${{ github.event.inputs.service }}"
           
           
-          echo "🚀 Deploying $SERVICE_CHOICE to Railway"
+          echo "🚀 Deploying $SERVICE_NAME to Railway"
           echo "Service: $SERVICE_NAME"
           echo "Branch: ${{ github.event.inputs.branch }}"
           

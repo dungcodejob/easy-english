@@ -113,10 +113,10 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          SERVICE_CHOICE="${{ github.event.inputs.service }}"
+          SERVICE_NAME="${{ github.event.inputs.service }}"
         
           
-          echo "🔄 Rolling back $SERVICE_CHOICE to version ${{ github.event.inputs.tag }}"
+          echo "🔄 Rolling back $SERVICE_NAME to version ${{ github.event.inputs.tag }}"
           echo "Service: $SERVICE_NAME"
           echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}"
           

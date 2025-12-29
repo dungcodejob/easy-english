@@ -118,7 +118,7 @@ jobs:
           
           # Use 'railway redeploy' to trigger a new deployment of the configured image
           # Note: Railway service must be configured with Source: Image -> ghcr.io/...:latest
-          railway redeploy --service "$SERVICE_NAME"
+          railway redeploy --service "$SERVICE_NAME" --yes
         # Note: Railway needs to be configured to use the GHCR image
         # Set in Railway dashboard: Settings > Deploy > Image
         # Image URL: ghcr.io/${{ github.repository }}/backend:latest

@@ -130,7 +130,7 @@ jobs:
           
           # 4. Trigger redeploy on Railway
           echo "🔄 Triggering Railway redeploy..."
-          railway redeploy --service "$SERVICE_NAME"
+          railway redeploy --service "$SERVICE_NAME" --yes
         # Note: Ensure Railway is configured to use image with tag: ${{ github.event.inputs.tag }}
       
       - name: Create rollback tag

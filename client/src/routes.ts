@@ -17,6 +17,13 @@ export const routes = rootRoute('root.tsx', [
     // ),
     route(APP_ROUTES.TOPIC.LIST, './modules/topic/pages/topic-page.tsx'),
     route(APP_ROUTES.TOPIC.DETAIL, './modules/words/pages/word-list-page.tsx'),
+    route(APP_ROUTES.LEARN, './modules/home/pages/learn-page.tsx'),
+    route(APP_ROUTES.REVIEW, './modules/home/pages/review-page.tsx'),
+    route(APP_ROUTES.PROGRESS, './modules/home/pages/progress-page.tsx'),
+    route(APP_ROUTES.SETTINGS, './modules/home/pages/settings-page.tsx'),
+    route(APP_ROUTES.ADD_WORD, './modules/home/pages/add-word-page.tsx'),
+    route(APP_ROUTES.ACHIEVEMENTS, './modules/home/pages/achievements-page.tsx'),
+    
   ]),
   layout(
     '(unauthenticated)',

@@ -11,4 +11,10 @@ export const APP_ROUTES = {
     LIST: '/topic',
     DETAIL: '/topic/$topicId',
   },
+  LEARN: 'learn',
+  REVIEW: 'review',
+  PROGRESS: 'progress',
+  SETTINGS: 'settings',
+  ADD_WORD: 'add-word',
+  ACHIEVEMENTS: 'achievements',
 } as const;

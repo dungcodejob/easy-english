@@ -15,6 +15,12 @@ import { Route as DotModulesShellPagesAuthenticatedLayoutRouteImport } from './m
 import { Route as DotModulesAuthPagesRegisterPageRouteImport } from './modules/auth/pages/register-page'
 import { Route as DotModulesAuthPagesLoginPageRouteImport } from './modules/auth/pages/login-page'
 import { Route as DotModulesTopicPagesTopicPageRouteImport } from './modules/topic/pages/topic-page'
+import { Route as DotModulesHomePagesSettingsPageRouteImport } from './modules/home/pages/settings-page'
+import { Route as DotModulesHomePagesReviewPageRouteImport } from './modules/home/pages/review-page'
+import { Route as DotModulesHomePagesProgressPageRouteImport } from './modules/home/pages/progress-page'
+import { Route as DotModulesHomePagesLearnPageRouteImport } from './modules/home/pages/learn-page'
+import { Route as DotModulesHomePagesAddWordPageRouteImport } from './modules/home/pages/add-word-page'
+import { Route as DotModulesHomePagesAchievementsPageRouteImport } from './modules/home/pages/achievements-page'
 import { Route as DotModulesHomePagesHomePageRouteImport } from './modules/home/pages/home-page'
 import { Route as DotModulesWorkspacePagesCreateWorkspacePageRouteImport } from './modules/workspace/pages/create-workspace-page'
 import { Route as DotModulesWordsPagesWordListPageRouteImport } from './modules/words/pages/word-list-page'
@@ -52,6 +58,42 @@ const DotModulesTopicPagesTopicPageRoute =
     path: '/topic',
     getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
   } as any)
+const DotModulesHomePagesSettingsPageRoute =
+  DotModulesHomePagesSettingsPageRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
+const DotModulesHomePagesReviewPageRoute =
+  DotModulesHomePagesReviewPageRouteImport.update({
+    id: '/review',
+    path: '/review',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
+const DotModulesHomePagesProgressPageRoute =
+  DotModulesHomePagesProgressPageRouteImport.update({
+    id: '/progress',
+    path: '/progress',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
+const DotModulesHomePagesLearnPageRoute =
+  DotModulesHomePagesLearnPageRouteImport.update({
+    id: '/learn',
+    path: '/learn',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
+const DotModulesHomePagesAddWordPageRoute =
+  DotModulesHomePagesAddWordPageRouteImport.update({
+    id: '/add-word',
+    path: '/add-word',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
+const DotModulesHomePagesAchievementsPageRoute =
+  DotModulesHomePagesAchievementsPageRouteImport.update({
+    id: '/achievements',
+    path: '/achievements',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
 const DotModulesHomePagesHomePageRoute =
   DotModulesHomePagesHomePageRouteImport.update({
     id: '/',
@@ -73,6 +115,12 @@ const DotModulesWordsPagesWordListPageRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof DotModulesHomePagesHomePageRoute
+  '/achievements': typeof DotModulesHomePagesAchievementsPageRoute
+  '/add-word': typeof DotModulesHomePagesAddWordPageRoute
+  '/learn': typeof DotModulesHomePagesLearnPageRoute
+  '/progress': typeof DotModulesHomePagesProgressPageRoute
+  '/review': typeof DotModulesHomePagesReviewPageRoute
+  '/settings': typeof DotModulesHomePagesSettingsPageRoute
   '/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/login': typeof DotModulesAuthPagesLoginPageRoute
   '/register': typeof DotModulesAuthPagesRegisterPageRoute
@@ -81,6 +129,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof DotModulesHomePagesHomePageRoute
+  '/achievements': typeof DotModulesHomePagesAchievementsPageRoute
+  '/add-word': typeof DotModulesHomePagesAddWordPageRoute
+  '/learn': typeof DotModulesHomePagesLearnPageRoute
+  '/progress': typeof DotModulesHomePagesProgressPageRoute
+  '/review': typeof DotModulesHomePagesReviewPageRoute
+  '/settings': typeof DotModulesHomePagesSettingsPageRoute
   '/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/login': typeof DotModulesAuthPagesLoginPageRoute
   '/register': typeof DotModulesAuthPagesRegisterPageRoute
@@ -93,6 +147,12 @@ export interface FileRoutesById {
   '/_(onboarding)': typeof DotModulesWorkspacePagesOnboardingLayoutRouteWithChildren
   '/_(unauthenticated)': typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren
   '/_(authenticated)/': typeof DotModulesHomePagesHomePageRoute
+  '/_(authenticated)/achievements': typeof DotModulesHomePagesAchievementsPageRoute
+  '/_(authenticated)/add-word': typeof DotModulesHomePagesAddWordPageRoute
+  '/_(authenticated)/learn': typeof DotModulesHomePagesLearnPageRoute
+  '/_(authenticated)/progress': typeof DotModulesHomePagesProgressPageRoute
+  '/_(authenticated)/review': typeof DotModulesHomePagesReviewPageRoute
+  '/_(authenticated)/settings': typeof DotModulesHomePagesSettingsPageRoute
   '/_(authenticated)/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/_(unauthenticated)/login': typeof DotModulesAuthPagesLoginPageRoute
   '/_(unauthenticated)/register': typeof DotModulesAuthPagesRegisterPageRoute
@@ -103,6 +163,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/achievements'
+    | '/add-word'
+    | '/learn'
+    | '/progress'
+    | '/review'
+    | '/settings'
     | '/topic'
     | '/login'
     | '/register'
@@ -111,6 +177,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/achievements'
+    | '/add-word'
+    | '/learn'
+    | '/progress'
+    | '/review'
+    | '/settings'
     | '/topic'
     | '/login'
     | '/register'
@@ -122,6 +194,12 @@ export interface FileRouteTypes {
     | '/_(onboarding)'
     | '/_(unauthenticated)'
     | '/_(authenticated)/'
+    | '/_(authenticated)/achievements'
+    | '/_(authenticated)/add-word'
+    | '/_(authenticated)/learn'
+    | '/_(authenticated)/progress'
+    | '/_(authenticated)/review'
+    | '/_(authenticated)/settings'
     | '/_(authenticated)/topic'
     | '/_(unauthenticated)/login'
     | '/_(unauthenticated)/register'
@@ -179,6 +257,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotModulesTopicPagesTopicPageRouteImport
       parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
     }
+    '/_(authenticated)/settings': {
+      id: '/_(authenticated)/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof DotModulesHomePagesSettingsPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
+    '/_(authenticated)/review': {
+      id: '/_(authenticated)/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof DotModulesHomePagesReviewPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
+    '/_(authenticated)/progress': {
+      id: '/_(authenticated)/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof DotModulesHomePagesProgressPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
+    '/_(authenticated)/learn': {
+      id: '/_(authenticated)/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof DotModulesHomePagesLearnPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
+    '/_(authenticated)/add-word': {
+      id: '/_(authenticated)/add-word'
+      path: '/add-word'
+      fullPath: '/add-word'
+      preLoaderRoute: typeof DotModulesHomePagesAddWordPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
+    '/_(authenticated)/achievements': {
+      id: '/_(authenticated)/achievements'
+      path: '/achievements'
+      fullPath: '/achievements'
+      preLoaderRoute: typeof DotModulesHomePagesAchievementsPageRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
     '/_(authenticated)/': {
       id: '/_(authenticated)/'
       path: '/'
@@ -220,12 +340,25 @@ const DotModulesTopicPagesTopicPageRouteWithChildren =
 
 interface DotModulesShellPagesAuthenticatedLayoutRouteChildren {
   DotModulesHomePagesHomePageRoute: typeof DotModulesHomePagesHomePageRoute
+  DotModulesHomePagesAchievementsPageRoute: typeof DotModulesHomePagesAchievementsPageRoute
+  DotModulesHomePagesAddWordPageRoute: typeof DotModulesHomePagesAddWordPageRoute
+  DotModulesHomePagesLearnPageRoute: typeof DotModulesHomePagesLearnPageRoute
+  DotModulesHomePagesProgressPageRoute: typeof DotModulesHomePagesProgressPageRoute
+  DotModulesHomePagesReviewPageRoute: typeof DotModulesHomePagesReviewPageRoute
+  DotModulesHomePagesSettingsPageRoute: typeof DotModulesHomePagesSettingsPageRoute
   DotModulesTopicPagesTopicPageRoute: typeof DotModulesTopicPagesTopicPageRouteWithChildren
 }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteChildren: DotModulesShellPagesAuthenticatedLayoutRouteChildren =
   {
     DotModulesHomePagesHomePageRoute: DotModulesHomePagesHomePageRoute,
+    DotModulesHomePagesAchievementsPageRoute:
+      DotModulesHomePagesAchievementsPageRoute,
+    DotModulesHomePagesAddWordPageRoute: DotModulesHomePagesAddWordPageRoute,
+    DotModulesHomePagesLearnPageRoute: DotModulesHomePagesLearnPageRoute,
+    DotModulesHomePagesProgressPageRoute: DotModulesHomePagesProgressPageRoute,
+    DotModulesHomePagesReviewPageRoute: DotModulesHomePagesReviewPageRoute,
+    DotModulesHomePagesSettingsPageRoute: DotModulesHomePagesSettingsPageRoute,
     DotModulesTopicPagesTopicPageRoute:
       DotModulesTopicPagesTopicPageRouteWithChildren,
   }

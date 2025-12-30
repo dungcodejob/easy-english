@@ -1,29 +1,25 @@
-import { useAuthStore } from '@/modules/auth/stores';
-import { APP_ROUTES } from '@/shared/constants';
-import type { TypeSafe } from '@/shared/types';
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { useWorkspaceStore } from '../stores/workspace.store';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 
 export const Route = createFileRoute('/_(onboarding)')({
   component: OnboardingLayout,
-  beforeLoad: ({ search }) => {
-    const { currentWorkspaceId } = useWorkspaceStore.getState();
-    const { isAuthenticated } = useAuthStore.getState();
-    if (isAuthenticated && currentWorkspaceId) {
-      // Redirect to login with redirect param
-      throw redirect({
-        to: APP_ROUTES.ROOT,
-        search: { redirect: (search as TypeSafe).redirect },
-        replace: true,
-      });
-      // Returning false prevents the route from loading
-      // return false;
-    }
+  // beforeLoad: ({ search }) => {
+  //   const { currentWorkspaceId } = useWorkspaceStore.getState();
+  //   const { isAuthenticated } = useAuthStore.getState();
+  //   if (isAuthenticated && currentWorkspaceId) {
+  //     // Redirect to login with redirect param
+  //     throw redirect({
+  //       to: APP_ROUTES.ROOT,
+  //       search: { redirect: (search as TypeSafe).redirect },
+  //       replace: true,
+  //     });
+  //     // Returning false prevents the route from loading
+  //     // return false;
+  //   }
 
-    // Allow route to load
-    return true;
-  },
+  //   // Allow route to load
+  //   return true;
+  // },
 });
 
 export function OnboardingLayout() {

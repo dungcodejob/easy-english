@@ -1,8 +1,8 @@
 import { QUERY_KEYS } from "@/shared/constants";
 import { useErrorHandler } from "@/shared/hooks/use-error-handler";
+import { toast } from '@/shared/utils/toast';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { toast } from 'sonner';
 import { topicApi } from "../services";
 import type { CreateTopicDto } from "../types";
 /**

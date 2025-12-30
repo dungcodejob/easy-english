@@ -1,6 +1,6 @@
 
+import { toast } from '@/shared/utils/toast';
 import { useCallback } from 'react';
-import { toast } from 'sonner';
 import type { AppError } from '../lib/errors/app-error';
 import { isBackendError, isNetworkError, isValidationError } from '../lib/errors/app-error';
 

@@ -1,8 +1,8 @@
 import { QUERY_KEYS } from '@/shared/constants/key';
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+import { toast } from '@/shared/utils/toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 import { wordSenseApi } from '../services/word-sense.api';
 import type { CreateUserWordSenseDto } from '../types/word-sense.types';
 

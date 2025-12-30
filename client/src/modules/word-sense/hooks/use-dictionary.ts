@@ -1,7 +1,7 @@
 import { useErrorHandler } from '@/shared/hooks/use-error-handler';
+import { toast } from '@/shared/utils/toast';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 import { dictionaryApi } from '../services/dictionary.api';
 
 interface LookupParams {

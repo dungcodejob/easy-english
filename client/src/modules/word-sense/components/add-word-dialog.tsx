@@ -3,25 +3,25 @@ import { Button } from '@/shared/ui/shadcn/button';
 import { Card } from '@/shared/ui/shadcn/card';
 import { Checkbox } from '@/shared/ui/shadcn/checkbox';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from '@/shared/ui/shadcn/dialog';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Label } from '@/shared/ui/shadcn/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from '@/shared/ui/shadcn/select';
+import { toast } from '@/shared/utils/toast';
 import { ArrowLeft, BookOpen, Loader2 } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'sonner';
 import { useCreateWordSense } from '../hooks/use-create-word-sense';
 import { useDictionary } from '../hooks/use-dictionary';
 import { DifficultyLevel, LearningStatus, type CreateUserWordSenseDtoItem, type DictionarySense } from '../types/word-sense.types';

@@ -1,8 +1,8 @@
 import { APP_ROUTES, QUERY_KEYS } from '@/shared/constants';
+import { toast } from '@/shared/utils/toast';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 import { useAuthStore } from '../stores';
 
 export const useLogout = () => {

@@ -1,6 +1,6 @@
 import { RequireWorkspace } from '@/modules/workspace/components/require-workspace';
 import { APP_ROUTES } from '@/shared/constants';
-import { SidebarProvider } from '@/shared/ui/shadcn/sidebar';
+import { SidebarInset, SidebarProvider } from '@/shared/ui/shadcn/sidebar';
 import { useAuthStore } from '@auth/stores';
 import {
   RiBankCardLine,
@@ -42,8 +42,8 @@ import {
 import { BookOpen, Bot, Settings2 } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AppHeader } from '../features/app-header';
 import { AppSidebar } from '../features/app-sidebar';
-import { SiteHeader } from '../features/header';
 import SubSidebarMenu from '../features/sub-sidebar-menu';
 import type { MenuGroup, MenuItem } from '../ui/nav-group';
 
@@ -487,26 +487,24 @@ export function AuthenticatedLayout() {
   }, [groups, pathname]);
 
   return (
-    <SidebarProvider className='block'>
+    <SidebarProvider>
       <AppSidebar />
+      <SidebarInset>
+        <AppHeader />
+        <div className="flex h-full flex-col">
+          {activeItem?.groups ? (
+            <SubSidebarMenu title={activeItem.title} groups={activeItem.groups} />
+          ) : (
+            <div className="w-0" />
+          )}
 
-      <div className="flex h-full">
-        {activeItem?.groups ? (
-          <SubSidebarMenu title={activeItem.title} groups={activeItem.groups} />
-        ) : (
-          <div className="w-0" />
-        )}
-
-        <div className="flex-1">
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-            <SiteHeader />
-          </header>
-
-          <div className="relative z-50 mx-auto flex w-full max-w-[1360px] flex-1 flex-col self-stretch">
-            <RequireWorkspace />
+          <div className="flex-1">
+            <div className="relative z-50 mx-auto flex w-full max-w-[1360px] flex-1 flex-col self-stretch p-4">
+              <RequireWorkspace />
+            </div>
           </div>
-        </div>
-      </div>
+        </div>        
+      </SidebarInset>
     </SidebarProvider>
   );
 }

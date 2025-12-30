@@ -1,3 +1,5 @@
+import { TopicListHeader } from '@/modules/shell/ui/headers';
+import { PageWithHeaderLayout } from '@/modules/shell/ui/layouts/page-with-header-layout';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
 import {
@@ -40,20 +42,10 @@ export function TopicPage() {
   const { data = [], isLoading, error } = useTopics(filters);
 
   return (
-    <div className="container mx-auto space-y-6 py-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Topics</h1>
-          <p className="text-muted-foreground">
-            Organize your vocabulary into topics
-          </p>
-        </div>
-        <Button onClick={() => setDialogOpen(true)}    >
-          <RiAddLine className=" h-4 w-4" />
-          New Topic
-        </Button>
-      </div>
+    <PageWithHeaderLayout
+      header={<TopicListHeader onCreateClick={() => setDialogOpen(true)} />}
+    >
+      <div className="space-y-6">
 
       {/* Filters */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -147,8 +139,8 @@ export function TopicPage() {
         </>
       )}
 
-      {/* Topic Dialog */}
       <TopicDialog open={dialogOpen} onOpenChange={setDialogOpen} />
-    </div>
+      </div>
+    </PageWithHeaderLayout>
   );
 }

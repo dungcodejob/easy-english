@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/shared/constants';
+import { APP_ROUTES, QUERY_KEYS } from '@/shared/constants';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,7 @@ export const useLogin = (options: UseLoginOptions = {}) => {
     mutationKey: [QUERY_KEYS.AUTH.LOGIN],
     mutationFn: (data: LoginCredentials) => login(data),
     onSuccess: () => {
-      navigate({ to: redirect || '/' });
+      navigate({ to: redirect || APP_ROUTES.ROOT });
     },
     onError: (error) => {
       const errorMessage =

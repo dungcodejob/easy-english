@@ -10,11 +10,14 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateTopicDto, GetTopicsDto } from './models';
 import { UpdateTopicDto } from './models/update-topic.dto';
 import { TopicService } from './topic.service';
+
+import { WorkspaceGuard } from '../workspace/guards/workspace.guard';
 
 @ApiTags(FEATURE_KEY.TOPIC)
 @Controller(FEATURE_KEY.TOPIC)
@@ -24,6 +27,7 @@ export class TopicController {
   @ApiAuth({
     summary: 'Create a new topic',
   })
+  @UseGuards(WorkspaceGuard)
   @Post()
   async create(
     @Body() createTopicDto: CreateTopicDto,

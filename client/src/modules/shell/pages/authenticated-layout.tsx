@@ -1,3 +1,5 @@
+import { RequireWorkspace } from '@/modules/workspace/components/require-workspace';
+import { APP_ROUTES } from '@/shared/constants';
 import { SidebarProvider } from '@/shared/ui/shadcn/sidebar';
 import { useAuthStore } from '@auth/stores';
 import {
@@ -33,10 +35,9 @@ import {
   RiWebhookLine,
 } from '@remixicon/react';
 import {
-  Outlet,
   createFileRoute,
   redirect,
-  useLocation,
+  useLocation
 } from '@tanstack/react-router';
 import { BookOpen, Bot, Settings2 } from 'lucide-react';
 import { useMemo } from 'react';
@@ -84,7 +85,7 @@ export const Route = createFileRoute('/_(authenticated)')({
     if (!isAuthenticated) {
       // Redirect to login with redirect param
       throw redirect({
-        to: '/login',
+        to: APP_ROUTES.AUTH.LOGIN,
         search: { redirect: location.pathname },
         replace: true,
       });
@@ -497,22 +498,15 @@ export function AuthenticatedLayout() {
         )}
 
         <div className="flex-1">
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <SiteHeader />
           </header>
 
           <div className="relative z-50 mx-auto flex w-full max-w-[1360px] flex-1 flex-col self-stretch">
-            <Outlet />
+            <RequireWorkspace />
           </div>
         </div>
       </div>
-
-      {/* <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <SiteHeader />
-        </header>
-        <div className="relative z-50 mx-auto flex w-full max-w-[1360px] flex-1 flex-col self-stretch">
-          <Outlet />
-        </div> */}
     </SidebarProvider>
   );
 }

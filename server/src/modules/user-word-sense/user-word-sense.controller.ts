@@ -9,10 +9,13 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserWordSenseDto, UpdateUserWordSenseDto } from './dto';
 import { UserWordSenseService } from './user-word-sense.service';
+
+import { WorkspaceGuard } from '../workspace/guards/workspace.guard';
 
 @ApiTags(FEATURE_KEY.USER_WORD_SENSE)
 @Controller(FEATURE_KEY.USER_WORD_SENSE)
@@ -22,6 +25,7 @@ export class UserWordSenseController {
   @ApiAuth({
     summary: 'Batch create user word senses',
   })
+  @UseGuards(WorkspaceGuard)
   @Post()
   async createBatch(
     @CurrentUser('id') userId: string,

@@ -10,10 +10,13 @@
 
 import { Route as rootRouteImport } from './root'
 import { Route as DotModulesShellPagesUnauthenticatedLayoutRouteImport } from './modules/shell/pages/unauthenticated-layout'
+import { Route as DotModulesWorkspacePagesOnboardingLayoutRouteImport } from './modules/workspace/pages/onboarding-layout'
 import { Route as DotModulesShellPagesAuthenticatedLayoutRouteImport } from './modules/shell/pages/authenticated-layout'
+import { Route as DotModulesAuthPagesRegisterPageRouteImport } from './modules/auth/pages/register-page'
 import { Route as DotModulesAuthPagesLoginPageRouteImport } from './modules/auth/pages/login-page'
 import { Route as DotModulesTopicPagesTopicPageRouteImport } from './modules/topic/pages/topic-page'
 import { Route as DotModulesHomePagesHomePageRouteImport } from './modules/home/pages/home-page'
+import { Route as DotModulesWorkspacePagesCreateWorkspacePageRouteImport } from './modules/workspace/pages/create-workspace-page'
 import { Route as DotModulesWordsPagesWordListPageRouteImport } from './modules/words/pages/word-list-page'
 
 const DotModulesShellPagesUnauthenticatedLayoutRoute =
@@ -21,10 +24,21 @@ const DotModulesShellPagesUnauthenticatedLayoutRoute =
     id: '/_(unauthenticated)',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotModulesWorkspacePagesOnboardingLayoutRoute =
+  DotModulesWorkspacePagesOnboardingLayoutRouteImport.update({
+    id: '/_(onboarding)',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DotModulesShellPagesAuthenticatedLayoutRoute =
   DotModulesShellPagesAuthenticatedLayoutRouteImport.update({
     id: '/_(authenticated)',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const DotModulesAuthPagesRegisterPageRoute =
+  DotModulesAuthPagesRegisterPageRouteImport.update({
+    id: '/register',
+    path: '/register',
+    getParentRoute: () => DotModulesShellPagesUnauthenticatedLayoutRoute,
   } as any)
 const DotModulesAuthPagesLoginPageRoute =
   DotModulesAuthPagesLoginPageRouteImport.update({
@@ -44,6 +58,12 @@ const DotModulesHomePagesHomePageRoute =
     path: '/',
     getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
   } as any)
+const DotModulesWorkspacePagesCreateWorkspacePageRoute =
+  DotModulesWorkspacePagesCreateWorkspacePageRouteImport.update({
+    id: '/onboarding/workspace',
+    path: '/onboarding/workspace',
+    getParentRoute: () => DotModulesWorkspacePagesOnboardingLayoutRoute,
+  } as any)
 const DotModulesWordsPagesWordListPageRoute =
   DotModulesWordsPagesWordListPageRouteImport.update({
     id: '/$topicId',
@@ -55,40 +75,63 @@ export interface FileRoutesByFullPath {
   '/': typeof DotModulesHomePagesHomePageRoute
   '/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/login': typeof DotModulesAuthPagesLoginPageRoute
+  '/register': typeof DotModulesAuthPagesRegisterPageRoute
   '/topic/$topicId': typeof DotModulesWordsPagesWordListPageRoute
+  '/onboarding/workspace': typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof DotModulesHomePagesHomePageRoute
   '/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/login': typeof DotModulesAuthPagesLoginPageRoute
+  '/register': typeof DotModulesAuthPagesRegisterPageRoute
   '/topic/$topicId': typeof DotModulesWordsPagesWordListPageRoute
+  '/onboarding/workspace': typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_(authenticated)': typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren
+  '/_(onboarding)': typeof DotModulesWorkspacePagesOnboardingLayoutRouteWithChildren
   '/_(unauthenticated)': typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren
   '/_(authenticated)/': typeof DotModulesHomePagesHomePageRoute
   '/_(authenticated)/topic': typeof DotModulesTopicPagesTopicPageRouteWithChildren
   '/_(unauthenticated)/login': typeof DotModulesAuthPagesLoginPageRoute
+  '/_(unauthenticated)/register': typeof DotModulesAuthPagesRegisterPageRoute
   '/_(authenticated)/topic/$topicId': typeof DotModulesWordsPagesWordListPageRoute
+  '/_(onboarding)/onboarding/workspace': typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/topic' | '/login' | '/topic/$topicId'
+  fullPaths:
+    | '/'
+    | '/topic'
+    | '/login'
+    | '/register'
+    | '/topic/$topicId'
+    | '/onboarding/workspace'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/topic' | '/login' | '/topic/$topicId'
+  to:
+    | '/'
+    | '/topic'
+    | '/login'
+    | '/register'
+    | '/topic/$topicId'
+    | '/onboarding/workspace'
   id:
     | '__root__'
     | '/_(authenticated)'
+    | '/_(onboarding)'
     | '/_(unauthenticated)'
     | '/_(authenticated)/'
     | '/_(authenticated)/topic'
     | '/_(unauthenticated)/login'
+    | '/_(unauthenticated)/register'
     | '/_(authenticated)/topic/$topicId'
+    | '/_(onboarding)/onboarding/workspace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   DotModulesShellPagesAuthenticatedLayoutRoute: typeof DotModulesShellPagesAuthenticatedLayoutRouteWithChildren
+  DotModulesWorkspacePagesOnboardingLayoutRoute: typeof DotModulesWorkspacePagesOnboardingLayoutRouteWithChildren
   DotModulesShellPagesUnauthenticatedLayoutRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren
 }
 
@@ -101,12 +144,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_(onboarding)': {
+      id: '/_(onboarding)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DotModulesWorkspacePagesOnboardingLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_(authenticated)': {
       id: '/_(authenticated)'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof DotModulesShellPagesAuthenticatedLayoutRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_(unauthenticated)/register': {
+      id: '/_(unauthenticated)/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof DotModulesAuthPagesRegisterPageRouteImport
+      parentRoute: typeof DotModulesShellPagesUnauthenticatedLayoutRoute
     }
     '/_(unauthenticated)/login': {
       id: '/_(unauthenticated)/login'
@@ -128,6 +185,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof DotModulesHomePagesHomePageRouteImport
       parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
+    '/_(onboarding)/onboarding/workspace': {
+      id: '/_(onboarding)/onboarding/workspace'
+      path: '/onboarding/workspace'
+      fullPath: '/onboarding/workspace'
+      preLoaderRoute: typeof DotModulesWorkspacePagesCreateWorkspacePageRouteImport
+      parentRoute: typeof DotModulesWorkspacePagesOnboardingLayoutRoute
     }
     '/_(authenticated)/topic/$topicId': {
       id: '/_(authenticated)/topic/$topicId'
@@ -171,13 +235,30 @@ const DotModulesShellPagesAuthenticatedLayoutRouteWithChildren =
     DotModulesShellPagesAuthenticatedLayoutRouteChildren,
   )
 
+interface DotModulesWorkspacePagesOnboardingLayoutRouteChildren {
+  DotModulesWorkspacePagesCreateWorkspacePageRoute: typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
+}
+
+const DotModulesWorkspacePagesOnboardingLayoutRouteChildren: DotModulesWorkspacePagesOnboardingLayoutRouteChildren =
+  {
+    DotModulesWorkspacePagesCreateWorkspacePageRoute:
+      DotModulesWorkspacePagesCreateWorkspacePageRoute,
+  }
+
+const DotModulesWorkspacePagesOnboardingLayoutRouteWithChildren =
+  DotModulesWorkspacePagesOnboardingLayoutRoute._addFileChildren(
+    DotModulesWorkspacePagesOnboardingLayoutRouteChildren,
+  )
+
 interface DotModulesShellPagesUnauthenticatedLayoutRouteChildren {
   DotModulesAuthPagesLoginPageRoute: typeof DotModulesAuthPagesLoginPageRoute
+  DotModulesAuthPagesRegisterPageRoute: typeof DotModulesAuthPagesRegisterPageRoute
 }
 
 const DotModulesShellPagesUnauthenticatedLayoutRouteChildren: DotModulesShellPagesUnauthenticatedLayoutRouteChildren =
   {
     DotModulesAuthPagesLoginPageRoute: DotModulesAuthPagesLoginPageRoute,
+    DotModulesAuthPagesRegisterPageRoute: DotModulesAuthPagesRegisterPageRoute,
   }
 
 const DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren =
@@ -188,6 +269,8 @@ const DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   DotModulesShellPagesAuthenticatedLayoutRoute:
     DotModulesShellPagesAuthenticatedLayoutRouteWithChildren,
+  DotModulesWorkspacePagesOnboardingLayoutRoute:
+    DotModulesWorkspacePagesOnboardingLayoutRouteWithChildren,
   DotModulesShellPagesUnauthenticatedLayoutRoute:
     DotModulesShellPagesUnauthenticatedLayoutRouteWithChildren,
 }

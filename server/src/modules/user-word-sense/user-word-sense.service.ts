@@ -1,6 +1,6 @@
-import { UserWordSenseEntity } from '@app/entities';
+import { UserWordSenseEntity, WordSenseEntity } from '@app/entities';
 import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
-import { wrap } from '@mikro-orm/core';
+import { Loaded, wrap } from '@mikro-orm/core';
 import {
   ForbiddenException,
   Inject,

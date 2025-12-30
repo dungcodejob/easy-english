@@ -202,6 +202,11 @@ export const TAG_ERROR_CODES = {
   AUTO_GENERATION_FAILED: 'Tag.AutoGenerationFailed',
 } as const;
 
+// Workspace Error Codes
+export const WORKSPACE_ERROR_CODES = {
+  WORKSPACE_REQUIRED: 'Workspace.Required',
+} as const;
+
 // Export all error codes as a single object for easy access
 export const ERROR_CODES = {
   AUTH: AUTH_ERROR_CODES,
@@ -212,6 +217,7 @@ export const ERROR_CODES = {
   TAG: TAG_ERROR_CODES,
   SYSTEM: SYSTEM_ERROR_CODES,
   FILE: FILE_ERROR_CODES,
+  WORKSPACE: WORKSPACE_ERROR_CODES,
 } as const;
 
 // Type definitions for better TypeScript support
@@ -231,6 +237,8 @@ export type SystemErrorCode =
   (typeof SYSTEM_ERROR_CODES)[keyof typeof SYSTEM_ERROR_CODES];
 export type FileErrorCode =
   (typeof FILE_ERROR_CODES)[keyof typeof FILE_ERROR_CODES];
+export type WorkspaceErrorCode =
+  (typeof WORKSPACE_ERROR_CODES)[keyof typeof WORKSPACE_ERROR_CODES];
 
 export type ErrorCode =
   | AuthErrorCode
@@ -240,7 +248,8 @@ export type ErrorCode =
   | BookmarkErrorCode
   | TagErrorCode
   | SystemErrorCode
-  | FileErrorCode;
+  | FileErrorCode
+  | WorkspaceErrorCode;
 
 // Error messages mapping for internationalization support
 export const ERROR_MESSAGES = {
@@ -294,4 +303,8 @@ export const ERROR_MESSAGES = {
   [USER_ERROR_CODES.PREFERENCES_UPDATE_FAILED]:
     'Failed to update user preferences',
   [USER_ERROR_CODES.ACCOUNT_DELETION_FAILED]: 'Failed to delete user account',
+
+  // Workspace Messages
+  [WORKSPACE_ERROR_CODES.WORKSPACE_REQUIRED]:
+    'Workspace is required for this action',
 } as const;

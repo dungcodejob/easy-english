@@ -1,4 +1,5 @@
 import { index, layout, rootRoute, route } from '@tanstack/virtual-file-routes';
+import { APP_ROUTES } from './shared/constants';
 
 export const routes = rootRoute('root.tsx', [
   index('index.tsx'),
@@ -14,12 +15,18 @@ export const routes = rootRoute('root.tsx', [
     //   '/settings/account/profile',
     //   './features/account/pages/account-profile-page.tsx',
     // ),
-    route('/topic', './modules/topic/pages/topic-page.tsx'),
-    route('/topic/$topicId', './modules/words/pages/word-list-page.tsx'),
+    route(APP_ROUTES.TOPIC.LIST, './modules/topic/pages/topic-page.tsx'),
+    route(APP_ROUTES.TOPIC.DETAIL, './modules/words/pages/word-list-page.tsx'),
   ]),
   layout(
     '(unauthenticated)',
     './modules/shell/pages/unauthenticated-layout.tsx',
-    [route('/login', './modules/auth/pages/login-page.tsx')],
+    [
+      route(APP_ROUTES.AUTH.LOGIN, './modules/auth/pages/login-page.tsx'),
+      route(APP_ROUTES.AUTH.REGISTER, './modules/auth/pages/register-page.tsx'),
+    ],
   ),
+  layout('(onboarding)', './modules/workspace/pages/onboarding-layout.tsx', [
+     route(APP_ROUTES.ONBOARDING.WORKSPACE, './modules/workspace/pages/create-workspace-page.tsx'),
+  ]),
 ]);

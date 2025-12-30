@@ -1,3 +1,4 @@
+import { APP_ROUTES } from '@/shared/constants';
 import { FieldGroup } from '@/shared/ui/shadcn/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PasswordInput } from '@shared/ui/common/password-input';
@@ -143,13 +144,16 @@ export function LoginForm({
                 </div>
                 <div className="text-center text-sm space-x-1">
                   <span>{t('auth.login.no_account')}</span>
-                  <a href="/" className="underline underline-offset-4"> 
+                  <a href={APP_ROUTES.AUTH.REGISTER} className="underline underline-offset-4"> 
                     {t('auth.login.sign_up')}
                   </a>
                 </div>
               </FieldGroup>
             </form>
           </Form>
+
+
+
           <div className="relative hidden bg-muted md:block">
             <img src="https://ui.shadcn.com/placeholder.svg" alt="login" className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale' />
 

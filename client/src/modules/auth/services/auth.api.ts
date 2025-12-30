@@ -3,11 +3,14 @@ import { apiClient } from '@/shared/api/api.client';
 import type { AppError } from '@/shared/lib/errors/app-error';
 import type { SingleResponseDto } from '@/shared/types/success-response.dto';
 import type { Result } from 'neverthrow';
-import type { AuthResultDto, LoginCredentials } from '../types';
+import type { AuthResultDto, LoginCredentials, RegisterCredentials } from '../types';
 
 export const authApi = {
   login: (data: LoginCredentials): Promise<Result<{ data: AuthResultDto }, AppError>> => {
     return apiCall(() => apiClient.post<SingleResponseDto<AuthResultDto>>('/auth/login', data));
+  },
+  register: (data: RegisterCredentials): Promise<Result<void, AppError>> => {
+    return apiCall(() => apiClient.post('/auth/register', data));
   },
   logout: (): Promise<Result<void, AppError>> => {
     return apiCall(() => apiClient.post('/auth/logout'));

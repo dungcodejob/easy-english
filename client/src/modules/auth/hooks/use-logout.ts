@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/shared/constants';
+import { APP_ROUTES, QUERY_KEYS } from '@/shared/constants';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +13,12 @@ export const useLogout = () => {
     mutationKey: [QUERY_KEYS.AUTH.LOGOUT],
     mutationFn: logout,
     onSuccess: () => {
-      navigate({ to: '/login' });
+      navigate({ to: APP_ROUTES.AUTH.LOGIN });
     },
 
-    onError: (error) => {
+    onError: () => {
       toast.error(t('auth.logout.logout_failed'));
-      navigate({ to: '/login' });
+      navigate({ to: APP_ROUTES.AUTH.LOGIN });
     },
   });
 

@@ -7,7 +7,6 @@
     "build": "rsbuild build --env-mode prod",
     "build:dev": "rsbuild build --env-mode dev",
     "build:stag": "rsbuild build --env-mode stag",
-
     "deploy": "rsbuild build --env-mode stag && firebase deploy",
     "build:prod": "rsbuild build --env-mode prod",
     "check": "biome check --write",
@@ -42,6 +41,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "country-flag-icons": "^1.6.4",
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
     "i18next-resources-to-backend": "^1.2.1",

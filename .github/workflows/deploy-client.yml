@@ -1,0 +1,57 @@
+name: Deploy Client to Firebase Hosting
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'client/**'
+  #     - '.github/workflows/deploy-client.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Build
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            bun run build:stag
+          else
+            bun run build
+          fi
+        env:
+          CI: false
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_EASY_ENGLISH_399FA }}'
+          channelId: '${{ github.event.inputs.environment == 'staging' && 'staging' || 'live' }}'
+          projectId: easy-english-client
+          entryPoint: ./client

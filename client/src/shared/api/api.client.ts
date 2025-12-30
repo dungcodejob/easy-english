@@ -1,5 +1,6 @@
 import { useAuthStore } from '@auth/stores';
 import axios, { type AxiosError } from 'axios';
+import type { ResponseDto } from '../types/base-response.dto';
 
 const apiClient = axios.create({
   headers: {
@@ -45,8 +46,76 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
+
+const handle401Error = async (originalRequest: any) => {
+  if (isRefreshing) {
+    return new Promise((resolve, reject) => {
+      failedQueue.push({ resolve, reject });
+    })
+      .then((token) => {
+        originalRequest.headers.Authorization = `Bearer ${token}`;
+        return apiClient(originalRequest);
+      })
+      .catch((err) => Promise.reject(err));
+  }
+
+  originalRequest._retry = true;
+  isRefreshing = true;
+
+  try {
+    // Use getState to access store values and actions
+    const { refreshToken } = useAuthStore.getState();
+
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+
+    // Call refresh endpoint directly to avoid circular dependency or interceptor loops
+    const response = await axios.post(
+      `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/auth/refresh`,
+      { refreshToken }
+    );
+
+    // Extract tokens from response
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.result;
+
+    // Update store with new tokens (save both if new refresh token is provided)
+    useAuthStore.setState({
+      accessToken: newAccessToken,
+      ...(newRefreshToken && { refreshToken: newRefreshToken }),
+    });
+
+    processQueue(null, newAccessToken);
+
+    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+    return apiClient(originalRequest);
+  } catch (refreshError) {
+    processQueue(refreshError, null);
+    useAuthStore.getState().logout();
+    return Promise.reject(refreshError);
+  } finally {
+    isRefreshing = false;
+  }
+};
+
 apiClient.interceptors.response.use(
-  (response) => response,
+  async (response) => {
+    
+    const data = response.data as ResponseDto;
+    // Check if the response is 200 OK but contains a 401 error code in the body
+    if (!data.success && data.statusCode === 401) {
+      const originalRequest = response.config as any;
+      const isAuthEndpoint =
+        originalRequest.url?.includes('/auth/login') ||
+        originalRequest.url?.includes('/auth/refresh') ||
+        originalRequest.url?.includes('/auth/register');
+
+      if (!originalRequest._retry && !isAuthEndpoint) {
+        return handle401Error(originalRequest);
+      }
+    }
+    return response;
+  },
   async (error: AxiosError) => {
     const originalRequest = error.config as any;
 
@@ -58,54 +127,7 @@ apiClient.interceptors.response.use(
       originalRequest.url?.includes('/auth/register');
 
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            originalRequest.headers.Authorization = `Bearer ${token}`;
-            return apiClient(originalRequest);
-          })
-          .catch((err) => Promise.reject(err));
-      }
-
-      originalRequest._retry = true;
-      isRefreshing = true;
-
-      try {
-        // Use getState to access store values and actions
-        const { refreshToken } = useAuthStore.getState();
-
-        if (!refreshToken) {
-          throw new Error('No refresh token available');
-        }
-
-        // Call refresh endpoint directly to avoid circular dependency or interceptor loops
-        const response = await axios.post(
-          `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/auth/refresh`,
-          { refreshToken }
-        );
-
-        // Extract tokens from response
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.result;
-
-        // Update store with new tokens (save both if new refresh token is provided)
-        useAuthStore.setState({
-          accessToken: newAccessToken,
-          ...(newRefreshToken && { refreshToken: newRefreshToken }),
-        });
-
-        processQueue(null, newAccessToken);
-
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return apiClient(originalRequest);
-      } catch (refreshError) {
-        processQueue(refreshError, null);
-        useAuthStore.getState().logout();
-        return Promise.reject(refreshError);
-      } finally {
-        isRefreshing = false;
-      }
+      return handle401Error(originalRequest);
     }
 
     return Promise.reject(error);

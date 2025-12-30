@@ -1,3 +1,4 @@
+import { useWorkspaceStore } from "@/modules/workspace/stores/workspace.store";
 import { QUERY_KEYS } from "@/shared/constants";
 import { useErrorHandler } from "@/shared/hooks/use-error-handler";
 import { toast } from '@/shared/utils/toast';
@@ -5,18 +6,29 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { topicApi } from "../services";
 import type { CreateTopicDto } from "../types";
+
 /**
  * Hook to create a new topic
  */
 export const useCreateTopic = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-
+  const { currentWorkspaceId } = useWorkspaceStore();
   const { handleError } = useErrorHandler();
 
   const mutation = useMutation({
-    mutationFn: async (data: CreateTopicDto) => {
-      const result = await topicApi.createTopic(data);
+    mutationFn: async (data: Omit<CreateTopicDto, 'workspaceId'>) => {
+      // Automatically inject workspaceId from current workspace
+      if (!currentWorkspaceId) {
+        throw new Error('No workspace selected');
+      }
+
+      const topicData: CreateTopicDto = {
+        ...data,
+        workspaceId: currentWorkspaceId,
+      };
+
+      const result = await topicApi.createTopic(topicData);
       
       if (result.isErr()) {
         throw result.error;
@@ -38,7 +50,7 @@ export const useCreateTopic = () => {
 
     return {
       ...mutation,
-      mutateAsync: (data: CreateTopicDto) =>
+      mutateAsync: (data: Omit<CreateTopicDto, 'workspaceId'>) =>
         toast.promise(mutation.mutateAsync(data), {
           loading: t('topic.create.creating'),
           success: t('topic.create.success'),

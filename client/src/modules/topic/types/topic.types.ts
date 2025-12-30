@@ -54,6 +54,7 @@ export interface TopicFilters {
   tags?: string[];
   search?: string;
   isPublic?: boolean;
+  workspaceId?: string;
 }
 
 export interface TopicListResponse {

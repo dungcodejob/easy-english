@@ -8,4 +8,5 @@ export interface CreateTopicDto {
   languagePair: string;
   coverImageUrl?: string;
   isPublic?: boolean;
+  workspaceId: string;
 }

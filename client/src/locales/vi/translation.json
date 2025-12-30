@@ -137,5 +137,20 @@
   "word_sense.delete.error": "Xóa nghĩa từ thất bại",
   "dictionary.lookup.searching": "Đang tra cứu...",
   "dictionary.lookup.success": "Tra cứu thành công",
-  "dictionary.lookup.error": "Tra cứu thất bại"
+  "dictionary.lookup.error": "Tra cứu thất bại",
+  "sidebar.priority": "Ưu tiên",
+  "sidebar.learning": "Học tập",
+  "sidebar.progress": "Tiến độ",
+  "sidebar.system": "Hệ thống",
+  "sidebar.today_review": "Ôn tập hôm nay",
+  "sidebar.learn": "Học",
+  "sidebar.topics": "Chủ đề",
+  "sidebar.add_word": "Thêm từ",
+  "sidebar.achievements": "Thành tích",
+  "sidebar.settings": "Cài đặt",
+  "sidebar.create_workspace": "Tạo không gian mới",
+  "workspace.switch": "Chuyển không gian",
+  "workspace.no_workspaces": "Chưa có không gian",
+  "workspace.my_workspaces": "Không gian của tôi",
+  "workspace.create": "Tạo không gian"
 }

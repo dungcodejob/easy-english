@@ -2,8 +2,10 @@
 import type { LucideIcon } from 'lucide-react';
 
 import { useSidebar } from '@/shared/ui/shadcn/sidebar';
+import { cn } from '@/shared/utils';
 import type { RemixiconComponentType } from '@remixicon/react';
 import { useLocation } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 import { NavItem } from './nav-item';
 import { NavItemCollapse } from './nav-item-collapse';
 
@@ -27,15 +29,19 @@ export type MenuItem = {
   isHideChildren?: boolean;
   isShowSubSidebar?: boolean;
   isHidden?: boolean;
+  badge?: number;
+  priority?: boolean;
 };
 
 type NavProps = {
   isOpen?: boolean;
   items: MenuItem[];
   title: string;
+  className?: string;
+  action?: ReactNode;
 };
 
-export function NavGroup({ items, title, isOpen }: NavProps) {
+export function NavGroup({ items, title, isOpen, className, action }: NavProps) {
   const { pathname } = useLocation();
   const { open } = useSidebar();
 
@@ -44,15 +50,17 @@ export function NavGroup({ items, title, isOpen }: NavProps) {
   return (
     <div
       data-collapsed={isSidebarCollapsed}
-      className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2"
+      className={cn(
+        'group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2',
+        className,
+      )}
     >
-      <nav className="flex flex-col gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
-        {!isSidebarCollapsed && (
-          <div className="relative flex w-full items-center px-2 py-1 text-xs font-medium text-sidebar-foreground/70">
-            {title}
-          </div>
-        )}
-        {items.map((item, index) =>
+      <div className="flex flex-col gap-1 px-2 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2">
+        <div className="flex items-center justify-between px-2 text-xs font-medium tracking-tight text-muted-foreground group-data-[collapsed=true]:hidden">
+          <span>{title}</span>
+          {action && <div className="ml-auto">{action}</div>}
+        </div>
+        {items.map((item) =>
           item.children ? (
             <NavItemCollapse
               key={item.id}
@@ -69,7 +77,7 @@ export function NavGroup({ items, title, isOpen }: NavProps) {
             />
           ),
         )}
-      </nav>
+      </div>
     </div>
   );
 }

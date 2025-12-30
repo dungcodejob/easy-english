@@ -136,5 +136,20 @@
   "word_sense.delete.error": "Failed to delete word sense",
   "dictionary.lookup.searching": "Looking up...",
   "dictionary.lookup.success": "Lookup successful",
-  "dictionary.lookup.error": "Lookup failed"
+  "dictionary.lookup.error": "Lookup failed",
+  "sidebar.priority": "Priority",
+  "sidebar.learning": "Learning",
+  "sidebar.progress": "Progress",
+  "sidebar.system": "System",
+  "sidebar.today_review": "Today Review",
+  "sidebar.learn": "Learn",
+  "sidebar.topics": "Topics",
+  "sidebar.add_word": "Add Word",
+  "sidebar.achievements": "Achievements",
+  "sidebar.settings": "Settings",
+  "sidebar.create_workspace": "Create Workspace",
+  "workspace.switch": "Switch Workspace",
+  "workspace.no_workspaces": "No Workspaces",
+  "workspace.my_workspaces": "My Workspaces",
+  "workspace.create": "Create Workspace"
 }

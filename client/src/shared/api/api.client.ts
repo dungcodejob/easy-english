@@ -1,6 +1,8 @@
+import type { AuthResultDto } from '@/modules/auth/types';
 import { useAuthStore } from '@auth/stores';
 import axios, { type AxiosError } from 'axios';
 import type { ResponseDto } from '../types/base-response.dto';
+import type { SingleResponseDto } from '../types/success-response.dto';
 
 const apiClient = axios.create({
   headers: {
@@ -70,19 +72,24 @@ const handle401Error = async (originalRequest: any) => {
       throw new Error('No refresh token available');
     }
 
-    // Call refresh endpoint directly to avoid circular dependency or interceptor loops
-    const response = await axios.post(
+    // Call refresh endpoint directly using plain axios to avoid interceptor loops
+    const response = await axios.post<SingleResponseDto<AuthResultDto>>(
       `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/auth/refresh`,
       { refreshToken }
     );
 
+    // Check if refresh was successful
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Token refresh failed');
+    }
+
     // Extract tokens from response
-    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.result;
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.result.data;
 
     // Update store with new tokens (save both if new refresh token is provided)
     useAuthStore.setState({
       accessToken: newAccessToken,
-      ...(newRefreshToken && { refreshToken: newRefreshToken }),
+      refreshToken: newRefreshToken,
     });
 
     processQueue(null, newAccessToken);

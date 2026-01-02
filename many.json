@@ -1,0 +1,618 @@
+{
+    "pageProps": {
+
+        "collections": [
+            {
+                "id": "C-0C5E2CB3",
+                "name": "Raz-Plus",
+                "brief": "Keywords curated from books at 29 reading levels of Raz-plus",
+                "image": "/system/collections/1680255930182.png",
+                "description": "Raz-Plus is the Reading part of KidsA-Z, the family of products developed by Learning A-Z. Raz-Plus provides an online library of leveled books and additional reading passages available in printable, projectable, online, and mobile formats to each student. To buy a Raz-plus subcription, go to https://contuhoc.com/producttag/1126/kidsa-z",
+                "languages": [],
+                "sets": [
+                    {
+                        "id": "S-00CDBFB2",
+                        "categoryId": "G-3C17E250",
+                        "name": "Counting Bugs",
+                        "categoryName": "Aa"
+                    },
+                    {
+                        "id": "S-7EBBD2A8",
+                        "categoryId": "G-DFE43623",
+                        "name": "Carlos Counts Kittens",
+                        "categoryName": "A"
+                    },
+                    {
+                        "id": "S-61717F59",
+                        "categoryId": "G-81183A0E",
+                        "name": "How Many Legs?",
+                        "categoryName": "B"
+                    },
+                    {
+                        "id": "S-578072BE",
+                        "categoryId": "G-81183A0E",
+                        "name": "Too Many Leaves",
+                        "categoryName": "B"
+                    }
+                ]
+            },
+            {
+                "id": "C-96A3768C",
+                "name": "By CEFR levels",
+                "brief": "CEFR-aligned vocabulary list aids language proficiency",
+                "image": "/system/collections/1710235408732.png",
+                "description": "Explore CEFR-level categorized vocabulary, aligned with language proficiency standards. Tailored to learners' progression from beginner to advanced, this list offers relevant words for each level, aiding targeted skill development and language acquisition.",
+                "languages": [],
+                "sets": [
+                    {
+                        "id": "S-F5CDF76C",
+                        "categoryId": "G-19AB1D88",
+                        "name": "Letter M - Group 1",
+                        "categoryName": "Level A1"
+                    }
+                ]
+            }
+        ],
+        "ogInfo": {
+            "title": "Many",
+            "ogTitle": "Many",
+            "type": "website",
+            "image": "https://azvocab.ai/api/og?data=%257B%2522image%2522%253A%2522https%253A%252F%252Fazvocab.ai%252F_next%252Fstatic%252Fmedia%252Flearning.6e24054e.png%2522%252C%2522width%2522%253A200%252C%2522height%2522%253A240%252C%2522desc%2522%253A%2522azVocab%2522%257D",
+            "description": "lượng nhiều; nhiều. Learn more in azVocab",
+            "image_alt": "many.2.1"
+        },
+        "def": {
+            "id": "many.2.1",
+            "vi": "lượng nhiều; nhiều",
+            "def": "a large number (of), or a lot (of)",
+            "sets": [
+                {
+                    "id": "S-00CDBFB2",
+                    "categoryId": "G-3C17E250",
+                    "collectionId": "C-0C5E2CB3"
+                },
+                {
+                    "id": "S-7EBBD2A8",
+                    "categoryId": "G-DFE43623",
+                    "collectionId": "C-0C5E2CB3"
+                },
+                {
+                    "id": "S-61717F59",
+                    "categoryId": "G-81183A0E",
+                    "collectionId": "C-0C5E2CB3"
+                },
+                {
+                    "id": "S-578072BE",
+                    "categoryId": "G-81183A0E",
+                    "collectionId": "C-0C5E2CB3"
+                },
+                {
+                    "id": "S-F5CDF76C",
+                    "categoryId": "G-19AB1D88",
+                    "collectionId": "C-96A3768C"
+                }
+            ],
+            "level": "A1",
+            "images": [],
+            "samples": [
+                {
+                    "id": "C9EB1D",
+                    "text": "\"My family has 6 people.\" \"Wow, there are so many! My family only has 3\""
+                },
+                {
+                    "id": "CFAA75",
+                    "text": "\"I have two rabbits. How many rabbits do you have?\" \"I have many.\""
+                },
+                {
+                    "id": "1A4150",
+                    "text": "You can't have one each. We haven't got many."
+                },
+                {
+                    "id": "F0134C",
+                    "text": "Many of those present disagreed."
+                },
+                {
+                    "id": "E9F1C3",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-3C17E250",
+                            "s": "S-00CDBFB2"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-DFE43623",
+                            "s": "S-7EBBD2A8"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-61717F59"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-578072BE"
+                        }
+                    ],
+                    "text": "There are many animals at the zoo."
+                },
+                {
+                    "id": "DD65ED",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-3C17E250",
+                            "s": "S-00CDBFB2"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-DFE43623",
+                            "s": "S-7EBBD2A8"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-61717F59"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-578072BE"
+                        }
+                    ],
+                    "text": "There are many books on the shelf, not just a few."
+                },
+                {
+                    "id": "93E282",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-3C17E250",
+                            "s": "S-00CDBFB2"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-DFE43623",
+                            "s": "S-7EBBD2A8"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-61717F59"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-578072BE"
+                        }
+                    ],
+                    "text": "A bird with many feathers has a large number of them."
+                },
+                {
+                    "id": "E30386",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-3C17E250",
+                            "s": "S-00CDBFB2"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-DFE43623",
+                            "s": "S-7EBBD2A8"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-61717F59"
+                        },
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-81183A0E",
+                            "s": "S-578072BE"
+                        }
+                    ],
+                    "text": "On a farm, there are many, or a lot of, animals."
+                }
+            ],
+            "antonyms": [],
+            "synonyms": [],
+            "updateBy": "phamthanhlam620@gmail.com",
+            "lastUpdate": 1723189752533,
+            "entryId": "many.2",
+            "vocab": "many",
+            "pos": "pron",
+            "uk": "/ˈmen.i/",
+            "us": "/ˈmen.i/",
+            "pron_uk": "/m/ma/many/many.uk.mp3",
+            "pron_us": "/m/ma/many/many.us.mp3",
+            "idioms": [
+                "too many chiefs and not enough Indians",
+                "a woman of many parts",
+                "many's the",
+                "one too many",
+                "many happy returns (of the day)",
+                "there's many a slip twixt cup and lip",
+                "there's many a slip between the cup and the lip",
+                "many a time",
+                "in so many words",
+                "many moons ago",
+                "many hands make light work",
+                "too many cooks spoil the broth"
+            ],
+            "verb_phrases": [],
+            "phrases": [],
+            "rank": 184,
+            "freq": 318966441
+        },
+        "vocab": {
+            "uk": "/ˈmen.i/",
+            "us": "/ˈmen.i/",
+            "dict": "Cambridge",
+            "freq": 318966441,
+            "rank": 184,
+            "vocab": "many",
+            "source": "https://dictionary.cambridge.org/dictionary/english/many",
+            "entries": [
+                {
+                    "id": "many.1",
+                    "pos": "det",
+                    "defs": [
+                        {
+                            "id": "many.1.1",
+                            "vi": "nhiều",
+                            "def": "used mainly in negative sentences and questions and with \"too\", \"so\", and \"as\" to mean \"a large number of\"",
+                            "sets": [
+                                {
+                                    "id": "S-5889C4C3",
+                                    "categoryId": "G-F210EAC8",
+                                    "collectionId": "C-AEFFA16A"
+                                },
+                                {
+                                    "id": "S-44BA9EAD",
+                                    "categoryId": "G-512A8F58",
+                                    "collectionId": "C-7955C7EE"
+                                },
+                                {
+                                    "id": "S-F5CDF76C",
+                                    "categoryId": "G-19AB1D88",
+                                    "collectionId": "C-96A3768C"
+                                }
+                            ],
+                            "level": "A1",
+                            "images": [],
+                            "samples": [
+                                {
+                                    "id": "D4683B",
+                                    "text": "Many people have cats as their pets."
+                                },
+                                {
+                                    "id": "28CB55",
+                                    "sets": [
+                                        {
+                                            "c": "C-AEFFA16A",
+                                            "g": "G-F210EAC8",
+                                            "s": "S-5889C4C3"
+                                        }
+                                    ],
+                                    "text": "Cats can be many colours – black, white, brown, grey."
+                                },
+                                {
+                                    "id": "E1A181",
+                                    "sets": [
+                                        {
+                                            "c": "C-AEFFA16A",
+                                            "g": "G-F210EAC8",
+                                            "s": "S-5889C4C3"
+                                        }
+                                    ],
+                                    "text": "Many cats are pets and people have them in their homes."
+                                },
+                                {
+                                    "id": "45571A",
+                                    "text": "Not many people have heard of him."
+                                },
+                                {
+                                    "id": "460CFB",
+                                    "text": "There aren't very many weekends between now and Christmas."
+                                },
+                                {
+                                    "id": "52F856",
+                                    "text": "Many people would disagree with your ideas."
+                                },
+                                {
+                                    "id": "ED9B77",
+                                    "text": "Rachel was at the party with her many admirers."
+                                },
+                                {
+                                    "id": "C5B312",
+                                    "text": "I've met him so many times and I still can't remember his name!"
+                                },
+                                {
+                                    "id": "DFD743",
+                                    "text": "There are too many people chasing too few jobs."
+                                },
+                                {
+                                    "id": "2D53C7",
+                                    "text": "If there are only five of us going to the concert, then I've booked one too many seats."
+                                },
+                                {
+                                    "id": "A61123",
+                                    "text": "If there were as many women as there are men in parliament, the situation would be very different."
+                                }
+                            ],
+                            "antonyms": [],
+                            "synonyms": [],
+                            "updateBy": "phamthanhlam620@gmail.com",
+                            "lastUpdate": 1722917436863,
+                            "entryId": "many.1",
+                            "vocab": "many",
+                            "pos": "det",
+                            "uk": "/ˈmen.i/",
+                            "us": "/ˈmen.i/",
+                            "pron_uk": "/m/ma/many/many.uk.mp3",
+                            "pron_us": "/m/ma/many/many.us.mp3",
+                            "idioms": [
+                                "too many chiefs and not enough Indians",
+                                "a woman of many parts",
+                                "many's the",
+                                "one too many",
+                                "many happy returns (of the day)",
+                                "there's many a slip twixt cup and lip",
+                                "there's many a slip between the cup and the lip",
+                                "many a time",
+                                "in so many words",
+                                "many moons ago",
+                                "many hands make light work",
+                                "too many cooks spoil the broth"
+                            ],
+                            "verb_phrases": [],
+                            "phrases": [],
+                            "rank": 184,
+                            "freq": 318966441
+                        }
+                    ],
+                    "idioms": [
+                        "too many chiefs and not enough Indians",
+                        "a woman of many parts",
+                        "many's the",
+                        "one too many",
+                        "many happy returns (of the day)",
+                        "there's many a slip twixt cup and lip",
+                        "there's many a slip between the cup and the lip",
+                        "many a time",
+                        "in so many words",
+                        "many moons ago",
+                        "many hands make light work",
+                        "too many cooks spoil the broth"
+                    ],
+                    "vocab": "many",
+                    "pron_uk": "/m/ma/many/many.uk.mp3",
+                    "pron_us": "/m/ma/many/many.us.mp3",
+                    "uk": "/ˈmen.i/",
+                    "us": "/ˈmen.i/",
+                    "rank": 184,
+                    "freq": 318966441
+                },
+                {
+                    "id": "many.2",
+                    "pos": "pron",
+                    "defs": [
+                        {
+                            "id": "many.2.1",
+                            "vi": "lượng nhiều; nhiều",
+                            "def": "a large number (of), or a lot (of)",
+                            "sets": [
+                                {
+                                    "id": "S-00CDBFB2",
+                                    "categoryId": "G-3C17E250",
+                                    "collectionId": "C-0C5E2CB3"
+                                },
+                                {
+                                    "id": "S-7EBBD2A8",
+                                    "categoryId": "G-DFE43623",
+                                    "collectionId": "C-0C5E2CB3"
+                                },
+                                {
+                                    "id": "S-61717F59",
+                                    "categoryId": "G-81183A0E",
+                                    "collectionId": "C-0C5E2CB3"
+                                },
+                                {
+                                    "id": "S-578072BE",
+                                    "categoryId": "G-81183A0E",
+                                    "collectionId": "C-0C5E2CB3"
+                                },
+                                {
+                                    "id": "S-F5CDF76C",
+                                    "categoryId": "G-19AB1D88",
+                                    "collectionId": "C-96A3768C"
+                                }
+                            ],
+                            "level": "A1",
+                            "images": [],
+                            "samples": [
+                                {
+                                    "id": "C9EB1D",
+                                    "text": "\"My family has 6 people.\" \"Wow, there are so many! My family only has 3\""
+                                },
+                                {
+                                    "id": "CFAA75",
+                                    "text": "\"I have two rabbits. How many rabbits do you have?\" \"I have many.\""
+                                },
+                                {
+                                    "id": "1A4150",
+                                    "text": "You can't have one each. We haven't got many."
+                                },
+                                {
+                                    "id": "F0134C",
+                                    "text": "Many of those present disagreed."
+                                },
+                                {
+                                    "id": "E9F1C3",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-3C17E250",
+                                            "s": "S-00CDBFB2"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-DFE43623",
+                                            "s": "S-7EBBD2A8"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-61717F59"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-578072BE"
+                                        }
+                                    ],
+                                    "text": "There are many animals at the zoo."
+                                },
+                                {
+                                    "id": "DD65ED",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-3C17E250",
+                                            "s": "S-00CDBFB2"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-DFE43623",
+                                            "s": "S-7EBBD2A8"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-61717F59"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-578072BE"
+                                        }
+                                    ],
+                                    "text": "There are many books on the shelf, not just a few."
+                                },
+                                {
+                                    "id": "93E282",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-3C17E250",
+                                            "s": "S-00CDBFB2"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-DFE43623",
+                                            "s": "S-7EBBD2A8"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-61717F59"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-578072BE"
+                                        }
+                                    ],
+                                    "text": "A bird with many feathers has a large number of them."
+                                },
+                                {
+                                    "id": "E30386",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-3C17E250",
+                                            "s": "S-00CDBFB2"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-DFE43623",
+                                            "s": "S-7EBBD2A8"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-61717F59"
+                                        },
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-81183A0E",
+                                            "s": "S-578072BE"
+                                        }
+                                    ],
+                                    "text": "On a farm, there are many, or a lot of, animals."
+                                }
+                            ],
+                            "antonyms": [],
+                            "synonyms": [],
+                            "updateBy": "phamthanhlam620@gmail.com",
+                            "lastUpdate": 1723189752533,
+                            "entryId": "many.2",
+                            "vocab": "many",
+                            "pos": "pron",
+                            "uk": "/ˈmen.i/",
+                            "us": "/ˈmen.i/",
+                            "pron_uk": "/m/ma/many/many.uk.mp3",
+                            "pron_us": "/m/ma/many/many.us.mp3",
+                            "idioms": [
+                                "too many chiefs and not enough Indians",
+                                "a woman of many parts",
+                                "many's the",
+                                "one too many",
+                                "many happy returns (of the day)",
+                                "there's many a slip twixt cup and lip",
+                                "there's many a slip between the cup and the lip",
+                                "many a time",
+                                "in so many words",
+                                "many moons ago",
+                                "many hands make light work",
+                                "too many cooks spoil the broth"
+                            ],
+                            "verb_phrases": [],
+                            "phrases": [],
+                            "rank": 184,
+                            "freq": 318966441
+                        }
+                    ],
+                    "idioms": [
+                        "too many chiefs and not enough Indians",
+                        "a woman of many parts",
+                        "many's the",
+                        "one too many",
+                        "many happy returns (of the day)",
+                        "there's many a slip twixt cup and lip",
+                        "there's many a slip between the cup and the lip",
+                        "many a time",
+                        "in so many words",
+                        "many moons ago",
+                        "many hands make light work",
+                        "too many cooks spoil the broth"
+                    ],
+                    "vocab": "many",
+                    "pron_uk": "/m/ma/many/many.uk.mp3",
+                    "pron_us": "/m/ma/many/many.us.mp3",
+                    "uk": "/ˈmen.i/",
+                    "us": "/ˈmen.i/",
+                    "rank": 184,
+                    "freq": 318966441
+                }
+            ],
+            "pron_uk": "/m/ma/many/many.uk.mp3",
+            "pron_us": "/m/ma/many/many.us.mp3",
+            "updateBy": "thangqm@icloud.com",
+            "lastUpdate": 1713159143824
+        }
+    },
+    "__N_SSG": true
+}

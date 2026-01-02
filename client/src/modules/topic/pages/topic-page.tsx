@@ -18,7 +18,7 @@ import { useTopics } from '../hooks';
 import { type TopicCategory, type TopicFilters } from '../types';
 import { topicCategoryOptions } from '../types/topic.meta';
 
-export const Route = createFileRoute('/_(authenticated)/topic')({
+export const Route = createFileRoute('/_(authenticated)/_/topic/')({
   component: TopicPage,
 });
 

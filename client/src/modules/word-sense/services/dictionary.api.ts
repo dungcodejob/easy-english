@@ -10,9 +10,8 @@ export const dictionaryApi = {
    */
   lookup: (params: { word: string; language: string; source?: string }) =>
     apiCall(() =>
-      apiClient.post<SingleResponseDto<DictionaryLookupResult>>(
-        `${API_KEYS.LOOKUP}/dictionary/lookup`,
-        params
+      apiClient.get<SingleResponseDto<DictionaryLookupResult>>(
+        `${API_KEYS.LOOKUP}/${params.word}`,
       )
     ),
 };

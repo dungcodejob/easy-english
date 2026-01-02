@@ -35,6 +35,23 @@ export class LookupService {
 
     if (existingWord) {
       this.logger.log(`DB Hit for word: ${normalizedText}`);
+
+      await this._unitOfWork.wordSense.nativeDelete({
+        id: {
+          $in: existingWord?.senses.map((s) => s.id),
+        },
+      });
+
+      await this._unitOfWork.pronunciation.nativeDelete({
+        id: {
+          $in: existingWord?.pronunciations.map((p) => p.id),
+        },
+      });
+
+      await this._unitOfWork.word.nativeDelete({
+        id: existingWord.id,
+      });
+
       return existingWord;
     }
 

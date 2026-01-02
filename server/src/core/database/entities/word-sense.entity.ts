@@ -6,14 +6,12 @@ import {
   JsonType,
   ManyToOne,
   Property,
-  Unique,
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { WordEntity } from './word.entity';
 
 @Entity({ repository: () => WordSenseRepository })
-@Unique({ properties: ['word', 'partOfSpeech', 'senseIndex', 'source'] })
 export class WordSenseEntity extends BaseEntity {
   @ManyToOne(() => WordEntity)
   @Index()

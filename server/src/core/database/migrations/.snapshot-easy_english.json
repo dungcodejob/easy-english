@@ -1402,19 +1402,6 @@
           "unique": false
         },
         {
-          "keyName": "word_sense_entity_word_id_part_of_speech_sense_in_0d610_unique",
-          "columnNames": [
-            "word_id",
-            "part_of_speech",
-            "sense_index",
-            "source"
-          ],
-          "composite": true,
-          "constraint": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "word_sense_entity_pkey",
           "columnNames": [
             "id"

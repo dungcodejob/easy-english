@@ -2,26 +2,22 @@ import { Badge } from '@/shared/ui/shadcn/badge';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/card';
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from '@/shared/ui/shadcn/collapsible';
 import {
-    BookOpen,
-    ChevronDown,
-    Edit2,
-    Image,
-    ThumbsUp,
-    Trash2,
-    Video,
-    Volume2,
+  BookOpen,
+  ChevronDown,
+  Edit2,
+  Image,
+  ThumbsUp,
+  Trash2,
+  Video,
+  Volume2,
 } from 'lucide-react';
 import { useState } from 'react';
-import {
-    DifficultyLevel,
-    LearningStatus,
-    type UserWordSense,
-} from '../../types/word-sense.types';
+import { DifficultyLevel, LearningStatus, type UserWordSense } from '../types/word-sense.types';
 
 interface WordSenseCardProps {
   wordSense: UserWordSense;

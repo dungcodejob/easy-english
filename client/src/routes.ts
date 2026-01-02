@@ -15,8 +15,11 @@ export const routes = rootRoute('root.tsx', [
     //   '/settings/account/profile',
     //   './features/account/pages/account-profile-page.tsx',
     // ),
-    route(APP_ROUTES.TOPIC.LIST, './modules/topic/pages/topic-page.tsx'),
-    route(APP_ROUTES.TOPIC.DETAIL, './modules/words/pages/word-list-page.tsx'),
+    
+    layout('/topic', './modules/topic/pages/topic-layout.tsx', [
+      index('./modules/topic/pages/topic-page.tsx'),
+      route('$topicId', './modules/topic/pages/topic-detail-page.tsx'),
+    ]),
     route(APP_ROUTES.LEARN, './modules/home/pages/learn-page.tsx'),
     route(APP_ROUTES.REVIEW, './modules/home/pages/review-page.tsx'),
     route(APP_ROUTES.PROGRESS, './modules/home/pages/progress-page.tsx'),

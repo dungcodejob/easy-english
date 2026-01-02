@@ -1,8 +1,8 @@
 import { Button } from '@/shared/ui/shadcn/button';
 import { Skeleton } from '@/shared/ui/shadcn/skeleton';
 import { BookOpen } from 'lucide-react';
-import { useWordSenses } from '../../hooks/use-word-senses';
-import type { UserWordSense } from '../../types/word-sense.types';
+import { useWordSenses } from '../hooks/use-word-senses';
+import type { UserWordSense } from '../types/word-sense.types';
 import { WordSenseCard } from './word-sense-card';
 
 interface WordSenseListProps {

@@ -1,0 +1,1101 @@
+[
+    {
+        "id": "crazy.1",
+        "pos": "adj",
+        "defs": [
+            {
+                "id": "crazy.1.1",
+                "vi": "điên rồ; vô lý",
+                "def": "stupid or not reasonable",
+                "sets": [
+                    {
+                        "id": "S-32AEDB91",
+                        "categoryId": "G-353ECC8F",
+                        "collectionId": "C-0F62E519"
+                    },
+                    {
+                        "id": "S-42B54649",
+                        "categoryId": "G-86450F0C",
+                        "collectionId": "C-0C5E2CB3"
+                    },
+                    {
+                        "id": "S-F9C3D6AC",
+                        "categoryId": "G-E2F36C24",
+                        "collectionId": "C-AEFFA16A"
+                    },
+                    {
+                        "id": "S-A8D5096B",
+                        "categoryId": "G-ABA0206F",
+                        "collectionId": "C-96A3768C"
+                    },
+                    {
+                        "id": "S-3C2573DF",
+                        "categoryId": "G-8557174F",
+                        "collectionId": "C-3AE63E69"
+                    }
+                ],
+                "level": "A2",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "20ABB7",
+                        "text": "Some of them were crazy. They were ready to stay in the queue for 6 hours to buy it."
+                    },
+                    {
+                        "id": "6C586B",
+                        "sets": [],
+                        "text": "His idea to paint the house bright pink is crazy."
+                    },
+                    {
+                        "id": "2CF106",
+                        "text": "You’re crazy to rent the place without seeing it first."
+                    },
+                    {
+                        "id": "3AE42E",
+                        "sets": [
+                            {
+                                "c": "C-0C5E2CB3",
+                                "g": "G-86450F0C",
+                                "s": "S-42B54649"
+                            }
+                        ],
+                        "text": "Sometimes I act crazy if I stay up too late."
+                    },
+                    {
+                        "id": "B711CA",
+                        "text": "It's a crazy idea."
+                    },
+                    {
+                        "id": "BF5942",
+                        "text": "You're crazy to buy a house without seeing it."
+                    },
+                    {
+                        "id": "54C9A5",
+                        "sets": [
+                            {
+                                "c": "C-0C5E2CB3",
+                                "g": "G-86450F0C",
+                                "s": "S-42B54649"
+                            }
+                        ],
+                        "text": "Being crazy can mean acting in a ridiculous and foolish manner."
+                    },
+                    {
+                        "id": "C21C11",
+                        "sets": [
+                            {
+                                "c": "C-0C5E2CB3",
+                                "g": "G-86450F0C",
+                                "s": "S-42B54649"
+                            }
+                        ],
+                        "text": "The opposite of crazy is sensible."
+                    },
+                    {
+                        "id": "61F32C",
+                        "sets": [
+                            {
+                                "c": "C-0C5E2CB3",
+                                "g": "G-86450F0C",
+                                "s": "S-42B54649"
+                            }
+                        ],
+                        "text": "Most people considered his ideas to be crazy, or absurd."
+                    },
+                    {
+                        "id": "9EB2D6",
+                        "sets": [],
+                        "text": "He has a crazy plan to build a treehouse in the living room."
+                    },
+                    {
+                        "id": "5C54BD",
+                        "sets": [
+                            {
+                                "c": "C-0F62E519",
+                                "g": "G-353ECC8F",
+                                "s": "S-32AEDB91"
+                            }
+                        ],
+                        "text": "She thinks his idea to paint the house bright pink is crazy."
+                    },
+                    {
+                        "id": "BAA2EF",
+                        "sets": [
+                            {
+                                "c": "C-0F62E519",
+                                "g": "G-353ECC8F",
+                                "s": "S-32AEDB91"
+                            }
+                        ],
+                        "text": "He had a crazy plan to build a treehouse in the living room."
+                    },
+                    {
+                        "id": "237428",
+                        "sets": [
+                            {
+                                "c": "C-0F62E519",
+                                "g": "G-353ECC8F",
+                                "s": "S-32AEDB91"
+                            }
+                        ],
+                        "text": "We're staying at the Crazy House Hotel. Wow! It really is crazy."
+                    }
+                ],
+                "antonyms": [
+                    "reasonable"
+                ],
+                "synonyms": [
+                    "bizarre",
+                    "absurd",
+                    "insane",
+                    "foolish",
+                    "unreal",
+                    "fantastical"
+                ],
+                "updateBy": "phamthanhlam620@gmail.com",
+                "lastUpdate": 1743481251880,
+                "entryId": "crazy.1",
+                "vocab": "crazy",
+                "pos": "adj",
+                "uk": "/ˈkreɪ.zi/",
+                "us": "/ˈkreɪ.zi/",
+                "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                "idioms": [
+                    "be as crazy/rich/etc. as they come",
+                    "like crazy",
+                    "be crazy about someone/something",
+                    "drive someone crazy"
+                ],
+                "verb_phrases": [],
+                "phrases": [],
+                "family": {
+                    "n": [
+                        "crazy",
+                        "craziness"
+                    ],
+                    "adj": [
+                        "crazy",
+                        "crazier",
+                        "craziest"
+                    ],
+                    "adv": [
+                        "crazily"
+                    ],
+                    "head": "crazy"
+                },
+                "inflects": {
+                    "JJR": [
+                        "crazier"
+                    ],
+                    "JJS": [
+                        "craziest"
+                    ]
+                },
+                "rank": 3304,
+                "freq": 23032837
+            },
+            {
+                "id": "crazy.1.2",
+                "vi": "bực mình, bực bội",
+                "def": "annoyed or angry",
+                "sets": [
+                    {
+                        "id": "S-B81ABC0F",
+                        "categoryId": "G-E2F36C24",
+                        "collectionId": "C-AEFFA16A"
+                    },
+                    {
+                        "id": "S-CD459DA6",
+                        "categoryId": "G-A9E1881A",
+                        "collectionId": "C-96A3768C"
+                    }
+                ],
+                "level": "B2",
+                "colloc": {
+                    "pre": {
+                        "v": [
+                            "be",
+                            "go"
+                        ],
+                        "adv": [
+                            "absolutely",
+                            "completely"
+                        ]
+                    },
+                    "suf": {
+                        "prep": [
+                            "at"
+                        ]
+                    }
+                },
+                "images": [
+                    "/c/cr/crazy/1723456793779.jpg"
+                ],
+                "samples": [
+                    {
+                        "id": "A5C761",
+                        "text": "He went crazy at me for letting the dog out."
+                    },
+                    {
+                        "id": "CE290C",
+                        "text": "The constant noise drove me crazy."
+                    },
+                    {
+                        "id": "6731A9",
+                        "text": "Marie says he went crazy, and smashed the room up."
+                    },
+                    {
+                        "id": "C7989C",
+                        "text": "Doesn't it make you crazy when people don't reply to your emails?"
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "phamthanhlam620@gmail.com",
+                "lastUpdate": 1743478779367,
+                "entryId": "crazy.1",
+                "vocab": "crazy",
+                "pos": "adj",
+                "uk": "/ˈkreɪ.zi/",
+                "us": "/ˈkreɪ.zi/",
+                "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                "idioms": [
+                    "be as crazy/rich/etc. as they come",
+                    "like crazy",
+                    "be crazy about someone/something",
+                    "drive someone crazy"
+                ],
+                "verb_phrases": [],
+                "phrases": [],
+                "family": {
+                    "n": [
+                        "crazy",
+                        "craziness"
+                    ],
+                    "adj": [
+                        "crazy",
+                        "crazier",
+                        "craziest"
+                    ],
+                    "adv": [
+                        "crazily"
+                    ],
+                    "head": "crazy"
+                },
+                "inflects": {
+                    "JJR": [
+                        "crazier"
+                    ],
+                    "JJS": [
+                        "craziest"
+                    ]
+                },
+                "rank": 3304,
+                "freq": 23032837
+            },
+            {
+                "id": "crazy.adj.75151",
+                "vi": "điên khùng",
+                "def": "mentally ill",
+                "level": "",
+                "colloc": {
+                    "pre": {
+                        "v": [
+                            "be",
+                            "seem",
+                            "sound",
+                            "go"
+                        ],
+                        "adv": [
+                            "really",
+                            "absolutely",
+                            "completely",
+                            "totally",
+                            "a bit",
+                            "half",
+                            "a little",
+                            "pretty",
+                            "quite",
+                            "slightly"
+                        ]
+                    },
+                    "suf": {
+                        "prep": [
+                            "with"
+                        ]
+                    }
+                },
+                "images": [],
+                "samples": [
+                    {
+                        "id": "5CC275",
+                        "text": "I seriously think she'll go crazy if she doesn't have a holiday soon."
+                    },
+                    {
+                        "id": "CD300F",
+                        "text": "I'd go crazy if I lived here."
+                    },
+                    {
+                        "id": "11B160",
+                        "text": "She was driven half-crazy by the thought of him in prison."
+                    }
+                ],
+                "antonyms": [
+                    "sane",
+                    "sound",
+                    "reasonable",
+                    "balanced",
+                    "rational",
+                    "clear",
+                    "normal",
+                    "wise"
+                ],
+                "synonyms": [
+                    "psychotic",
+                    "insane",
+                    "mad",
+                    "lunatic",
+                    "maniacal",
+                    "gaga",
+                    "mental",
+                    "paranoid"
+                ],
+                "updateBy": "phamthanhlam620@gmail.com",
+                "lastUpdate": 1743481251880,
+                "entryId": "crazy.1",
+                "vocab": "crazy",
+                "pos": "adj",
+                "uk": "/ˈkreɪ.zi/",
+                "us": "/ˈkreɪ.zi/",
+                "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                "idioms": [
+                    "be as crazy/rich/etc. as they come",
+                    "like crazy",
+                    "be crazy about someone/something",
+                    "drive someone crazy"
+                ],
+                "verb_phrases": [],
+                "phrases": [],
+                "family": {
+                    "n": [
+                        "crazy",
+                        "craziness"
+                    ],
+                    "adj": [
+                        "crazy",
+                        "crazier",
+                        "craziest"
+                    ],
+                    "adv": [
+                        "crazily"
+                    ],
+                    "head": "crazy"
+                },
+                "inflects": {
+                    "JJR": [
+                        "crazier"
+                    ],
+                    "JJS": [
+                        "craziest"
+                    ]
+                },
+                "rank": 3304,
+                "freq": 23032837
+            }
+        ],
+        "family": {
+            "n": [
+                "crazy",
+                "craziness"
+            ],
+            "adj": [
+                "crazy",
+                "crazier",
+                "craziest"
+            ],
+            "adv": [
+                "crazily"
+            ],
+            "head": "crazy"
+        },
+        "idioms": [
+            "be as crazy/rich/etc. as they come",
+            "like crazy",
+            "be crazy about someone/something",
+            "drive someone crazy"
+        ],
+        "vocab": "crazy",
+        "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+        "pron_us": "/c/cr/crazy/crazy.us.mp3",
+        "uk": "/ˈkreɪ.zi/",
+        "us": "/ˈkreɪ.zi/",
+        "inflects": {
+            "JJR": [
+                "crazier"
+            ],
+            "JJS": [
+                "craziest"
+            ]
+        },
+        "rank": 3304,
+        "freq": 23032837
+    },
+    {
+        "id": "crazy.2",
+        "pos": "n",
+        "defs": [
+            {
+                "id": "crazy.2.1",
+                "vi": "kẻ điên",
+                "def": "a person who is crazy",
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "5ABF50",
+                        "text": "There are a lot of crazies out there."
+                    },
+                    {
+                        "id": "989E3F",
+                        "text": "The neighbours must think we're the crazies."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [
+                    "lunatic",
+                    "psychopath",
+                    "fool",
+                    "maniac",
+                    "psycho"
+                ],
+                "updateBy": "phamthanhlam620@gmail.com",
+                "lastUpdate": 1743481251880,
+                "entryId": "crazy.2",
+                "vocab": "crazy",
+                "pos": "n",
+                "uk": "/ˈkreɪ.zi/",
+                "us": "/ˈkreɪ.zi/",
+                "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                "idioms": [
+                    "be as crazy/rich/etc. as they come",
+                    "like crazy",
+                    "be crazy about someone/something",
+                    "drive someone crazy"
+                ],
+                "verb_phrases": [],
+                "phrases": [],
+                "family": {
+                    "n": [
+                        "crazy",
+                        "craziness"
+                    ],
+                    "adj": [
+                        "crazy",
+                        "crazier",
+                        "craziest"
+                    ],
+                    "adv": [
+                        "crazily"
+                    ],
+                    "head": "crazy"
+                },
+                "inflects": {
+                    "JJR": [
+                        "crazier"
+                    ],
+                    "JJS": [
+                        "craziest"
+                    ]
+                },
+                "rank": 3304,
+                "freq": 23032837
+            }
+        ],
+        "family": {
+            "n": [
+                "crazy",
+                "craziness"
+            ],
+            "adj": [
+                "crazy",
+                "crazier",
+                "craziest"
+            ],
+            "adv": [
+                "crazily"
+            ],
+            "head": "crazy"
+        },
+        "idioms": [
+            "be as crazy/rich/etc. as they come",
+            "like crazy",
+            "be crazy about someone/something",
+            "drive someone crazy"
+        ],
+        "vocab": "crazy",
+        "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+        "pron_us": "/c/cr/crazy/crazy.us.mp3",
+        "uk": "/ˈkreɪ.zi/",
+        "us": "/ˈkreɪ.zi/",
+        "inflects": {
+            "JJR": [
+                "crazier"
+            ],
+            "JJS": [
+                "craziest"
+            ]
+        },
+        "rank": 3304,
+        "freq": 23032837
+    },
+    {
+        "id": "go crazy.phr",
+        "uk": "",
+        "us": "",
+        "pos": "phr",
+        "defs": [
+            {
+                "id": "go crazy.phr.19523",
+                "vi": "phát điên; bị khùng",
+                "def": "to become mentally ill",
+                "sets": [],
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "3FDA2F",
+                        "text": "For a long time, I honestly thought that I was going crazy."
+                    },
+                    {
+                        "id": "7BA3C7",
+                        "text": "Physical symptoms include shortness of breath, dizziness, heart palpitations, fear of dying or going crazy."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "nguyenbichnhung46@gmail.com",
+                "lastUpdate": 1719572449589,
+                "entryId": "go crazy.phr",
+                "vocab": "go crazy",
+                "pos": "phr",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+                "pron_us": "/en-US/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            },
+            {
+                "id": "go crazy.phr.7B2E5",
+                "vi": "phát cuồng",
+                "def": "to behave in an uncontrolled way, especially because you are feeling strong emotions",
+                "sets": [],
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "94DF7C",
+                        "text": "When she arrived on stage, the crowd screamed and went crazy."
+                    },
+                    {
+                        "id": "E8C637",
+                        "text": "I went crazy in the shops buying loads of vintage stuff."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "nguyenbichnhung46@gmail.com",
+                "lastUpdate": 1719572449589,
+                "entryId": "go crazy.phr",
+                "vocab": "go crazy",
+                "pos": "phr",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+                "pron_us": "/en-US/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            },
+            {
+                "id": "go crazy.phr.77157",
+                "vi": "thay đổi chóng mặt",
+                "def": "(of things) to grow or change very quickly and in a way that cannot easily be controlled",
+                "sets": [],
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "7BB28E",
+                        "text": "The tomatoes in the greenhouse are going crazy."
+                    },
+                    {
+                        "id": "775A03",
+                        "text": "The prices on these antiques have gone crazy."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "nguyenbichnhung46@gmail.com",
+                "lastUpdate": 1719572449589,
+                "entryId": "go crazy.phr",
+                "vocab": "go crazy",
+                "pos": "phr",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+                "pron_us": "/en-US/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            }
+        ],
+        "pron_us": "/en-US/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+        "vocab": "go crazy",
+        "pron_uk": "/en-GB/g/go/gocrazy/017a83f41347284fca9435b7ea6d93e0.mp3",
+        "rank": "",
+        "freq": ""
+    },
+    {
+        "id": "like crazy.idm",
+        "uk": "",
+        "us": "",
+        "pos": "idm",
+        "defs": [
+            {
+                "id": "like crazy.idm.C5A25",
+                "vi": "làm rất nhiều; làm rất nhanh",
+                "def": "if you do something like crazy, you do a lot of it or do it very quickly",
+                "sets": [
+                    {
+                        "id": "S-6520DC43",
+                        "categoryId": "G-97EE8BD4",
+                        "collectionId": "C-026DC714"
+                    }
+                ],
+                "level": "B2",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "9B85F8",
+                        "text": "They were working like crazy to get the job done on time."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "nguyenbichnhung46@gmail.com",
+                "lastUpdate": 1715156384910,
+                "collocations": [],
+                "entryId": "like crazy.idm",
+                "vocab": "like crazy",
+                "pos": "idm",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/l/li/likecrazy/1e04cb08365409f9371467941d19d006.mp3",
+                "pron_us": "/en-US/l/li/likecrazy/1e04cb08365409f9371467941d19d006.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            }
+        ],
+        "pron_uk": "/en-GB/l/li/likecrazy/1e04cb08365409f9371467941d19d006.mp3",
+        "vocab": "like crazy",
+        "pron_us": "/en-US/l/li/likecrazy/1e04cb08365409f9371467941d19d006.mp3",
+        "rank": "",
+        "freq": ""
+    },
+    {
+        "id": "crazy quilt.n",
+        "uk": "/ˈkreɪ.zi kwɪlt/",
+        "us": "/ˈkreɪ.zi kwɪlt/",
+        "pos": "n",
+        "defs": [
+            {
+                "id": "crazy quilt.n.C6F35",
+                "vi": "mảnh vải, chăn sặc sỡ, chắp vá",
+                "def": "a patchwork quilt made from assorted pieces of material of irregular shape, size, and colour",
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "6A6382",
+                        "text": "At the craft fair, the vibrant crazy quilt caught everyone's attention with its intricate and irregular patches, showcasing a blend of textures and colors."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "nguyenbichnhung46@gmail.com",
+                "lastUpdate": 1719409493542,
+                "entryId": "crazy quilt.n",
+                "vocab": "crazy quilt",
+                "pos": "n",
+                "uk": "/ˈkreɪ.zi kwɪlt/",
+                "us": "/ˈkreɪ.zi kwɪlt/",
+                "pron_uk": "/en-GB/c/cr/crazyquilt/52e5278b89af52b324ae4c9d1c2e706e.mp3",
+                "pron_us": "/en-US/c/cr/crazyquilt/52e5278b89af52b324ae4c9d1c2e706e.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            }
+        ],
+        "idioms": [],
+        "phrases": [],
+        "pron_uk": "/en-GB/c/cr/crazyquilt/52e5278b89af52b324ae4c9d1c2e706e.mp3",
+        "updateBy": "nguyenbichnhung46@gmail.com",
+        "lastUpdate": 1719410395912,
+        "verb_phrases": [],
+        "vocab": "crazy quilt",
+        "pron_us": "/en-US/c/cr/crazyquilt/52e5278b89af52b324ae4c9d1c2e706e.mp3",
+        "rank": "",
+        "freq": ""
+    },
+    {
+        "id": "drive someone crazy.idm",
+        "uk": "",
+        "us": "",
+        "pos": "idm",
+        "defs": [
+            {
+                "id": "drive someone crazy.idm.10AC7",
+                "vi": "làm ai đó khó chịu",
+                "def": "to make someone upset or annoyed",
+                "sets": [
+                    {
+                        "id": "S-0D86FB3E",
+                        "categoryId": "G-3816F43E",
+                        "collectionId": "C-7D16ED88"
+                    }
+                ],
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "749FB8",
+                        "text": "We love our two-year-old, but sometimes she drives us crazy."
+                    },
+                    {
+                        "id": "E97869",
+                        "text": "Waiting in long lines at the grocery store can drive people crazy, especially during the holidays."
+                    },
+                    {
+                        "id": "78CD3F",
+                        "text": "The never-ending traffic during rush hour can drive commuters crazy."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "phamthanhlam620@gmail.com",
+                "lastUpdate": 1705728867105,
+                "collocations": [],
+                "entryId": "drive someone crazy.idm",
+                "vocab": "drive someone crazy",
+                "pos": "idm",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/d/dr/drivesomeonecrazy/506af996f99e8b361fae902dd6ddd942.mp3",
+                "pron_us": "/en-US/d/dr/drivesomeonecrazy/506af996f99e8b361fae902dd6ddd942.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            }
+        ],
+        "pron_uk": "/en-GB/d/dr/drivesomeonecrazy/506af996f99e8b361fae902dd6ddd942.mp3",
+        "vocab": "drive someone crazy",
+        "pron_us": "/en-US/d/dr/drivesomeonecrazy/506af996f99e8b361fae902dd6ddd942.mp3",
+        "rank": "",
+        "freq": ""
+    },
+    {
+        "id": "be crazy about someone/something.idm",
+        "uk": "",
+        "us": "",
+        "pos": "idm",
+        "defs": [
+            {
+                "id": "be crazy about someone/something.idm.BA7B3",
+                "vi": "rất thích; rất yêu",
+                "def": "to be very interested in something or love someone very much",
+                "sets": [
+                    {
+                        "id": "S-2AB170D7",
+                        "categoryId": "G-E2F36C24",
+                        "collectionId": "C-AEFFA16A"
+                    },
+                    {
+                        "id": "S-8030DBFA",
+                        "categoryId": "G-E301FC9C",
+                        "collectionId": "C-3AE63E69"
+                    },
+                    {
+                        "id": "S-B38C27DD",
+                        "categoryId": "G-ED95E15C",
+                        "collectionId": "C-DE4B4033"
+                    },
+                    {
+                        "id": "S-E90ACBC5",
+                        "categoryId": "G-ABA0206F",
+                        "collectionId": "C-96A3768C"
+                    },
+                    {
+                        "id": "S-418A49EF",
+                        "categoryId": "G-5AD082D5",
+                        "collectionId": "C-0F62E519"
+                    },
+                    {
+                        "id": "S-7EB7CF76",
+                        "categoryId": "G-94027963",
+                        "collectionId": "C-45099C56"
+                    },
+                    {
+                        "id": "S-06E47FF0",
+                        "categoryId": "G-8F8DFE13",
+                        "collectionId": "C-45099C56"
+                    }
+                ],
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "68B3D2",
+                        "sets": [
+                            {
+                                "c": "C-DE4B4033",
+                                "g": "G-ED95E15C",
+                                "s": "S-B38C27DD"
+                            }
+                        ],
+                        "text": "Both my sons are crazy about football."
+                    },
+                    {
+                        "id": "E57978",
+                        "text": "Lorna is crazy about her boyfriend."
+                    },
+                    {
+                        "id": "CEB073",
+                        "sets": [
+                            {
+                                "c": "C-DE4B4033",
+                                "g": "G-ED95E15C",
+                                "s": "S-B38C27DD"
+                            }
+                        ],
+                        "text": "Janey is crazy about fashion and is always asking her parents for money."
+                    },
+                    {
+                        "id": "E094AD",
+                        "sets": [
+                            {
+                                "c": "C-DE4B4033",
+                                "g": "G-ED95E15C",
+                                "s": "S-B38C27DD"
+                            }
+                        ],
+                        "text": "My cousin is crazy about playing video game."
+                    },
+                    {
+                        "id": "0034B0",
+                        "sets": [
+                            {
+                                "c": "C-3AE63E69",
+                                "g": "G-E301FC9C",
+                                "s": "S-8030DBFA"
+                            }
+                        ],
+                        "text": "She is crazy about reading books in her free time."
+                    },
+                    {
+                        "id": "17462D",
+                        "sets": [
+                            {
+                                "c": "C-3AE63E69",
+                                "g": "G-E301FC9C",
+                                "s": "S-8030DBFA"
+                            }
+                        ],
+                        "text": "He is crazy about playing video games on weekends."
+                    },
+                    {
+                        "id": "FD3F28",
+                        "sets": [
+                            {
+                                "c": "C-3AE63E69",
+                                "g": "G-E301FC9C",
+                                "s": "S-8030DBFA"
+                            }
+                        ],
+                        "text": "They are crazy about gardening and spend hours outside."
+                    },
+                    {
+                        "id": "11427A",
+                        "sets": [
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-94027963",
+                                "s": "S-7EB7CF76"
+                            }
+                        ],
+                        "text": "She is crazy about K-pop and collects posters of her favorite singers."
+                    },
+                    {
+                        "id": "0EF8E4",
+                        "sets": [
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-94027963",
+                                "s": "S-7EB7CF76"
+                            }
+                        ],
+                        "text": "He is crazy about football and watches every match with his friends."
+                    },
+                    {
+                        "id": "BEF31C",
+                        "sets": [
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-94027963",
+                                "s": "S-7EB7CF76"
+                            }
+                        ],
+                        "text": "Many teenagers are crazy about a popular video game that just came out."
+                    },
+                    {
+                        "id": "B20268",
+                        "sets": [
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-9A69F5C0",
+                                "s": "S-05CD0BE8"
+                            },
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-8F8DFE13",
+                                "s": "S-06E47FF0"
+                            }
+                        ],
+                        "text": "I am crazy about visiting waterfalls and beautiful natural places."
+                    },
+                    {
+                        "id": "33E659",
+                        "sets": [
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-9A69F5C0",
+                                "s": "S-05CD0BE8"
+                            },
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-8F8DFE13",
+                                "s": "S-06E47FF0"
+                            }
+                        ],
+                        "text": "She is crazy about taking photos of mountains and forests."
+                    },
+                    {
+                        "id": "F51DE3",
+                        "sets": [
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-9A69F5C0",
+                                "s": "S-05CD0BE8"
+                            },
+                            {
+                                "c": "C-45099C56",
+                                "g": "G-8F8DFE13",
+                                "s": "S-06E47FF0"
+                            }
+                        ],
+                        "text": "Many tourists are crazy about snorkeling in clear blue water."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "phamthanhlam620@gmail.com",
+                "lastUpdate": 1739329189179,
+                "entryId": "be crazy about someone/something.idm",
+                "vocab": "be crazy about someone/something",
+                "pos": "idm",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/b/be/becrazyaboutsomeonesomething/6b83cf97182e11da7101f643231007ac.mp3",
+                "pron_us": "/en-US/b/be/becrazyaboutsomeonesomething/6b83cf97182e11da7101f643231007ac.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            }
+        ],
+        "vocab": "be crazy about someone/something",
+        "pron_uk": "/en-GB/b/be/becrazyaboutsomeonesomething/6b83cf97182e11da7101f643231007ac.mp3",
+        "pron_us": "/en-US/b/be/becrazyaboutsomeonesomething/6b83cf97182e11da7101f643231007ac.mp3",
+        "rank": "",
+        "freq": ""
+    },
+    {
+        "id": "be as crazy/rich/etc. as they come.idm",
+        "uk": "",
+        "us": "",
+        "pos": "idm",
+        "defs": [
+            {
+                "id": "be as crazy/rich/etc. as they come.idm.82031",
+                "vi": "như thế nào",
+                "def": "to be very crazy, rich, etc.",
+                "sets": [
+                    {
+                        "id": "S-38368B64",
+                        "categoryId": "G-4B2D7193",
+                        "collectionId": "C-026DC714"
+                    }
+                ],
+                "level": "",
+                "images": [],
+                "samples": [
+                    {
+                        "id": "77A299",
+                        "text": "He's as rich as they come."
+                    }
+                ],
+                "antonyms": [],
+                "synonyms": [],
+                "updateBy": "nguyenbichnhung46@gmail.com",
+                "lastUpdate": 1715316604699,
+                "collocations": [],
+                "entryId": "be as crazy/rich/etc. as they come.idm",
+                "vocab": "be as crazy/rich/etc. as they come",
+                "pos": "idm",
+                "uk": "",
+                "us": "",
+                "pron_uk": "/en-GB/b/be/beascrazyrichetcastheycome/19f34ba1f5620d9394c99b78ee2c859b.mp3",
+                "pron_us": "/en-US/b/be/beascrazyrichetcastheycome/19f34ba1f5620d9394c99b78ee2c859b.mp3",
+                "idioms": [],
+                "verb_phrases": [],
+                "phrases": [],
+                "rank": "",
+                "freq": ""
+            }
+        ],
+        "pron_uk": "/en-GB/b/be/beascrazyrichetcastheycome/19f34ba1f5620d9394c99b78ee2c859b.mp3",
+        "vocab": "be as crazy/rich/etc. as they come",
+        "pron_us": "/en-US/b/be/beascrazyrichetcastheycome/19f34ba1f5620d9394c99b78ee2c859b.mp3",
+        "rank": "",
+        "freq": ""
+    }
+]

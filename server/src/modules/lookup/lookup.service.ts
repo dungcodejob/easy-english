@@ -111,7 +111,7 @@ export class LookupService {
             senseIndex: s.senseIndex,
             source: s.source,
             shortDefinition: s.shortDefinition,
-            examples: s.examples,
+            // examples: s.examples,
             synonyms: s.synonyms,
             antonyms: s.antonyms,
           });

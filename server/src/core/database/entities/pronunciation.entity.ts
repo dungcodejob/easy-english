@@ -30,9 +30,7 @@ export class PronunciationEntity extends BaseEntity {
   constructor(data: Partial<PronunciationEntity>) {
     super();
     this.id = v7();
-    this.word = data.word!;
-    if (data.ipa) this.ipa = data.ipa;
-    if (data.audioUrl) this.audioUrl = data.audioUrl;
-    if (data.region) this.region = data.region;
+
+    Object.assign(this, data);
   }
 }

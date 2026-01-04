@@ -15,6 +15,7 @@
   "collectCoverageFrom": ["**/*.(t|j)s"],
   "coverageDirectory": "../coverage",
   "moduleNameMapper": {
+    "^@app/request$": "<rootDir>/core/request/index",
     "^@app/configs(.*)$": "<rootDir>/core/configs$1",
     "^@app/entities(.*)$": "<rootDir>/core/database/entities$1",
     "^@app/repositories(.*)$": "<rootDir>/core/database/repositories$1",

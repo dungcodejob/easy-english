@@ -23,9 +23,10 @@ import { Route as DotModulesHomePagesLearnPageRouteImport } from './modules/home
 import { Route as DotModulesHomePagesAddWordPageRouteImport } from './modules/home/pages/add-word-page'
 import { Route as DotModulesHomePagesAchievementsPageRouteImport } from './modules/home/pages/achievements-page'
 import { Route as DotModulesHomePagesHomePageRouteImport } from './modules/home/pages/home-page'
-import { Route as DotModulesTopicPagesTopicDetailPageRouteImport } from './modules/topic/pages/topic-detail-page'
 import { Route as DotModulesWorkspacePagesCreateWorkspacePageRouteImport } from './modules/workspace/pages/create-workspace-page'
+import { Route as DotModulesWordDetailPagesKeywordRouteImport } from './modules/word-detail/pages/$keyword'
 import { Route as DotModulesTopicPagesTopicLayoutRouteImport } from './modules/topic/pages/topic-layout'
+import { Route as DotModulesTopicPagesTopicDetailPageRouteImport } from './modules/topic/pages/topic-detail-page'
 import { Route as DotModulesTopicPagesTopicPageRouteImport } from './modules/topic/pages/topic-page'
 
 const authenticatedRouteImport = createFileRoute('/_(authenticated)/_')()
@@ -103,23 +104,29 @@ const DotModulesHomePagesHomePageRoute =
     path: '/',
     getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
   } as any)
-const DotModulesTopicPagesTopicDetailPageRoute =
-  DotModulesTopicPagesTopicDetailPageRouteImport.update({
-    id: '/topic/$topicId',
-    path: '/topic/$topicId',
-    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
-  } as any)
 const DotModulesWorkspacePagesCreateWorkspacePageRoute =
   DotModulesWorkspacePagesCreateWorkspacePageRouteImport.update({
     id: '/onboarding/workspace',
     path: '/onboarding/workspace',
     getParentRoute: () => DotModulesWorkspacePagesOnboardingLayoutRoute,
   } as any)
+const DotModulesWordDetailPagesKeywordRoute =
+  DotModulesWordDetailPagesKeywordRouteImport.update({
+    id: '/dictionary/$keyword',
+    path: '/dictionary/$keyword',
+    getParentRoute: () => DotModulesShellPagesAuthenticatedLayoutRoute,
+  } as any)
 const DotModulesTopicPagesTopicLayoutRoute =
   DotModulesTopicPagesTopicLayoutRouteImport.update({
     id: '/topic',
     path: '/topic',
     getParentRoute: () => authenticatedRoute,
+  } as any)
+const DotModulesTopicPagesTopicDetailPageRoute =
+  DotModulesTopicPagesTopicDetailPageRouteImport.update({
+    id: '/$topicId',
+    path: '/$topicId',
+    getParentRoute: () => DotModulesTopicPagesTopicLayoutRoute,
   } as any)
 const DotModulesTopicPagesTopicPageRoute =
   DotModulesTopicPagesTopicPageRouteImport.update({
@@ -139,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof DotModulesAuthPagesLoginPageRoute
   '/register': typeof DotModulesAuthPagesRegisterPageRoute
   '/topic': typeof DotModulesTopicPagesTopicLayoutRouteWithChildren
+  '/dictionary/$keyword': typeof DotModulesWordDetailPagesKeywordRoute
   '/onboarding/workspace': typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
   '/topic/': typeof DotModulesTopicPagesTopicPageRoute
   '/topic/$topicId': typeof DotModulesTopicPagesTopicDetailPageRoute
@@ -153,6 +161,7 @@ export interface FileRoutesByTo {
   '/settings': typeof DotModulesHomePagesSettingsPageRoute
   '/login': typeof DotModulesAuthPagesLoginPageRoute
   '/register': typeof DotModulesAuthPagesRegisterPageRoute
+  '/dictionary/$keyword': typeof DotModulesWordDetailPagesKeywordRoute
   '/onboarding/workspace': typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
   '/topic': typeof DotModulesTopicPagesTopicPageRoute
   '/topic/$topicId': typeof DotModulesTopicPagesTopicDetailPageRoute
@@ -173,9 +182,10 @@ export interface FileRoutesById {
   '/_(unauthenticated)/register': typeof DotModulesAuthPagesRegisterPageRoute
   '/_(authenticated)/_': typeof authenticatedRouteWithChildren
   '/_(authenticated)/_/topic': typeof DotModulesTopicPagesTopicLayoutRouteWithChildren
+  '/_(authenticated)/dictionary/$keyword': typeof DotModulesWordDetailPagesKeywordRoute
   '/_(onboarding)/onboarding/workspace': typeof DotModulesWorkspacePagesCreateWorkspacePageRoute
   '/_(authenticated)/_/topic/': typeof DotModulesTopicPagesTopicPageRoute
-  '/_(authenticated)/topic/$topicId': typeof DotModulesTopicPagesTopicDetailPageRoute
+  '/_(authenticated)/_/topic/$topicId': typeof DotModulesTopicPagesTopicDetailPageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/topic'
+    | '/dictionary/$keyword'
     | '/onboarding/workspace'
     | '/topic/'
     | '/topic/$topicId'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/login'
     | '/register'
+    | '/dictionary/$keyword'
     | '/onboarding/workspace'
     | '/topic'
     | '/topic/$topicId'
@@ -223,9 +235,10 @@ export interface FileRouteTypes {
     | '/_(unauthenticated)/register'
     | '/_(authenticated)/_'
     | '/_(authenticated)/_/topic'
+    | '/_(authenticated)/dictionary/$keyword'
     | '/_(onboarding)/onboarding/workspace'
     | '/_(authenticated)/_/topic/'
-    | '/_(authenticated)/topic/$topicId'
+    | '/_(authenticated)/_/topic/$topicId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -327,13 +340,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotModulesHomePagesHomePageRouteImport
       parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
     }
-    '/_(authenticated)/topic/$topicId': {
-      id: '/_(authenticated)/topic/$topicId'
-      path: '/topic/$topicId'
-      fullPath: '/topic/$topicId'
-      preLoaderRoute: typeof DotModulesTopicPagesTopicDetailPageRouteImport
-      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
-    }
     '/_(onboarding)/onboarding/workspace': {
       id: '/_(onboarding)/onboarding/workspace'
       path: '/onboarding/workspace'
@@ -341,12 +347,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotModulesWorkspacePagesCreateWorkspacePageRouteImport
       parentRoute: typeof DotModulesWorkspacePagesOnboardingLayoutRoute
     }
+    '/_(authenticated)/dictionary/$keyword': {
+      id: '/_(authenticated)/dictionary/$keyword'
+      path: '/dictionary/$keyword'
+      fullPath: '/dictionary/$keyword'
+      preLoaderRoute: typeof DotModulesWordDetailPagesKeywordRouteImport
+      parentRoute: typeof DotModulesShellPagesAuthenticatedLayoutRoute
+    }
     '/_(authenticated)/_/topic': {
       id: '/_(authenticated)/_/topic'
       path: '/topic'
       fullPath: '/topic'
       preLoaderRoute: typeof DotModulesTopicPagesTopicLayoutRouteImport
       parentRoute: typeof authenticatedRoute
+    }
+    '/_(authenticated)/_/topic/$topicId': {
+      id: '/_(authenticated)/_/topic/$topicId'
+      path: '/$topicId'
+      fullPath: '/topic/$topicId'
+      preLoaderRoute: typeof DotModulesTopicPagesTopicDetailPageRouteImport
+      parentRoute: typeof DotModulesTopicPagesTopicLayoutRoute
     }
     '/_(authenticated)/_/topic/': {
       id: '/_(authenticated)/_/topic/'
@@ -360,11 +380,14 @@ declare module '@tanstack/react-router' {
 
 interface DotModulesTopicPagesTopicLayoutRouteChildren {
   DotModulesTopicPagesTopicPageRoute: typeof DotModulesTopicPagesTopicPageRoute
+  DotModulesTopicPagesTopicDetailPageRoute: typeof DotModulesTopicPagesTopicDetailPageRoute
 }
 
 const DotModulesTopicPagesTopicLayoutRouteChildren: DotModulesTopicPagesTopicLayoutRouteChildren =
   {
     DotModulesTopicPagesTopicPageRoute: DotModulesTopicPagesTopicPageRoute,
+    DotModulesTopicPagesTopicDetailPageRoute:
+      DotModulesTopicPagesTopicDetailPageRoute,
   }
 
 const DotModulesTopicPagesTopicLayoutRouteWithChildren =
@@ -394,7 +417,7 @@ interface DotModulesShellPagesAuthenticatedLayoutRouteChildren {
   DotModulesHomePagesReviewPageRoute: typeof DotModulesHomePagesReviewPageRoute
   DotModulesHomePagesSettingsPageRoute: typeof DotModulesHomePagesSettingsPageRoute
   authenticatedRoute: typeof authenticatedRouteWithChildren
-  DotModulesTopicPagesTopicDetailPageRoute: typeof DotModulesTopicPagesTopicDetailPageRoute
+  DotModulesWordDetailPagesKeywordRoute: typeof DotModulesWordDetailPagesKeywordRoute
 }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteChildren: DotModulesShellPagesAuthenticatedLayoutRouteChildren =
@@ -408,8 +431,8 @@ const DotModulesShellPagesAuthenticatedLayoutRouteChildren: DotModulesShellPages
     DotModulesHomePagesReviewPageRoute: DotModulesHomePagesReviewPageRoute,
     DotModulesHomePagesSettingsPageRoute: DotModulesHomePagesSettingsPageRoute,
     authenticatedRoute: authenticatedRouteWithChildren,
-    DotModulesTopicPagesTopicDetailPageRoute:
-      DotModulesTopicPagesTopicDetailPageRoute,
+    DotModulesWordDetailPagesKeywordRoute:
+      DotModulesWordDetailPagesKeywordRoute,
   }
 
 const DotModulesShellPagesAuthenticatedLayoutRouteWithChildren =

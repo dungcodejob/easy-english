@@ -1,14 +1,19 @@
 import { WordSenseRepository } from '@app/repositories';
 import {
+  Collection,
   Entity,
   EntityRepositoryType,
   Index,
   JsonType,
+  ManyToMany,
   ManyToOne,
+  OneToMany,
   Property,
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
+import { ExampleEntity } from './example.entity';
+import { VocabSetEntity } from './vocab-set.entity';
 import { WordEntity } from './word.entity';
 
 @Entity({ repository: () => WordSenseRepository })
@@ -27,8 +32,41 @@ export class WordSenseEntity extends BaseEntity {
   @Property({ fieldName: 'short_definition', type: 'text', nullable: true })
   shortDefinition?: string;
 
+  @OneToMany(() => ExampleEntity, (example) => example.sense)
+  exampleEntities = new Collection<ExampleEntity>(this);
+
+  @ManyToMany(() => VocabSetEntity, (set) => set.senses)
+  vocabSets = new Collection<VocabSetEntity>(this);
+
+  @Property({ fieldName: 'external_id', nullable: true })
+  externalId?: string;
+
+  @Property({ fieldName: 'cefr_level', nullable: true })
+  cefrLevel?: string;
+
   @Property({ type: JsonType, nullable: true })
-  examples?: string[] = [];
+  images?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  collocations?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  relatedWords?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  idioms?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  phrases?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  verbPhrases?: string[];
+
+  @Property({ fieldName: 'definition_vi', type: 'text', nullable: true })
+  definitionVi?: string;
+
+  @Property({ nullable: true, fieldName: 'update_by' })
+  updateBy?: string;
 
   @Property({ type: JsonType, nullable: true })
   synonyms?: string[] = [];
@@ -47,15 +85,7 @@ export class WordSenseEntity extends BaseEntity {
   constructor(data: Partial<WordSenseEntity>) {
     super();
     this.id = v7();
-    this.word = data.word!;
-    this.partOfSpeech = data.partOfSpeech!;
-    this.definition = data.definition!;
-    this.senseIndex = data.senseIndex !== undefined ? data.senseIndex : 0;
-    this.source = data.source!;
 
-    if (data.shortDefinition) this.shortDefinition = data.shortDefinition;
-    if (data.examples) this.examples = data.examples;
-    if (data.synonyms) this.synonyms = data.synonyms;
-    if (data.antonyms) this.antonyms = data.antonyms;
+    Object.assign(this, data);
   }
 }

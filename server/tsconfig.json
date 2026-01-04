@@ -57,7 +57,8 @@
       "@app/database/*": ["src/core/database/*"],
       "@app/tenant": ["src/modules/tenant"],
       "@app/tenant/*": ["src/modules/tenant/*"],
-      "@app/request": ["src/core/request"],
+
+      "@app/request": ["src/core/request/index"],
       "@app/request/*": ["src/core/request/*"]
     },
     "incremental": true,

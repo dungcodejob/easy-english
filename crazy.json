@@ -1,0 +1,1735 @@
+{
+    "pageProps": {
+        "_nextI18Next": {
+            "initialI18nStore": {
+                "vi": {
+                    "common": {
+                        "app.title": "Ứng dụng học từ vựng tiếng Anh hiệu quả nhất",
+                        "app.description": "Đọc, học, ôn tập và ghi nhớ tất cả từ vựng một cách lâu dài. Sử dụng thuật toán thông minh, được xây dựng  dựa trên nghiên cứu khoa học về não bộ và ngôn ngữ học, giúp nâng cao hiệu quả tiếp thu gấp 10 lần",
+                        "app.keywords": "từ vựng tiếng anh, app học tiếng anh, cách học tiếng anh hiệu quả, học từ vựng tiếng anh, các từ vựng tiếng anh, từ vựng ielts, ứng dụng học tiếng anh, từ vựng tiếng anh cơ bản, học tiếng anh cho người mới bắt đầu, cách học tiếng anh, cách học từ vựng tiếng anh hiệu quả, app học tiếng anh miễn phí, từ vựng tiếng anh lớp 6, từ vựng ielts theo chủ đề, app học từ vựng tiếng anh, từ mới tiếng anh, phần mềm học tiếng anh miễn phí, từ vựng tiếng anh thông dụng, phần mềm học tiếng anh, học từ vựng tiếng anh mỗi ngày, web học tiếng anh miễn phí, phương pháp học tiêng anh hiệu quả, từ vựng tiếng anh giao tiếp, từ vựng tiếng anh lớp 3, từ vựng tiếng anh lớp 5, từ vựng flyers theo chủ đề, trang web học tiếng anh, từ vựng tiếng anh lớp 7, từ vựng tiếng anh lớp 9, các từ vựng tiếng anh thông dụng, từ vựng tiếng anh lớp 4, cách học từ vựng tiếng anh nhanh thuộc nhớ lâu, web học từ vựng tiếng anh, cách học từ vựng tiếng anh, từ vựng tiếng anh lớp 8, phrasal verbs thông dụng, từ vựng movers, tài liệu học tiếng anh, cách học thuộc từ vựng tiếng anh, idioms thông dụng, từ vựng flyers, từ vựng tiếng anh lớp 12, từ vựng thi thpt quốc gia, app học từ vựng, những từ tiếng anh thông dụng, từ vựng thông dụng tiếng anh, từ vựng tiếng anh lớp 10, cách học từ vựng tiếng anh nhớ lâu, từ vựng tiếng anh cho người mới bắt đầu, tổng hợp từ vựng tiếng anh, những từ vựng tiếng anh thông dụng, sổ tay từ vựng tiếng anh, từ vựng starters, trang web học từ vựng tiếng anh, học từ vựng tiếng anh hiệu quả, bài tập từ vựng tiếng anh, cách ghi nhớ từ vựng tiếng anh, từ vựng ôn thi vào 10, từ vựng tiếng anh lớp 11, từ vựng ket, từ vựng tiếng anh lớp 2 sách mới, cụm động từ thông dụng, từ vựng pet, từ vựng toefl primary step 2, từ vựng toefl theo chủ đề",
+                        "nav.learn": "Ôn tập",
+                        "nav.wordbook": "Sổ từ vựng",
+                        "nav.explore": "Tìm từ mới",
+                        "nav.pricing": "Bảng giá",
+                        "nav.blog": "Tin tức",
+                        "link.learn": "Đi tới trang Học từ",
+                        "link.wordbook": "Đi tới Sổ từ vựng",
+                        "link.signin": "Đăng nhập",
+                        "link.start.now": "Đăng ký",
+                        "link.signin.other": "Đăng nhập bằng tài khoản khác",
+                        "link.home": "Trở về trang chủ",
+                        "link.support": "Liên hệ hỗ trợ",
+                        "error.internal.server": "Lỗi máy chủ Nội bộ, vui lòng thử lại sau.",
+                        "error.notfound.token": "Xin lỗi, chúng tôi không thể tìm thấy yêu cầu đăng ký của bạn.",
+                        "notfound.reset.token": "Xin lỗi, chúng tôi không tìm thấy yêu cầu lấy lại mật khẩu",
+                        "error.invalid.token": "Mã token không hợp lệ",
+                        "error.notfound.email": "Email không tồn tại. Vui lòng đăng ký một tài khoản khác",
+                        "error.create.user": "Khởi tạo tài khoản không thành công",
+                        "error.place.order": "Đặt hàng không thành công, xin hãy thử lại sau",
+                        "error.invalid.order": "Xử lý đơn hàng không thành công, vui lòng liên hệ hỗ trợ",
+                        "error.update.order": "Xử lý đơn hàng không thành công, vui lòng liên hệ hỗ trợ",
+                        "error.verified": "Tài khoản đã được xác minh",
+                        "error.user.unverified": "Email chưa được xác minh.",
+                        "error.user.notfound": "Không tìm thấy tài khoản email của bạn. Vui lòng kiểm tra địa chỉ email chính xác",
+                        "error.token.expired": "Yêu cầu xác minh đã hết hạn.",
+                        "signin.token.expired": "Yêu cầu đăng nhập đã hết hạn.",
+                        "signin.token.notfound": "Không tìm thấy yêu cầu đăng nhập.",
+                        "signin.email.invalid": "Yêu cầu đăng nhập email không hợp lệ",
+                        "error.unauthorized": "Lỗi truy cập hệ thống, xin hãy thử lại sau",
+                        "error.access.denied": "Truy cập bị từ chối",
+                        "http.error.400": "Yêu cầu không hợp lệ",
+                        "error.bad.request": "Thông số yêu cầu không hợp lệ",
+                        "http.error.404": "404 Page Not Found (không thể tìm thấy trang)",
+                        "http.error.403": "Truy cập bị từ chối",
+                        "http.error.401": "Truy cập bị từ chối",
+                        "http.error.500": "Lỗi máy chủ Nội bộ",
+                        "http.error.502": "Lỗi kết nối máy chủ, vui lòng thử lại sau",
+                        "network.error": "Không kết nối được tới máy chủ, vui lòng kiểm tra lại đường truyền internet",
+                        "access.denied.description": "Bạn không có quyền truy cập trang này",
+                        "error.notfound.group": "Không tìm thấy nhóm.",
+                        "error.invalid.discount": "Mã không hợp lệ",
+                        "error.discount.expired": "Mã hết thời gian áp dụng",
+                        "error.discount.limit": "Mã đã dùng hết số lượng",
+                        "error.discount.account": "Mã giảm giá đã sử dụng",
+                        "unknown.description": "Đã có lỗi xảy ra.",
+                        "OAuthAccountNotLinked": "Tài khoản xác minh không hợp lệ",
+                        "OAuthCallback": "Xác minh không khả dụng",
+                        "nav.profile": "Hồ sơ",
+                        "nav.dashboard": "Dashboard",
+                        "nav.report": "Báo cáo",
+                        "nav.setting": "Cài đặt",
+                        "nav.signout": "Đăng xuất",
+                        "search.notfound": "Không tìm thấy từ vựng",
+                        "add.wordbook.title": "Từ vựng mới",
+                        "add.wordbook.desc": "Vui lòng điền thông tin để bổ sung từ vựng mới của bạn.",
+                        "dictionary.examples": "Ví dụ",
+                        "dictionary.synonyms": "Từ đồng nghĩa",
+                        "dictionary.antonyms": "Từ trái nghĩa",
+                        "dictionary.related.words": "Từ/cụm từ liên quan",
+                        "dictionary.other.definitions": "Các nghĩa khác",
+                        "dictionary.idioms": "Thành ngữ",
+                        "dictionary.verb.phrases": "Cụm động từ",
+                        "dictionary.phrases": "Cụm từ",
+                        "button.add.wordbook": "Sổ từ vựng",
+                        "button.learn.word": "Học từ này",
+                        "button.showmore": "Xem thêm",
+                        "button.showless": "Ẩn bớt",
+                        "button.read.more": "Xem chi tiết",
+                        "button.save": "Lưu",
+                        "button.delete": "Xóa",
+                        "button.remove": "Xóa",
+                        "button.cancel": "Hủy bỏ",
+                        "button.change": "Thay đổi",
+                        "button.yes": "Có",
+                        "button.no": "Không",
+                        "button.close": "Đóng",
+                        "button.choose.by.set": "Phân loại theo Set",
+                        "button.choose.by.category": "Phân loại theo Category",
+                        "button.known": "Đã biết",
+                        "button.pdf": "Tạo PDF",
+                        "display.flashcard": "Hiển thị Flashcard",
+                        "current.definition": "Định nghĩa {{index}}",
+                        "show.flashcard": "Hiển thị Flashcard",
+                        "button.flip.card": "Lật thẻ",
+                        "card.status": "Thẻ {{status}}",
+                        "card.front": "Mặt trước",
+                        "card.back": "Mặt sau",
+                        "card.setting.word": "Từ",
+                        "card.setting.def": "Nghĩa Tiếng Anh",
+                        "card.setting.image": "Hình ảnh",
+                        "card.setting.example": "Ví dụ",
+                        "update.def.success": "Cập nhật từ vựng thành công",
+                        "update.def.failed": "Cập nhật từ vựng thất bại",
+                        "update.lemma.success": "Cập nhật lemma thành công",
+                        "update.lemma.failed": "Cập nhật lemma thất bại",
+                        "update.vocab.success": "Cập nhật từ vựng thành công",
+                        "update.vocab.failed": "Cập nhật từ vựng thất bại",
+                        "add.vocab.success": "Thêm từ vựng thành công",
+                        "add.def.success": "Thêm nét nghĩa thành công",
+                        "add.vocab.failed": "Thêm từ vựng thất bại",
+                        "add.def.failed": "Thêm nét nghĩa thất bại",
+                        "edit.def.title": "Chỉnh sửa từ vựng",
+                        "edit.def.desc": "Tùy chọn việc chỉnh sửa từ vựng",
+                        "edit.vocab": "Từ/Cụm từ",
+                        "edit.user.set": "Thêm vào danh sách",
+                        "edit.auto.set": "Luôn thêm vào danh sách này",
+                        "edit.uk": "Phiên âm anh Anh",
+                        "edit.us": "Phiên âm anh Mỹ",
+                        "edit.pron.uk": "URL âm thanh anh Anh",
+                        "edit.pron.us": "URL âm thanh anh Mỹ",
+                        "edit.idiom": "Thành ngữ",
+                        "edit.phrase": "Cụm từ",
+                        "edit.verb.phrase": "Cụm động từ",
+                        "edit.pos": "Từ loại",
+                        "edit.def": "Nghĩa Tiếng Anh",
+                        "edit.vi": "Nghĩa Tiếng Việt",
+                        "edit.example": "Ví dụ",
+                        "edit.example.desc": "Viết một ví dụ trên mỗi dòng",
+                        "edit.image": "Hình ảnh",
+                        "edit.synonym": "Từ đồng nghĩa",
+                        "edit.antonym": "Từ trái nghĩa",
+                        "edit.level": "CEFR level",
+                        "error.vocab": "Vui lòng nhập từ vựng",
+                        "error.same.vocab": "Không thể đổi thành từ vựng khác",
+                        "error.uk": "Vui lòng nhập British pronunciation",
+                        "error.us": "Vui lòng nhập American pronunciation",
+                        "error.pos": "Vui lòng nhập Từ loại",
+                        "error.idioms": "Vui lòng nhập thành ngữ",
+                        "error.phrase": "Vui lòng nhập cụm từ",
+                        "error.verb.phrase": "Vui lòng nhập cụm động từ",
+                        "error.def": "Vui lòng nhập Nghĩa Tiếng Anh",
+                        "error.user.set": "Vui lòng chọn danh sách",
+                        "error.exp.required": "Vui lòng nhập Ví dụ",
+                        "error.exp.vocab": "Ví dụ phải chứa từ/cụm từ <{{vocab}}>",
+                        "error.exp.dup": "Ví dụ này đã tồn tại",
+                        "error.notfound.def": "Không tìm thấy nghĩa từ vựng",
+                        "error.notfound.order": "Không tìm thấy đơn hàng",
+                        "error.order.completed": "Đơn hàng này đã được activate",
+                        "checkout.title": "Đặt đơn hàng",
+                        "checkout.infor": "Thông tin đặt hàng",
+                        "payment.bank": "Chuyển khoản ngân hàng",
+                        "payment.paypal": "Paypal",
+                        "payment.jetpay": "JETPAY",
+                        "payment.vnpay": "VNPAY",
+                        "trans.success": "Giao dịch thành công",
+                        "trans.cancel": "Giao dịch đã bị hủy",
+                        "trans.error": "Giao dịch thất bại",
+                        "explore.sections_one": "{{count}} Section",
+                        "explore.sections_other": "{{count}} Sections",
+                        "explore.lists_one": "{{count}} List",
+                        "explore.lists_other": "{{count}} Lists",
+                        "explore.words_one": "{{count}} Từ",
+                        "explore.words_other": "{{count}} Từ",
+                        "explore.all.collections": "All collections",
+                        "label.about.collection": "Về Collection này",
+                        "label.vocab.in.col": "DANH SÁCH TỪ VỰNG TRONG SECTION NÀY",
+                        "label.show.detail": "Hiển thị chi tiết",
+                        "label.section.words_one": "{{count}} từ",
+                        "label.section.words_other": "{{count}} từ",
+                        "title.comeback": "Chào mừng bạn đến azVocab!",
+                        "title.signin": "Đăng nhập hệ thống",
+                        "title.sign.out": "Bạn muốn đăng xuất khỏi hệ thống?",
+                        "label.signin.desc": "Đăng nhập bằng tài khoản và mật khẩu",
+                        "signin.description": "Bạn cần đăng nhập vào azVocab để sử dụng tính năng này.",
+                        "quiz.signin.title": "Bạn hãy đăng nhập để tham gia đấu trường",
+                        "title.forgot.password": "Quên mật khẩu",
+                        "label.reset.desc": "Nhập mật khẩu mới",
+                        "title.delete.account": "Xóa tài khoản",
+                        "delete.account.desc": "Xóa toàn bộ thông tin về tài khoản và dữ liệu của bạn khỏi hệ thống azVocab.",
+                        "label.confirm.delete": "Nhập CONFIRM để xác nhận xóa tài khoản",
+                        "button.delete.account": "Xóa tài khoản",
+                        "account.deleted": "Tài khoản của bạn đã được xóa thành công.",
+                        "title.sign.up": "Đăng ký",
+                        "title.verify.email": "Hãy kiểm tra hộp thư của bạn",
+                        "title.reset.password": "Đặt lại mật khẩu",
+                        "title.verifying": "Xác minh tài khoản",
+                        "label.verifying.desc": "Tài khoản đang được kích hoạt...",
+                        "title.update.account": "Cập nhật thông tin tài khoản",
+                        "label.update.desc": "Vui lòng cung cấp thêm thông tin để chúng tôi có thể cải thiện trải nghiệm của bạn.",
+                        "label.verifying": "Tài khoản đang được xác minh: ",
+                        "label.wait": "Vui lòng  đợi ...",
+                        "label.verify.success": "Xác minh thành công, đang chuyển hướng ...",
+                        "label.verify.failed": "Xác minh thất bại!",
+                        "label.sent.acc": "azVocab đã gửi thông tin tài khoản (username, password) đến email",
+                        "label.check.acc": "Bạn hãy kiểm tra email (cả mục Spam) để lấy thông tin đăng nhập và bắt đầu học từ nhé.",
+                        "label.we.sent": "Chúng tôi đã gửi Email tới ",
+                        "label.check.email": "Để tiếp tục, vui lòng kiểm tra email và xác minh tài khoản.",
+                        "label.signup.desc": "Tạo tài khoản và bắt đầu dùng thử miễn phí.",
+                        "label.your.name": "Họ và tên",
+                        "label.your.email": "Địa chỉ email",
+                        "label.create.password": "Tạo mật khẩu",
+                        "label.forgot.desc": "Nhập địa chỉ email để lấy lại mật khẩu",
+                        "label.email": "Email",
+                        "label.password": "Mật khẩu",
+                        "label.new.password": "Mật khẩu mới",
+                        "label.repassword": "Nhập lại mật khẩu",
+                        "label.remember": "Duy trì đăng nhập",
+                        "label.motherTonge": "Ngôn ngữ của bạn",
+                        "label.forgot.password": "Quên mật khẩu?",
+                        "button.signin": "Đăng nhập",
+                        "button.signout": "Đăng xuất",
+                        "button.signup": "Tiếp tục",
+                        "button.retrieve": "Lấy lại mật khẩu",
+                        "button.reset.password": "Đặt lại mật khẩu",
+                        "label.or": "Hoặc",
+                        "label.signin.page": "Trở về trang đăng nhập",
+                        "label.signin.facebook": "Đăng nhập bằng Facebook",
+                        "label.signin.gmail": "Đăng nhập bằng Gmail",
+                        "label.no.account": "Bạn chưa có tài khoản?",
+                        "label.has.account": "Bạn đã có tài khoản?",
+                        "label.no.email": "Bạn chưa nhận được Email?",
+                        "label.resend.email": "Gửi lại Email",
+                        "label.sign.up": "Đăng ký tại đây",
+                        "button.playnow": "Bắt đầu học",
+                        "label.sign.in": "Đăng nhập",
+                        "signin.azv.slogan": "Cùng học từ vựng tiếng Anh một cách thông minh. Đọc, học, ôn tập và ghi nhớ tất cả một cách lâu dài",
+                        "label.acc.sent": "Chúng tôi đã gửi cho bạn email thông tin đăng nhập",
+                        "label.email.sent": "Chúng tôi đã gửi cho bạn một email xác thực.",
+                        "label.email.unsent": "Chúng tôi không thể gửi email cho bạn.",
+                        "error.email.require": "Vui lòng nhập địa chỉ Email",
+                        "error.email.pattern": "Địa chỉ email không hợp lệ",
+                        "error.password": "Vui lòng nhập mật khẩu",
+                        "error.motherTonge": "Vui lòng chọn ngôn ngữ của bạn",
+                        "error.signin.invalid": "Email hoặc mật khẩu không hợp lệ!",
+                        "error.signin.nopass": "Không thể đăng nhập. Vui lòng liên hệ bộ phận hỗ trợ.",
+                        "error.account.existed": "Tài khoản đã tồn tại",
+                        "error.sign.up": "Lập tài khoản mới không thành công. Vui lòng thử lại sau",
+                        "error.reset.password": "Đặt lại mật khẩu không thành công. Vui lòng thử lại sau",
+                        "error.repassword": "Mật khẩu không khớp",
+                        "error.invalid.request": "Yêu cầu không hợp lệ",
+                        "learn.new.words": "Tìm từ mới",
+                        "pricing.plan.notfound": "Không tìm thấy gói",
+                        "plan.notfound.desc": "Xin lỗi, chúng tôi không tìm thấy gói bạn yêu cầu",
+                        "link.all.plans": "Xem tất cả các gói",
+                        "label.discount.code": "Mã giảm giá",
+                        "label.add.discount": "Thêm mã giảm giá",
+                        "label.ref.code": "Mã giới thiệu",
+                        "label.add.ref": "Thêm mã giới thiệu",
+                        "button.apply.discount": "Áp dụng",
+                        "label.subtotal": "Thành tiền",
+                        "label.discount": "Giảm giá",
+                        "label.taxes": "Thuế",
+                        "label.total": "Tổng thanh toán",
+                        "label.contact.info": "Thông tin liên hệ",
+                        "label.fullname": "Họ và tên",
+                        "label.phone": "Số điện thoại",
+                        "label.buy.for.child": "Mua cho con",
+                        "label.buy.for.self": "Mua cho bản thân",
+                        "label.child.info": "Thông tin của con",
+                        "label.child.fullname": "Họ và tên con",
+                        "label.yob": "Năm sinh",
+                        "label.payment.method": "Phương thức thanh toán",
+                        "error.child.yob.require": "Vui lòng điền năm sinh của con",
+                        "error.yob.require": "Vui lòng điền năm sinh của bạn",
+                        "error.year": "Vui lòng điền đúng định dạng năm sinh",
+                        "error.child.name.require": "Vui lòng điền họ tên của con",
+                        "error.invalid.phone": "Vui lòng nhập số điện thoại hợp lệ",
+                        "error.invalid.email": "Vui lòng điền địa chỉ email hợp lệ",
+                        "error.name.require": "Vui lòng điền họ và tên",
+                        "ph.phone": "Nhập số điện thoại",
+                        "error.phone.require": "Vui lòng nhập số điện thoại",
+                        "button.processing": "Đang xử lý",
+                        "button.continue": "Tiếp tục",
+                        "ph.search.dict": "Tra từ ...",
+                        "mobile.search.dict": "Tra từ...",
+                        "payment.complete.title": "Cảm ơn bạn!",
+                        "payment.otw": "Đơn hàng của bạn đã được kích hoạt thành công!",
+                        "payment.complete.desc": "Đơn hàng của bạn đã được xử lý, vui lòng chờ trong giây lát để chúng tôi kích hoạt gói sản phẩm cho bạn.",
+                        "payment.complete.signin": "Đơn hàng của bạn đã được xử lý, vui lòng đăng nhập để sử dụng gói dịch vụ của bạn",
+                        "order.completed": "Thanh toán thành công",
+                        "label.contact.us": "CÔNG TY CỔ PHẦN PHẦN MỀM CTH",
+                        "label.add": "Số 16, ngõ 12 Khuất Duy Tiến, quận Thanh Xuân, thành phố Hà Nội",
+                        "label.add.mail": "Email: azvocab@cth.edu.vn ",
+                        "label.add.hotline": "Hotline: 0888 600 284",
+                        "label.add.erc": "Giấy chứng nhận ĐKKD số 0110396298 ngày 22/6/2023",
+                        "label.add.erc2": "Nơi cấp: Sở KH-ĐT TP. Hà Nội",
+                        "label.follow": "THEO DÕI: ",
+                        "label.support": "HỖ TRỢ",
+                        "label.company": "CÔNG TY",
+                        "label.legal": "CHÍNH SÁCH",
+                        "nav.footer.pricing": "Bảng giá",
+                        "footer.pricing.link": "/pricing",
+                        "nav.footer.docs": "Tài liệu tham khảo",
+                        "footer.docs.link": "#",
+                        "nav.footer.payment": "Hướng dẫn thanh toán",
+                        "footer.payment.link": " https://blog.azvocab.ai/huong-dan-thanh-toan",
+                        "nav.footer.faq": "Câu hỏi thường gặp",
+                        "footer.faq.link": "https://blog.azvocab.ai/category/faq-vi/",
+                        "nav.footer.guides": "Tài liệu hướng dẫn",
+                        "footer.guides.link": "https://blog.azvocab.ai/category/huong-dan-su-dung/",
+                        "nav.footer.about": "Về chúng tôi",
+                        "footer.about.link": "#",
+                        "nav.footer.blog": "Tin tức",
+                        "footer.blog.link": "https://blog.azvocab.ai",
+                        "nav.footer.partner": "Đối tác",
+                        "footer.partner.link": "#",
+                        "nav.footer.contact": "Phương thức giao hàng và Chính sách hoàn trả",
+                        "footer.contact.link": "https://blog.azvocab.ai/chinh-sach-doi-tra",
+                        "nav.footer.privacy": "Chính sách bảo mật",
+                        "footer.privacy.link": "https://blog.azvocab.ai/chinh-sach-bao-mat",
+                        "nav.footer.term": "Điều khoản, điều kiện cung cấp dịch vụ",
+                        "footer.term.link": "https://blog.azvocab.ai/dieu-khoan-dieu-kien-cung-cap-dich-vu/",
+                        "vocabset.nofree.text": "Tài khoản của bạn chỉ học được các list từ free, hãy nâng cấp gói để mở khóa các list từ pro nhé",
+                        "wordbook.limit.text": "Tài khoản của bạn chỉ thêm được tối đa ({{count}}) từ trong sổ, hãy nâng cấp gói để thêm từ vào sổ không giới hạn nhé.",
+                        "daily.limit.text": "Tài khoản của bạn chỉ được học tối đa ({{count}}) từ mỗi ngày, hãy nâng cấp gói để học từ không giới hạn nhé.",
+                        "disable.question.text": "Tài khoản của bạn không được học các loại câu hỏi này, hãy nâng cấp gói để học không giới hạn nhé",
+                        "disable.ads.text": "Hãy nâng cấp gói để tắt quảng cáo nhé",
+                        "create.vocabset.text": "Tài khoản của bạn không tạo được list từ vựng, hãy nâng cấp gói để để sử dụng được chức năng này nhé",
+                        "share.vocabset.text": "Tài khoản của bạn không chia sẻ được list từ vựng, hãy nâng cấp gói để để sử dụng được chức năng này nhé",
+                        "embed.vocabset.text": "Tài khoản của bạn không thực hiện được chức năng nhúng list từ vào trang web, hãy nâng cấp gói để sử dụng được chức năng này nhé",
+                        "enable.game.text": "Tài khoản của bạn không thiết lập được câu hỏi dạng game, hãy nâng cấp gói để sử dụng được chức năng này nhé",
+                        "enable.quiz.text": "Tài khoản của bạn không mở được đấu trường, hãy nâng cấp gói để sử dụng được chức năng này nhé",
+                        "enable.pdf.text": "Tài khoản của bạn không tạo được PDF, hãy nâng cấp gói để sử dụng được chức năng này nhé",
+                        "graphic.organizer.text": "Tài khoản của bạn không chọn được hiển thị thông tin từ vựng theo dạng graphic organizer, hãy nâng cấp gói để sử dụng được chức năng này nhé",
+                        "prefer.setting.text": "Tài khoản của bạn không thiết lập được loại câu hỏi không muốn học, hãy nâng cấp gói để thực hiện chức năng này nhé",
+                        "button.buy.vocabset": "Nâng cấp",
+                        "error.activate.plan": "Kích hoạt gói không thành công, xin vui lòng thử lại sau",
+                        "tooltip.explore.play": "Học list từ",
+                        "tooltip.explore.quiz": "Mở đấu trường",
+                        "tooltip.explore.flashcard": "Xem flashcard",
+                        "tooltip.explore.embed": "Nhúng",
+                        "pricing.plan.inactive": "Gói hết hiệu lực",
+                        "plan.inactive.desc": "Xin lỗi, gói giá này không còn hiệu lực",
+                        "plan.noLanguages.desc": "Xin lỗi, gói này hiện tại không có hiệu lực",
+                        "pricing.plan.expired": "Gói hết hạn",
+                        "plan.expired.desc": "Xin lỗi, gói giá này đã hết hạn thời gian mua",
+                        "error.add.wordbook.entry": "Lỗi không thêm được từ vào sổ {{message}}",
+                        "error.add.wordbook.def": "Lỗi không thêm được nghĩa vào sổ {{message}}",
+                        "add.vocabset.words": "Thêm {{count}}/{{total}} từ vào sổ",
+                        "add.vocabset": "Thêm vào sổ từ",
+                        "label.review.today": "hôm nay",
+                        "label.review.tomorrow": "ngày mai",
+                        "label.review.hours": "{{count}} giờ",
+                        "label.review.days": "{{count}} ngày",
+                        "label.review.weeks": "{{count}} tuần",
+                        "label.review.nextweek": "tuần sau",
+                        "label.review.nextmonth": "tháng sau",
+                        "label.review.months": "{{count}} tháng",
+                        "label.review.years": "{{count}} năm",
+                        "label.review.never": "không bao giờ",
+                        "label.review.pending": "tạm dừng học",
+                        "profile.general": "Học viên",
+                        "profile.security": "Đổi mật khẩu",
+                        "profile.notification": "Thông báo",
+                        "profile.plan": "Gói đã mua",
+                        "profile.settings": "Cài đặt",
+                        "profile.detail": "Thông tin kỹ thuật",
+                        "button.update": "Thay đổi",
+                        "profile.heading": "Học viên",
+                        "learn.heading": "Ôn tập",
+                        "wordbook.heading": "Sổ từ vựng",
+                        "wordbook.desc": " ",
+                        "profile.desc": "Thông tin học viên của bạn hoàn toàn bảo mật, người khác chỉ có thể nhìn thấy nickname và ảnh đại diện của bạn",
+                        "learn.desc": "Tùy chỉnh cách hệ thống đưa ra các câu hỏi theo nhu cầu học tập của bạn",
+                        "button.change.avatar": "Đổi ảnh đại diện",
+                        "avatar.desc": "JPG, GIF hoặc PNG. Tối đa 1MB.",
+                        "nickname.label": "Biệt danh",
+                        "fullname.label": "Họ và tên",
+                        "email.label": "Địa chỉ email",
+                        "yob.label": "Năm sinh",
+                        "child.name.label": "Họ tên con",
+                        "child.yob.label": "Năm sinh của con",
+                        "interest.collection.notify.success": "Cập nhật bộ sưu tập bạn quan tâm thành công",
+                        "update.interest.failed": "Cập nhật bộ sưu tập không thành công",
+                        "interest.collection.limit": "Bạn chỉ có thể chọn tối đa 6 bộ sưu tập",
+                        "suggest.suggest": "Từ bạn nên học",
+                        "suggest.refresh": "Xem thêm các từ khác",
+                        "wordbyrank.wordbyrank": "Vốn từ của tôi",
+                        "wordbyrank.desc": "Mỗi ô dưới đây tương ứng với 100 từ, sắp xếp theo mức độ phổ biến.",
+                        "wordbyrank.desc.alt": "Mỗi ô tương ứng 100 từ, xếp theo độ phổ biến.",
+                        "wordbyrank.rank": "Từ",
+                        "wordbyrank.word": "từ",
+                        "wordbyrank.known": "Biết sẵn",
+                        "wordbyrank.mastered": "Đã thạo với azVocab",
+                        "wordbyrank.learn": "Đang học",
+                        "wordbyrank.total": "Tổng cộng trên azVocab",
+                        "wordbyrank.top": "Top",
+                        "wordbyrank.words": "từ phổ biến",
+                        "word.known": "từ biết sẵn",
+                        "word.complete": "từ đã thạo qua azVocab",
+                        "word.incomplete": "từ đang học",
+                        "word.total": "tổng từ trên azVocab",
+                        "word.complete.short": "từ đã thạo",
+                        "word.incomplete.short": "từ đang học",
+                        "advance.heading": "Cài đặt khác",
+                        "advance.desc": "Cài đặt các thông số về ngôn ngữ, giọng phát âm tiếng Anh theo nhu cầu của bạn",
+                        "mother.tonge": "Ngôn ngữ mẹ đẻ",
+                        "progress": "Tiến độ học (%)",
+                        "num.word": "Số từ vựng",
+                        "language.label": "Ngôn ngữ hiển thị",
+                        "pron.label": "Giọng phát âm",
+                        "pron.uk.label": "Anh Anh",
+                        "pron.us.label": "Anh Mỹ",
+                        "change.pass.heading": "Đổi mật khẩu",
+                        "change.pass.desc": "Thay đổi mật khẩu đăng nhập hệ thống",
+                        "current.pass.label": "Mật khẩu hiện tại",
+                        "new.pass.label": "Mật khẩu mới",
+                        "confirm.pass.label": "Xác nhận mật khẩu mới",
+                        "button.change.pass": "Thay đổi",
+                        "error.new.pass": "Vui lòng nhập mật khẩu mới",
+                        "error.current.pass": "Vui lòng nhập mật khẩu hiện tại",
+                        "error.invalid.pass": "Mật khẩu hiện tại không chính xác",
+                        "error.invalid.image": "Lỗi xử lý ảnh, vui lòng kiểm file",
+                        "error.update.profile": "Lỗi không cập nhật được thông tin",
+                        "error.field.require": "Vui lòng nhập thông tin",
+                        "show.edit.label": "Luôn MỞ NGAY form edit sau khi add từ vào sổ từ vựng",
+                        "show.edit.desc": "Lựa chọn option này nếu bạn luôn muốn sửa từ (thêm ví dụ, thay đổi nghĩa...) sau khi add vào sổ, khi đó form edit sẽ luôn mở ra để bạn tiện edit từ",
+                        "change.pass.success": "Thay đổi mật khẩu thành công",
+                        "plan.heading": "Các gói đã mua",
+                        "plan.name": "Tên gói",
+                        "plan.duration": "Thời hạn",
+                        "plan.start.date": "Ngày kích hoạt",
+                        "plan.expire.date": "Ngày hết hạn",
+                        "plan.status": "Trạng thái",
+                        "plan.renew.button": "Gia hạn",
+                        "plan.status.active": "Còn hạn",
+                        "plan.status.expired": "Hết hạn",
+                        "Year": "{{count}} năm",
+                        "Month": "{{count}} tháng",
+                        "Day": "{{count}} ngày",
+                        "missing.question.label": "Câu hỏi điền ký tự thiếu",
+                        "unscramble.question.label": "Câu hỏi sắp xếp lại ký tự",
+                        "type.question.label": "Câu hỏi viết ký tự",
+                        "sample.question.label": "Câu hỏi liên quan đến câu ví dụ",
+                        "term.agree.label": "Tôi đồng ý với ",
+                        "label.and": " và ",
+                        "no.prefer.questions": "Tôi không muốn học các loại câu hỏi này",
+                        "no.prefer.questions.desc": "Nếu bạn chọn không muốn học loại câu nào, hệ thống sẽ không hiển thị loại câu hỏi đó trong quá trình bạn học từ. Lưu ý là khi bỏ một số loại câu hỏi, bạn sẽ không nắm được đầy đủ các khía cạnh về hình thái, ngữ nghĩa, ngữ pháp trong việc học từ.",
+                        "display.while.learning": "Hiển thị nghĩa trong khi học",
+                        "display.while.learning.desc": "azVocab cho bạn lựa chọn nghĩa hiển thị (Tiếng Anh, Tiếng mẹ đẻ, hoặc cả hai) trong các câu hỏi liên quan đến nghĩa của từ khi bạn học từ",
+                        "english.mother": "Tiếng Anh và tiếng mẹ đẻ",
+                        "english.only": "Chỉ hiển thị tiếng Anh",
+                        "mother.only": "Chỉ hiển thị tiếng mẹ đẻ",
+                        "game.question.label": "Hiển thị câu hỏi dạng trò chơi",
+                        "game.question.desc": "Một số câu hỏi sẽ được hiển thị dạng trò chơi, phù hợp với người dùng ở lứa tuổi nhỏ",
+                        "learn.flow.label": "Chọn lộ trình học",
+                        "learn.flow.desc": "Việc chọn lộ trình học sẽ ảnh hưởng đến thứ tự và loại câu hỏi mà hệ thống đưa ra khi học từ. Ngoài ra, khi chọn lộ trình của trẻ em, các câu hỏi sẽ có thêm ảnh/audio để trẻ dễ học hơn.",
+                        "flow.adult": "Người lớn - Đầy đủ",
+                        "flow.children": "Trẻ em",
+                        "pron.desc": "Lựa chọn giọng phát âm bạn ưu tiên hơn",
+                        "language.desc": "Ngôn ngữ hiển thị trên giao diện",
+                        "mother.tonge.desc": "Với mỗi từ vựng, ngoài nghĩa Tiếng Anh, azVocab sẽ hiển thị thêm nghĩa tiếng mẹ đẻ của bạn",
+                        "no.plans": "Bạn chưa mua gói nào",
+                        "embed.title": "Nhúng lên trang web",
+                        "embed.setting": "Kiểu nhúng",
+                        "embed.preview": "Xem trước",
+                        "embed.code": "Mã nhúng",
+                        "embed.copy": "Sao chép mã nhúng thành công!",
+                        "embed.condition.login": "Chỉ user PRO mới sử dụng được chức năng này, bạn hãy đăng nhập để tiếp tục sử dụng nhé",
+                        "embed.condition.upgrade": "Chỉ user PRO mới sử dụng được chức năng này, bạn hãy nâng cấp gói để tiếp tục sử dụng nhé",
+                        "embed.width": "Chiều rộng",
+                        "embed.height": "Chiều cao",
+                        "embed.cardHeight": "Chiều cao thẻ",
+                        "embed.fontside": "Mặt trước",
+                        "embed.backside": "Mặt sau",
+                        "embed.tableSetting": "Chọn thông tin để hiển thị",
+                        "embed.showItems": "Hiển thị các mục này",
+                        "embed.tableType": "Loại bảng",
+                        "embed.simpleTable": "Bảng đơn giản",
+                        "embed.complexTable": "Bảng phức tạp",
+                        "embed.list": "Danh sách",
+                        "embed.flashcard": "Thẻ thông tin",
+                        "embed.table": "Bảng",
+                        "embed.play": "Học từ",
+                        "embed.graphicOrganizer1": "Graphic Organizer",
+                        "embed.graphicOrganizer2": "Đồ họa 2",
+                        "embed.transparent": "Trong suốt",
+                        "embed.hasBackground": "Có màu nền",
+                        "embed.background": "Màu nền",
+                        "embed.add": "Thêm",
+                        "embed.delete": "Xóa",
+                        "embed.images": "Ảnh",
+                        "embed.vocab": "Từ",
+                        "embed.audio": "Âm thanh",
+                        "embed.ipa": "Phiên âm",
+                        "embed.uk": "Phiên âm",
+                        "embed.def": "Định nghĩa",
+                        "embed.vi": "Tiếng Việt",
+                        "embed.ex": "Ví dụ",
+                        "embed.examples": "Ví dụ",
+                        "embed.synonyms": "Từ đồng nghĩa",
+                        "embed.antonyms": "Từ trái nghĩa",
+                        "embed.action": "Hành động",
+                        "embed.highlight": "Nổi bật",
+                        "embed.fontSize": "Cỡ chữ",
+                        "embed.dimensions": "Kích thước",
+                        "embed.accent": "Giọng đọc",
+                        "embed.BrE": "Anh-Anh",
+                        "embed.AE": "Anh-Mỹ",
+                        "embed.clear": "Xóa hết",
+                        "embed.cfg.exp": "Chọn ví dụ",
+                        "no.collection": "Không tìm thấy bộ sưu tập này",
+                        "no.collection.desc": "Xin lỗi, chúng tôi không tìm thấy bộ sưu tập bạn yêu cầu",
+                        "no.vocabset": "Không tìm thấy danh sách từ",
+                        "no.vocabset.desc": "Xin lỗi, chúng tôi không tìm thấy danh sách từ bạn yêu cầu",
+                        "no.embed": "Không tìm thấy nội dung",
+                        "no.embed.desc": "Xin lỗi, dữ liệu không tồn tại",
+                        "setDetail.learn": "Học",
+                        "setDetail.flashcard": "Flashcard",
+                        "setDetail.quiz": "Đấu trường",
+                        "setDetail.share": "Chia sẻ",
+                        "leaderboard.myLearning": "Cần ôn luyện",
+                        "leaderboard.leaderboard": "Bảng xếp hạng",
+                        "leaderboard.youHave": "Bạn đang có",
+                        "leaderboard.wordsToReview": "từ cần ôn luyện!",
+                        "leaderboard.needPractice": "Bạn đang có {{words}} từ cần ôn luyện!",
+                        "leaderboard.reviewNow": "Ôn ngay",
+                        "leaderboard.myProgress": "Tiến độ học",
+                        "leaderboard.thisWeek": "tuần này",
+                        "leaderboard.thisMonth": "tháng này",
+                        "leaderboard.thisQuarter": "quý này",
+                        "leaderboard.thisYear": "năm nay",
+                        "leaderboard.week": "tuần này",
+                        "leaderboard.month": "tháng này",
+                        "leaderboard.quarter": "quý này",
+                        "leaderboard.year": "năm nay",
+                        "leaderboard.lastYear": "năm trước",
+                        "leaderboard.yearCount": "năm {{count}}",
+                        "leaderboard.last7Days": "7 ngày gần đây",
+                        "leaderboard.last30Days": "30 ngày gần đây",
+                        "leaderboard.lastMonth": "tháng trước",
+                        "leaderboard.practiced": "Đã dành",
+                        "leaderboard.addWord": "Đã thêm mới",
+                        "leaderboard.numberWordsLearned": "Số từ đã học",
+                        "leaderboard.timeLearned": "Thời gian đã học",
+                        "leaderboard.progressChart": "Biểu đồ tiến trình",
+                        "leaderboard.learned": "Đã ôn",
+                        "leaderboard.myWordbook": "Sổ từ vựng của tôi",
+                        "leaderboard.dayStreak": "ngày học liên tục!",
+                        "leaderboard.from": "từ",
+                        "leaderboard.wordsByProgress": "Từ theo tiến độ",
+                        "leaderboard.wordsByCERF": "Từ theo CEFR",
+                        "leaderboard.wordsBySources": "Từ theo nguồn",
+                        "leaderboard.wordsBy": "Từ theo",
+                        "leaderboard.interest": "Bộ từ vựng đang học",
+                        "leaderboard.totalScoreAchieved": "Tổng số điểm đạt được",
+                        "leaderboard.all": "Tất cả",
+                        "leaderboard.group": "Nhóm",
+                        "leaderboard.below": "dưới",
+                        "leaderboard.masteredByProgress": "Số điểm",
+                        "leaderboard.improvement": "Đã tiến bộ",
+                        "leaderboard.hours": "giờ",
+                        "leaderboard.minutes": "phút",
+                        "leaderboard.seconds": "giây",
+                        "leaderboard.words": "từ",
+                        "leaderboard.points": "điểm",
+                        "leaderboard.pointsChart": "đ",
+                        "leaderboard.wordsChart": "từ",
+                        "leaderboard.minutesChart": "phút",
+                        "leaderboard.hoursChart": "giờ",
+                        "leaderboard.descStreak": "Ôn luyện hàng ngày, xây đắp thành công",
+                        "leaderboard.longestStreak": "Chuỗi ngày học dài nhất",
+                        "search.approximate": "Các kết quả gần đúng khác",
+                        "search.found.unit": "kết quả",
+                        "feedback.title": "Phản hồi",
+                        "feedback.button": "Góp ý",
+                        "feedback.desc": "Hãy mô tả chi tiết vấn đề bạn gặp phải",
+                        "feedback.motherTonge": "Sai nghĩa {{lang}}",
+                        "feedback.example": "Lỗi ví dụ",
+                        "feedback.image": "Ảnh không phù hợp",
+                        "feedback.audio": "Thiếu âm thanh",
+                        "feedback.pron": "Thiếu phiên âm",
+                        "feedback.question": "Câu hỏi",
+                        "feedback.answer": "Đáp án",
+                        "feedback.distractors": "Phương án gây nhiễu",
+                        "feedback.meaning": "Thiếu nét nghĩa/thiếu từ",
+                        "feedback.other": "Góp ý khác",
+                        "feedback.error": "Xin hãy mô tả lỗi mà bạn gặp phải",
+                        "feedback.add": "Yêu cầu bổ sung",
+                        "feedback.send.succesfully": "Yêu cầu đã được gửi thành công",
+                        "feedback.send.failed": "Yêu cầu gửi không thành công",
+                        "feedback.send.noVocab.desc": "Yêu cầu bổ sung từ",
+                        "button.send": "Gửi",
+                        "tour.title.step1": "Tra từ",
+                        "tour.desc.step1": "Tra nghĩa từ trong ô tìm kiếm và thêm vào sổ để học lâu dài.",
+                        "tour.extension": "Hoặc dùng azVocab extension để tra từ mới khi lướt web.",
+                        "tour.install.ext": "Cài extension",
+                        "tour.title.step2": "Thêm từ vào sổ ",
+                        "tour.desc.step2": "Chọn nghĩa sát với từ bạn đang tra nhất và thêm vào sổ để azVocab giúp bạn học từ theo tần suất hợp lý và hiệu quả nhất.",
+                        "tour.title.step3": "Học từ",
+                        "tour.desc.step3": "Ôn lại từ vựng với các loại câu hỏi đa đạng sẽ giúp bạn nắm được cách đọc, cách viết, nghĩa và cách dùng của từ.",
+                        "tour.title.step4": "Khám phá bộ từ vựng sẵn",
+                        "tour.desc.step4": "Khám phá thêm các bộ từ vựng được tạo sẵn theo sách, giáo trình hoặc theo mục tiêu ôn luyện như Ielts, Toefl...",
+                        "tour.title.step5": "Bộ từ vựng",
+                        "tour.desc.step5": "Mỗi bộ từ vựng được chia thành các mục khác nhau, trong mỗi mục sẽ có nhiều bộ từ, mỗi bộ khoảng 5-25 từ.",
+                        "tour.title.step6": "Di chuột qua để xem chi tiết từ",
+                        "tour.desc.step6": "Khi di chuột vào từng từ, azVocab hiển thị thông tin tóm tắt từ đó.",
+                        "tour.title.step7": "Thêm từ vào sổ",
+                        "tour.desc.step7": "Chọn nghĩa sát nhất với từ đang tra để thêm vào sổ. Có thể thêm ví dụ, chỉnh sửa nghĩa tiếng Việt cho từ vừa thêm (nếu cần).",
+                        "tour.title.step8": "Xem flashcard và học thử set từ",
+                        "tour.desc.step8": "Click vào các biểu tượng dưới đây để xem chi tiết từ dưới dạng flashcard hoặc học thử set từ.",
+                        "tour.button.next": "Tiếp theo",
+                        "tour.button.last": "Đã hiểu",
+                        "tour.button.reset": "Xem lại",
+                        "group.memberName": "Tên thành viên",
+                        "group.practiced": "Đã luyện tập",
+                        "group.spend": "Đã dành",
+                        "group.score": "Điểm",
+                        "group.timeJoin": "Thời gian tham gia",
+                        "group.action": "Hành động",
+                        "group.inviteMembers": "Mời thành viên",
+                        "group.members": "Thành viên",
+                        "group.joinLink": "Link tham gia",
+                        "group.updateGroup": "Cập nhật thông tin nhóm",
+                        "group.groupName": "Tên nhóm",
+                        "group.groupDesc": "Mô tả",
+                        "group.action.cancel": "Huỷ",
+                        "group.action.update": "Cập nhật",
+                        "group.action.delete": "Xoá",
+                        "group.action.leave": "Rời nhóm",
+                        "group.areYouSure": "Bạn có chắc chắn không?",
+                        "group.reallyDelete": "Bạn có thực sự muốn xoá nhóm {{name}}?",
+                        "group.reallyLeave": "Bạn có thực sự muốn rời khỏi nhóm {{name}}?",
+                        "group.createGroup": "Tạo một nhóm mới",
+                        "group.addGroup": "Thêm nhóm",
+                        "group.createBtn": "Tạo",
+                        "group.noMembers": "Không có thành viên nào trong nhóm",
+                        "group.noRecords": "Không có bản ghi nào để hiển thị",
+                        "group.error.requiredName": "Tên nhóm không được để trống",
+                        "group.error.requiredDesc": "Mô tả tên nhóm không được để trống",
+                        "group.error.lengthName": "Độ dài tên nhóm phải nhỏ hơn 50 ký tự",
+                        "group.error.lengthDesc": "Độ dài mô tả phải nhỏ hơn 150 ký tự",
+                        "group.error.requiredInvite": "Bạn phải nhập ít nhất 1 email để mời vào nhóm",
+                        "group.error.validateEmailInvite": "Mỗi dòng phải là một địa chỉ email hợp lệ",
+                        "group.error.wordsAdded": "Đã thêm",
+                        "group.error.searchName": "Tìm kiếm",
+                        "group.hasInvited": "đã mời bạn tham gia",
+                        "group.groupInvite": "Lời mời tham gia nhóm",
+                        "group.status": "Trạng thái",
+                        "group.backAllGroup": "Quay lại danh sách nhóm",
+                        "group.inviteMoreMembers": "Mời thêm thành viên",
+                        "group.emailInvitation": "Lời mời qua email tới các thành viên của bạn",
+                        "group.urlInvitation": "Hoặc chia sẻ URL lời mời nhóm",
+                        "group.emailInvitationDesc": "Nhập các địa chỉ email thành viên của bạn (bằng cách xuống dòng) để mời họ tham gia nhóm",
+                        "group.urlInvitationDesc": "Các thành viên có thể tham gia nhóm bằng cách quét mã QR được cung cấp hoặc nhập link URL vào trình duyệt",
+                        "group.noGroup": "Chưa có nhóm nào",
+                        "group.noGroupDesc": "Bạn đã bao giờ nghĩ đến việc tham gia một nhóm học tập chưa? Nếu chưa, hãy tạo nhóm và mời các thành viên tham gia, đây là một cơ hội tuyệt vời để tham gia cùng những người có cùng mục tiêu và sở thích!",
+                        "group.myGroups": "Nhóm của tôi",
+                        "group.joined": "Tham gia",
+                        "group.alreadyJoined": "{{num}} người đã tham gia nhóm!",
+                        "group.joinGroup": "Tham gia nhóm",
+                        "group.decline": "Từ chối",
+                        "group.removeMember": "Bạn có chắc chắn muốn xóa {{name}} khỏi nhóm không?",
+                        "group.createGroupSuccess": "Tạo nhóm thành công!",
+                        "group.updateGroupSuccess": "Cập nhật thông tin nhóm thành công!",
+                        "group.deleteGroupSuccess": "Xóa nhóm thành công!",
+                        "group.leaveGroupSuccess": "Bạn đã rời khỏi nhóm",
+                        "group.inviteMemberSuccess": "Mời thành viên tham gia nhóm thành công!",
+                        "join.group.success": "Tham gia nhóm thành công",
+                        "error.404": "Không tìm thấy trang",
+                        "error.404.desc": "Trang bạn đang tìm kiếm không tồn tại.",
+                        "error.500.desc": "Xin lỗi, có sự cố không mong muốn đã xảy ra, bạn vui lòng thử lại sau ít phút.",
+                        "def.collection.title": "Các bộ từ vựng có từ",
+                        "notfound.def.desc": "Xin lỗi, chúng tôi không tìm thấy nghĩa của từ này",
+                        "quiz.notfound": "Không tìm thấy đấu trường!",
+                        "notfound.quiz.desc": "Xin lỗi, chúng tôi không tìm thấy thông tin về đấu trường này, bạn hãy vui lòng kiểm tra đường dẫn.",
+                        "tooltip.learn.set": "Học từ trong danh sách",
+                        "tooltip.share.set": "Chia sẻ danh sách từ",
+                        "label.learn.set": "Học",
+                        "share.facebook": "Chia sẻ lên Facebook",
+                        "share.twitter": "Chia sẻ lên X",
+                        "share.linkedin": "Chia sẻ lên LinkedIn",
+                        "share.reddit": "Chia sẻ lên Reddit",
+                        "add.wordlist": "Tự động thêm từ vào danh sách",
+                        "add.wordlist.desc": "Tự động thêm từ vào danh sách này khi bạn thêm một từ mới vào sổ từ",
+                        "default.latest": "Danh sách mới nhất",
+                        "default.ask": "Luôn hỏi khi thêm từ",
+                        "pro.limit.text": "Tài khoản của bạn chỉ được luyện tập tối đa {{count}} câu hỏi loại này. Bạn hãy nâng cấp gói PRO để được luyện tập không giới hạn nhé",
+                        "premium.token.text": "Tài khoản của bạn đã dùng hết số lần học câu hỏi này, hãy nâng cấp gói để mua thêm lượt học cho loại câu hỏi này nhé.",
+                        "error.quota.text": "Xin lỗi, có lỗi xảy ra trong quá trình cập nhật trạng thái tài khoản của bạn. Vui lòng liên hệ hỗ trợ.",
+                        "tooltip.rank": "Mức độ phổ biến của từ (rank càng thấp thì càng phổ biến).",
+                        "tooltip.freq": " Số lần từ này xuất hiện trong 1.000 tỷ từ thuộc Google Trillion Copus.",
+                        "join.quiz.error.desc": "Xin lỗi, hệ thống gặp lỗi không mong muốn, vui lòng thử lại sau.",
+                        "hint.warn": "Cân nhắc khi dùng gợi ý vì sẽ bị trừ điểm",
+                        "known.def": "Tôi đã biết nét nghĩa này.",
+                        "no.select.native": "Không chọn được? Tự thêm nghĩa của bạn, nhấn enter để thêm...",
+                        "native.short": "Ý nghĩa chưa đầy đủ",
+                        "input.example": "Nhập ví dụ mới...",
+                        "suggest.ignore": "Bỏ qua từ này",
+                        "suggest.link": "Mở trang chi tiết",
+                        "native.prompt": "Dịch tiếng mẹ đẻ",
+                        "chat.prompt": "Chatbot",
+                        "def.prompt": "Tìm định nghĩa",
+                        "other.native": "Nghĩa khác",
+                        "chat.greeting": "Mến chào {{name}}!, Tôi có thể giúp gì cho bạn?",
+                        "chat.greeting.anonymous": "Mến chào!, Tôi có thể giúp gì cho bạn?",
+                        "chat.unanswer": "Xin lỗi, tôi không thể trả lời câu hỏi này. Nếu bạn có bất kỳ câu hỏi nào liên quan đến azVocab, tôi rất sẵn lòng giúp đỡ.",
+                        "ask.pdf": "Để đảm bảo hiệu quả học từ, mỗi worsheet PDF chỉ nên dùng cho set <30 từ. Set từ của bạn hiện đang có {{words}} từ, bạn nên tách thành các set từ nhỏ hơn. Hoặc bạn có muốn azVocab tạo worksheet PDF cho 30 từ đầu tiên trong set của bạn không?",
+                        "button.create.pdf": "Tạo PDF",
+                        "plan.expire": "Gói PRO của bạn sẽ hết hạn vào ngày",
+                        "plan.expired": "Gói PRO của bạn đã hết hạn vào ngày",
+                        "native.meaning": "Chọn nghĩa {{lang}}",
+                        "share.copy": "Sao chép đường link",
+                        "search.found": "Tìm thấy",
+                        "button.move": "Di chuyển",
+                        "button.add": "Thêm",
+                        "search": "Tìm kiếm...",
+                        "all": "Tất cả",
+                        "alphabet-asc": "A-Z",
+                        "alphabet-desc": "Z-A",
+                        "time-desc": "Tạo gần đây",
+                        "time-asc": "Tạo sớm nhất",
+                        "add.new.set": "Tạo bộ từ vựng mới",
+                        "add.new.category": "Tạo danh mục mới",
+                        "leaderboard.time": "Tổng thời gian học",
+                        "leaderboard.minute": "{{count}} phút",
+                        "question.setting.title": "Cài đặt câu hỏi trong phiên học",
+                        "preview.question": "Xem ví dụ",
+                        "button.back": "Quay lại",
+                        "question.image.audio": "Câu hỏi liên quan hình ảnh và âm thanh",
+                        "question.definition": "Câu hỏi liên quan đến định nghĩa",
+                        "question.example": "Câu hỏi liên quan đến ví dụ",
+                        "warning.question.setting": "Lưu ý: Việc bỏ qua một số loại câu hỏi trong quá trình học có thể ảnh hưởng đến hiệu quả học từ vựng của bạn. Bạn có thể không tiếp thu đầy đủ các khía cạnh quan trọng của từ, chẳng hạn như phát âm, chính tả, hay cách sử dụng từ trong câu ví dụ.",
+                        "pronounce.retry.later": "Có vẻ bạn đang gặp khó khăn với việc phát âm. Hãy thử lại sau nhé!",
+                        "leaderboard.hour": "{{count}} giờ",
+                        "select.question.type": "Chọn loại câu hỏi",
+                        "prefer.questions": "Tùy chỉnh loại câu hỏi ôn tập",
+                        "unknown.context.exp": "Các câu ví dụ có ký tự * ở cuối là những câu không rõ ngữ cảnh. Khi tạo câu hỏi, hệ thống sẽ sử dụng thêm hình ảnh (nếu có) hoặc bỏ qua các câu này.",
+                        "selected": "Đã chọn: {{count}}",
+                        "filter.category": "Lọc theo bộ từ vựng",
+                        "embed.wordbook.label": "Sổ từ",
+                        "question.SACF": "Câu hỏi liên quan đến từ đồng nghĩa, trái nghĩa, collocation và word family",
+                        "warmup.title": "Trong phiên học này có các câu hỏi liên quan đến collocation/word family/synomym/antonym, bạn có muốn ôn lại phần kiến thức này trước khi trả lời câu hỏi không?",
+                        "card.setting.family": "Word family",
+                        "card.setting.collocation": "Common collocation",
+                        "button.ready": "Đã sẵn sàng!",
+                        "synonym.with": "Từ đồng nghĩa/trái nghĩa với",
+                        "antonym.with": "Từ trái nghĩa với",
+                        "synonym": "Đồng nghĩa",
+                        "antonym": "Trái nghĩa",
+                        "ask.again.warmup": "Lưu lựa chọn cho phiên tiếp theo",
+                        "card.setting.synonym": "Từ đồng nghĩa/ Trái nghĩa",
+                        "join.mobile.title": "Trải nghiệm trên azVocab app",
+                        "join.mobile.desc": "Học mọi lúc mọi nơi",
+                        "warmup.title.1": "Trong phiên học này có các câu hỏi liên quan đến collocation và word family, bạn có muốn ôn lại phần kiến thức này trước khi trả lời câu hỏi không?",
+                        "warmup.title.2": "Trong phiên học này có các câu hỏi liên quan đến synonym và antonym, bạn có muốn ôn lại phần kiến thức này trước khi trả lời câu hỏi không?",
+                        "school.assignment": "Bài giao từ giáo viên",
+                        "school.unassigned": "Bạn chưa được giao bài tập nào",
+                        "school.end_date": "Hạn hoàn thành",
+                        "school.class": "Lớp",
+                        "school.target": "Mục tiêu",
+                        "school.do_assignment": "Làm bài",
+                        "unit.question": "câu hỏi",
+                        "unit.word": "từ",
+                        "school.can_learn": "Cần ôn",
+                        "school.pending": "Chưa tới hạn",
+                        "school.num_can_learn": "{{count}} từ cần ôn ngay",
+                        "school.have_learned_all": "Tuyệt vời! Bạn đã học hết tất cả từ trong bài tập này!",
+                        "school.learn_to_success": "Bắt đầu học ngay để hoàn thành bài tập và tiến bộ hơn mỗi ngày!",
+                        "flow.adult_lite": "Người lớn - Rút gọn",
+                        "school.all_school": "Tất cả các trường",
+                        "school.vocabset.label": "Chỉ hiển thị bộ từ vựng của trường",
+                        "school.vocabset.desc": "Khi bật, chỉ hiển thị các bộ từ vựng được gán cho trường của bạn trong trang explore."
+                    },
+                    "home": {
+                        "hero.title.1": "Sổ học từ vựng",
+                        "hero.title.2": " thông minh",
+                        "hero.desc.0": "Đọc, học, ôn thi tới đâu, ghi nhớ dài hạn mọi từ vựng bạn gặp tới đó. Sử dụng kĩ thuật lặp lại ngắt quãng và các nghiên cứu về khoa học não bộ và ngôn ngữ học, giúp tăng hiệu quả",
+                        "hero.desc.0.em": " tới hơn 10 lần.",
+                        "hero.desc.1": "Khai thác các list từ vựng thông dụng, từ vựng ôn thi chứng chỉ (IELTS, Cambridge, Toefl), từ vựng theo các giáo trình phổ biến,...",
+                        "hero.desc.1.em": " đã được tổng hợp sẵn.",
+                        "hero.desc.2": "Tạo sổ học từ vựng thông minh của riêng bạn. Tự tin dùng Tiếng Anh để giao tiếp, giải trí hoặc học",
+                        "hero.desc.2.em": " bất cứ điều gì mà bạn muốn!",
+                        "home.text.1": "x10 lần hiệu quả học từ vựng",
+                        "home.text.2": "với những tính năng ưu việt",
+                        "home.text.3": "Trải nghiệm những tính năng vượt trội!",
+                        "home.text.4": "Dễ sử dụng",
+                        "home.text.4.desc": "Tìm kiếm và thêm từ bạn muốn học vào sổ nhanh chóng, hoặc thêm nhanh những từ cần biết được tổng hợp sẵn theo các kì thi và giáo trình phổ biến. Đã có thuật toán tinh vi chạy dưới nền, bạn chỉ cần tranh thủ vài phút để luyện từng phiên ngắn.",
+                        "home.text.5": "Công nghệ thông minh",
+                        "home.text.5.desc": "azVocab tính toán để đưa ra các kiểu câu hỏi phù hợp nhất trong từng phiên học, giúp bạn ôn luyện đúng lúc, đúng cách, giảm thiểu thời gian, tối ưu kết quả.",
+                        "home.text.6": "Tiến trình rõ ràng",
+                        "home.text.6.desc": "Sổ từ vựng của riêng bạn được phân loại tường minh, cho biết mức độ thành thạo với từng từ và tiến trình tổng quan.",
+                        "home.text.7": "Học được mọi lúc, mọi nơi, trên mọi thiết bị",
+                        "home.text.7.desc": "MÁY TÍNH XÁCH TAY, ĐIỆN THOẠI THÔNG MINH, MÁY TÍNH BẢNG",
+                        "home.text.8": "Tương thích với điện thoại di động, máy tính để bàn, laptop và máy tính bảng.",
+                        "home.text.8.desc": "Học từ vựng bất kể bạn ở đâu, bất cứ khi nào bạn có vài phút rảnh. Đăng nhập ngay và bắt đầu hành trình làm chủ Anh ngữ!",
+                        "sign.up.free": "Đăng ký miễn phí",
+                        "p.1": "Hãy sử dụng azVocab - Sổ học từ vựng thông minh - và kiểm nghiệm hiệu quả thực sự khác biệt.",
+                        "p.2": "Dù bạn đang chuẩn bị cho một bài thi Tiếng Anh, đang học theo một giáo trình, hay tự do chọn học những từ mới vừa gặp trong lúc đọc báo, xem phim,...",
+                        "feature.title.1": "Thêm nhanh từ muốn học",
+                        "feature.title.2": "Ôn luyện đúng lúc",
+                        "feature.title.3": "Với câu hỏi phù hợp",
+                        "feature.title.4": "Duy trì động lực ôn luyện",
+                        "feature.desc.1": "Thêm từ vào sổ từ của bạn một cách dễ dàng và nhanh chóng. Hoặc thêm nhanh các từ cần học qua các danh sách được tổng hợp sẵn theo từng kì thi hoặc giáo trình.",
+                        "feature.desc.2": "Sử dụng thuật toán lặp lại ngắt quãng được cá nhân hóa thật tinh vi để giúp bạn ôn lại từng từ trước khi bạn kịp quên.",
+                        "feature.desc.3": "Dựa trên nghiên cứu đã được công nhận của giáo sư Paul Nation để đưa ra các loại câu hỏi phù hợp nhất tại từng giai đoạn trong tiến trình học từng từ.",
+                        "feature.desc.4": "Giữ động lực học từ vựng của bạn thông qua các báo cáo tường minh, tính năng nhắc nhở trên lịch, thi đua cùng bạn học,…",
+                        "video.label": "VỀ AZVOCAB",
+                        "video.title": "Sổ học từ vựng thông minh",
+                        "video.desc": "Làm giàu vốn từ, biến Tiếng Anh thành thế mạnh của bạn! Thêm từ vào sổ, ôn luyện chúng vừa đúng lúc theo thuật toán lặp lại ngắt quãng, với các câu hỏi phong phú về dạng, hợp lý về trình tự. Trải nghiệm quá trình học tập hiệu quả và ghi nhớ từ lâu dài. Bắt đầu miễn phí và kiểm nghiệm hiệu quả vượt trội!",
+                        "label.testimonial.desc": "Đánh giá từ giáo viên và học viên",
+                        "testimonial.name.1": "Chị Đỗ Lê Anh",
+                        "testimonial.title.1": "Product Manager",
+                        "testimonial.quote.1": "Tôi phải chuẩn bị một kì thi quan trọng và phải đọc nhiều sách chuyên ngành, trong đó hơn nửa là từ mới đối với tôi. Tôi thấy rất may mắn vì đã biết đến azVocab. azVocab đã giúp tôi ghi nhớ được hết số từ mới đó và thi đỗ. Đây thật sự là một trang web đáng để trải nghiệm!",
+                        "testimonial.name.2": "Cô Trần Bảo Hiếu",
+                        "testimonial.title.2": "Giáo viên Tiếng Anh",
+                        "testimonial.quote.2": "Công tác giảng dạy tiếng Anh luôn đòi hỏi giáo viên phải liên tục cập nhật các phương pháp giảng dạy mới nhất. Trang web này đã trở thành nguồn tài nguyên hữu ích trong việc dạy học từ vựng của tôi. Các em học sinh tích cực chuẩn bị bài trước ở nhà và lên lớp cũng tích cực tham gia vào bài học hơn. Đồng thời, khả năng ghi nhớ của các em cũng được cải thiện một cách đáng kể!",
+                        "testimonial.name.3": "Em Lê Trần Bảo Trân",
+                        "testimonial.title.3": "Học sinh cấp 2",
+                        "testimonial.quote.3": "azVocab có các danh sách từ vựng theo sách giáo khoa trên trường, em cảm thấy dễ dàng hơn trong việc học từ vựng để làm bài kiểm tra. Trước mỗi tiết học tiếng Anh trên lớp, em thường vào azVocab để học trước từ mới của Unit sẽ học hôm sau, nhờ vậy mà các bài tập từ vựng trên lớp em làm rất nhanh và cũng nhanh thuộc từ hơn.",
+                        "testimonial.name.4": "Em Trần Phương Thanh",
+                        "testimonial.title.4": "Học sinh ôn thi vào 10 chuyên",
+                        "testimonial.quote.4": "Em là học sinh ôn luyện trên TiengAnhK12. Biết được công ty CTH ra mắt sản phẩm mới là trang web azVocab nên em đã dùng thử. azVocab có phần cung cấp sẵn các thành ngữ và cụm động từ được chia theo các chủ đề rất dễ theo dõi và học theo. Mỗi chủ đề chỉ có từ 5-7 cụm giúp em ghi nhớ nhanh chóng.",
+                        "testimonial.name.5": "Bạn Nguyễn Thanh Loan",
+                        "testimonial.title.5": "Sinh viên ôn thi IELTS",
+                        "testimonial.quote.5": "Nhờ có azVocab, việc ôn thi IELTS của mình trở nên dễ dàng hơn. Mình biết được số từ mình phải học và cách học các từ đó thật hiệu quả. azVocab tính toán chi tiết và nêu rõ số từ phải học mỗi ngày giúp mình duy trì được thói quen học từ vựng đều đặn. Điều này giúp mình tự tin hơn vào vốn từ vựng của mình và sẵn sàng cho kì thi sắp tới!",
+                        "label.basic.subscription": "GÓI CƠ BẢN",
+                        "basic.subscription.text": "Học từ không giới hạn với azVocab",
+                        "label.vocabset.subscription": "GÓI THEO SET TỪ VỰNG",
+                        "vocabset.subscription.text": "Học từ theo giáo trình hoặc cho các kì thi",
+                        "label.plan.related": "CÁC GÓI KHÁC",
+                        "label.plan.related.text": "Các gói khác phù hợp với nhu cầu của bạn",
+                        "label.plan.selected": "GÓI AZVOCAB",
+                        "label.plan.selected.text": "Các gói trên azVocab",
+                        "pricing.save.more": "Gói khuyên dùng",
+                        "pricing.good.plan": "",
+                        "Year_one": "{{count}} năm",
+                        "Year_other": "{{count}} năm",
+                        "Month_one": "{{count}} tháng",
+                        "Month_other": "{{count}} tháng",
+                        "Day_one": "{{count}} ngày",
+                        "Day_other": "{{count}} ngày",
+                        "pricing.end.date": "Ngày hết hạn: ",
+                        "pricing.buy": "Mua",
+                        "pricing.chat.sale": "Chat với tư vấn viên",
+                        "pricing.feature": "QUYỀN LỢI",
+                        "pricing.what.you.get": "Gồm có:",
+                        "video.link": "https://www.youtube.com/embed/fnYrHbx447w?si=eCGkq92206PvOnuD",
+                        "label.agree": "Tôi đồng ý với",
+                        "label.terms": "điều khoản, điều kiện cung cấp dịch vụ",
+                        "testimonial.name.6": "Cô giáo Nguyễn Thị Hằng",
+                        "testimonial.title.6": "Giáo viên tiếng Anh tỉnh Sơn La",
+                        "testimonial.quote.6": "Sau buổi tập huấn do azVocab tổ chức, tôi đã thử dùng azVocab và thật sự ấn tượng với những tính năng mà ứng dụng mang lại. Việc giao bài, xem báo cáo học tập và kiểm tra từ vựng của học sinh trở nên đơn giản hơn nhiều. Nhờ ứng dụng, tôi có thể theo sát được việc học của học sinh tốt hơn và thấy rõ các em tiến bộ từng ngày.",
+                        "testimonial.name.7": "Giải thưởng azVocab",
+                        "testimonial.title.7": "Mô hình Sáng kiến giáo dục đổi mới",
+                        "testimonial.quote.7": "azVocab được vinh danh là Sáng kiến giáo dục đổi mới tại Hội thảo “Thắp Lửa Cùng Tiến Lên 2025” – do Mạng lưới Quản Lý Giáo Dục Không Biên Giới EduLightenUp và Viện Nghiên cứu & Phát triển Quản lý Giáo dục tổ chức. Tại sự kiện, nhiều giáo viên và nhà quản lý giáo dục đánh giá cao azVocab nhờ khả năng tối ưu hóa việc học từ vựng và hỗ trợ giảng dạy hiệu quả."
+                    }
+                }
+            },
+            "initialLocale": "vi",
+            "ns": [
+                "common",
+                "home"
+            ],
+            "userConfig": {
+                "i18n": {
+                    "locales": [
+                        "ar",
+                        "bn",
+                        "cs",
+                        "de",
+                        "el",
+                        "en",
+                        "es",
+                        "fr",
+                        "hi",
+                        "hu",
+                        "id",
+                        "it",
+                        "ja",
+                        "ko",
+                        "nl",
+                        "pl",
+                        "pt",
+                        "ro",
+                        "ru",
+                        "sv",
+                        "te",
+                        "th",
+                        "tl",
+                        "tr",
+                        "uk",
+                        "ur",
+                        "vi",
+                        "zh",
+                        "zh-Hant"
+                    ],
+                    "defaultLocale": "vi"
+                },
+                "default": {
+                    "i18n": {
+                        "locales": [
+                            "ar",
+                            "bn",
+                            "cs",
+                            "de",
+                            "el",
+                            "en",
+                            "es",
+                            "fr",
+                            "hi",
+                            "hu",
+                            "id",
+                            "it",
+                            "ja",
+                            "ko",
+                            "nl",
+                            "pl",
+                            "pt",
+                            "ro",
+                            "ru",
+                            "sv",
+                            "te",
+                            "th",
+                            "tl",
+                            "tr",
+                            "uk",
+                            "ur",
+                            "vi",
+                            "zh",
+                            "zh-Hant"
+                        ],
+                        "defaultLocale": "vi"
+                    }
+                }
+            }
+        },
+        "collections": [
+            {
+                "id": "C-AEFFA16A",
+                "name": "Cambridge English",
+                "brief": "Vocabulary for Cambridge English exams",
+                "image": "/system/collections/1706861477737.png",
+                "description": "All vocabulary you need to prepare for Cambridge English exams: PreA1 Starters, A1 Movers, A2 Flyers, A2 KEY, B1 PET, B2 FCE",
+                "languages": [],
+                "sets": [
+                    {
+                        "id": "S-F9C3D6AC",
+                        "categoryId": "G-E2F36C24",
+                        "name": "Human Traits",
+                        "categoryName": "PET"
+                    }
+                ]
+            },
+            {
+                "id": "C-0C5E2CB3",
+                "name": "Raz-Plus",
+                "brief": "Keywords curated from books at 29 reading levels of Raz-plus",
+                "image": "/system/collections/1680255930182.png",
+                "description": "Raz-Plus is the Reading part of KidsA-Z, the family of products developed by Learning A-Z. Raz-Plus provides an online library of leveled books and additional reading passages available in printable, projectable, online, and mobile formats to each student. To buy a Raz-plus subcription, go to https://contuhoc.com/producttag/1126/kidsa-z",
+                "languages": [],
+                "sets": [
+                    {
+                        "id": "S-42B54649",
+                        "categoryId": "G-86450F0C",
+                        "name": "I'd Like To Be",
+                        "categoryName": "E"
+                    }
+                ]
+            },
+            {
+                "id": "C-96A3768C",
+                "name": "By CEFR levels",
+                "brief": "CEFR-aligned vocabulary list aids language proficiency",
+                "image": "/system/collections/1710235408732.png",
+                "description": "Explore CEFR-level categorized vocabulary, aligned with language proficiency standards. Tailored to learners' progression from beginner to advanced, this list offers relevant words for each level, aiding targeted skill development and language acquisition.",
+                "languages": [],
+                "sets": [
+                    {
+                        "id": "S-A8D5096B",
+                        "categoryId": "G-ABA0206F",
+                        "name": "Letter C - Group 4",
+                        "categoryName": "Level A2"
+                    }
+                ]
+            },
+            {
+                "id": "C-0F62E519",
+                "name": "Lớp 6",
+                "brief": "Vocabulary from grade 6 textbooks for Vietnamese students",
+                "image": "/system/collections/1684121417260.png",
+                "description": "This collection contains vocabulary from different English textbooks of grade 6 for Vietnamese students. These words are divided into units available in textbooks.",
+                "languages": [
+                    "vi"
+                ],
+                "sets": [
+                    {
+                        "id": "S-32AEDB91",
+                        "categoryId": "G-353ECC8F",
+                        "name": "Unit 2: My house",
+                        "categoryName": "Global success tập 1"
+                    }
+                ]
+            },
+            {
+                "id": "C-3AE63E69",
+                "name": "Lớp 8",
+                "brief": "Vocabulary from grade 8 textbooks for Vietnamese students",
+                "image": "/system/collections/1684226185990.png",
+                "description": "This collection contains vocabulary from different English textbooks of grade 8 for Vietnamese students. These words are divided into units available in textbooks.",
+                "languages": [
+                    "vi"
+                ],
+                "sets": [
+                    {
+                        "id": "S-3C2573DF",
+                        "categoryId": "G-8557174F",
+                        "name": "Unit 5: Years ahead",
+                        "categoryName": "Friends Plus"
+                    }
+                ]
+            }
+        ],
+        "ogInfo": {
+            "title": "Crazy",
+            "ogTitle": "Crazy",
+            "type": "website",
+            "image": "https://azvocab.ai/api/og?data=%257B%2522image%2522%253A%2522https%253A%252F%252Fazvocab.ai%252F_next%252Fstatic%252Fmedia%252Flearning.6e24054e.png%2522%252C%2522width%2522%253A200%252C%2522height%2522%253A240%252C%2522desc%2522%253A%2522azVocab%2522%257D",
+            "description": "điên rồ; vô lý. Learn more in azVocab",
+            "image_alt": "crazy.1.1"
+        },
+        "def": {
+            "id": "crazy.1.1",
+            "vi": "điên rồ; vô lý",
+            "def": "stupid or not reasonable",
+            "sets": [
+                {
+                    "id": "S-32AEDB91",
+                    "categoryId": "G-353ECC8F",
+                    "collectionId": "C-0F62E519"
+                },
+                {
+                    "id": "S-42B54649",
+                    "categoryId": "G-86450F0C",
+                    "collectionId": "C-0C5E2CB3"
+                },
+                {
+                    "id": "S-F9C3D6AC",
+                    "categoryId": "G-E2F36C24",
+                    "collectionId": "C-AEFFA16A"
+                },
+                {
+                    "id": "S-A8D5096B",
+                    "categoryId": "G-ABA0206F",
+                    "collectionId": "C-96A3768C"
+                },
+                {
+                    "id": "S-3C2573DF",
+                    "categoryId": "G-8557174F",
+                    "collectionId": "C-3AE63E69"
+                }
+            ],
+            "level": "A2",
+            "images": [],
+            "samples": [
+                {
+                    "id": "20ABB7",
+                    "text": "Some of them were crazy. They were ready to stay in the queue for 6 hours to buy it."
+                },
+                {
+                    "id": "6C586B",
+                    "sets": [],
+                    "text": "His idea to paint the house bright pink is crazy."
+                },
+                {
+                    "id": "2CF106",
+                    "text": "You’re crazy to rent the place without seeing it first."
+                },
+                {
+                    "id": "3AE42E",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-86450F0C",
+                            "s": "S-42B54649"
+                        }
+                    ],
+                    "text": "Sometimes I act crazy if I stay up too late."
+                },
+                {
+                    "id": "B711CA",
+                    "text": "It's a crazy idea."
+                },
+                {
+                    "id": "BF5942",
+                    "text": "You're crazy to buy a house without seeing it."
+                },
+                {
+                    "id": "54C9A5",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-86450F0C",
+                            "s": "S-42B54649"
+                        }
+                    ],
+                    "text": "Being crazy can mean acting in a ridiculous and foolish manner."
+                },
+                {
+                    "id": "C21C11",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-86450F0C",
+                            "s": "S-42B54649"
+                        }
+                    ],
+                    "text": "The opposite of crazy is sensible."
+                },
+                {
+                    "id": "61F32C",
+                    "sets": [
+                        {
+                            "c": "C-0C5E2CB3",
+                            "g": "G-86450F0C",
+                            "s": "S-42B54649"
+                        }
+                    ],
+                    "text": "Most people considered his ideas to be crazy, or absurd."
+                },
+                {
+                    "id": "9EB2D6",
+                    "sets": [],
+                    "text": "He has a crazy plan to build a treehouse in the living room."
+                },
+                {
+                    "id": "5C54BD",
+                    "sets": [
+                        {
+                            "c": "C-0F62E519",
+                            "g": "G-353ECC8F",
+                            "s": "S-32AEDB91"
+                        }
+                    ],
+                    "text": "She thinks his idea to paint the house bright pink is crazy."
+                },
+                {
+                    "id": "BAA2EF",
+                    "sets": [
+                        {
+                            "c": "C-0F62E519",
+                            "g": "G-353ECC8F",
+                            "s": "S-32AEDB91"
+                        }
+                    ],
+                    "text": "He had a crazy plan to build a treehouse in the living room."
+                },
+                {
+                    "id": "237428",
+                    "sets": [
+                        {
+                            "c": "C-0F62E519",
+                            "g": "G-353ECC8F",
+                            "s": "S-32AEDB91"
+                        }
+                    ],
+                    "text": "We're staying at the Crazy House Hotel. Wow! It really is crazy."
+                }
+            ],
+            "antonyms": [
+                "reasonable"
+            ],
+            "synonyms": [
+                "bizarre",
+                "absurd",
+                "insane",
+                "foolish",
+                "unreal",
+                "fantastical"
+            ],
+            "updateBy": "phamthanhlam620@gmail.com",
+            "lastUpdate": 1743481251880,
+            "entryId": "crazy.1",
+            "vocab": "crazy",
+            "pos": "adj",
+            "uk": "/ˈkreɪ.zi/",
+            "us": "/ˈkreɪ.zi/",
+            "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+            "pron_us": "/c/cr/crazy/crazy.us.mp3",
+            "idioms": [
+                "be as crazy/rich/etc. as they come",
+                "like crazy",
+                "be crazy about someone/something",
+                "drive someone crazy"
+            ],
+            "verb_phrases": [],
+            "phrases": [],
+            "family": {
+                "n": [
+                    "crazy",
+                    "craziness"
+                ],
+                "adj": [
+                    "crazy",
+                    "crazier",
+                    "craziest"
+                ],
+                "adv": [
+                    "crazily"
+                ],
+                "head": "crazy"
+            },
+            "rank": 3304,
+            "freq": 23032837
+        },
+        "vocab": {
+            "uk": "/ˈkreɪ.zi/",
+            "us": "/ˈkreɪ.zi/",
+            "dict": "Cambridge",
+            "freq": 23032837,
+            "rank": 3304,
+            "vocab": "crazy",
+            "source": "https://dictionary.cambridge.org/dictionary/english/crazy",
+            "entries": [
+                {
+                    "id": "crazy.1",
+                    "pos": "adj",
+                    "defs": [
+                        {
+                            "id": "crazy.1.1",
+                            "vi": "điên rồ; vô lý",
+                            "def": "stupid or not reasonable",
+                            "sets": [
+                                {
+                                    "id": "S-32AEDB91",
+                                    "categoryId": "G-353ECC8F",
+                                    "collectionId": "C-0F62E519"
+                                },
+                                {
+                                    "id": "S-42B54649",
+                                    "categoryId": "G-86450F0C",
+                                    "collectionId": "C-0C5E2CB3"
+                                },
+                                {
+                                    "id": "S-F9C3D6AC",
+                                    "categoryId": "G-E2F36C24",
+                                    "collectionId": "C-AEFFA16A"
+                                },
+                                {
+                                    "id": "S-A8D5096B",
+                                    "categoryId": "G-ABA0206F",
+                                    "collectionId": "C-96A3768C"
+                                },
+                                {
+                                    "id": "S-3C2573DF",
+                                    "categoryId": "G-8557174F",
+                                    "collectionId": "C-3AE63E69"
+                                }
+                            ],
+                            "level": "A2",
+                            "images": [],
+                            "samples": [
+                                {
+                                    "id": "20ABB7",
+                                    "text": "Some of them were crazy. They were ready to stay in the queue for 6 hours to buy it."
+                                },
+                                {
+                                    "id": "6C586B",
+                                    "sets": [],
+                                    "text": "His idea to paint the house bright pink is crazy."
+                                },
+                                {
+                                    "id": "2CF106",
+                                    "text": "You’re crazy to rent the place without seeing it first."
+                                },
+                                {
+                                    "id": "3AE42E",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-86450F0C",
+                                            "s": "S-42B54649"
+                                        }
+                                    ],
+                                    "text": "Sometimes I act crazy if I stay up too late."
+                                },
+                                {
+                                    "id": "B711CA",
+                                    "text": "It's a crazy idea."
+                                },
+                                {
+                                    "id": "BF5942",
+                                    "text": "You're crazy to buy a house without seeing it."
+                                },
+                                {
+                                    "id": "54C9A5",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-86450F0C",
+                                            "s": "S-42B54649"
+                                        }
+                                    ],
+                                    "text": "Being crazy can mean acting in a ridiculous and foolish manner."
+                                },
+                                {
+                                    "id": "C21C11",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-86450F0C",
+                                            "s": "S-42B54649"
+                                        }
+                                    ],
+                                    "text": "The opposite of crazy is sensible."
+                                },
+                                {
+                                    "id": "61F32C",
+                                    "sets": [
+                                        {
+                                            "c": "C-0C5E2CB3",
+                                            "g": "G-86450F0C",
+                                            "s": "S-42B54649"
+                                        }
+                                    ],
+                                    "text": "Most people considered his ideas to be crazy, or absurd."
+                                },
+                                {
+                                    "id": "9EB2D6",
+                                    "sets": [],
+                                    "text": "He has a crazy plan to build a treehouse in the living room."
+                                },
+                                {
+                                    "id": "5C54BD",
+                                    "sets": [
+                                        {
+                                            "c": "C-0F62E519",
+                                            "g": "G-353ECC8F",
+                                            "s": "S-32AEDB91"
+                                        }
+                                    ],
+                                    "text": "She thinks his idea to paint the house bright pink is crazy."
+                                },
+                                {
+                                    "id": "BAA2EF",
+                                    "sets": [
+                                        {
+                                            "c": "C-0F62E519",
+                                            "g": "G-353ECC8F",
+                                            "s": "S-32AEDB91"
+                                        }
+                                    ],
+                                    "text": "He had a crazy plan to build a treehouse in the living room."
+                                },
+                                {
+                                    "id": "237428",
+                                    "sets": [
+                                        {
+                                            "c": "C-0F62E519",
+                                            "g": "G-353ECC8F",
+                                            "s": "S-32AEDB91"
+                                        }
+                                    ],
+                                    "text": "We're staying at the Crazy House Hotel. Wow! It really is crazy."
+                                }
+                            ],
+                            "antonyms": [
+                                "reasonable"
+                            ],
+                            "synonyms": [
+                                "bizarre",
+                                "absurd",
+                                "insane",
+                                "foolish",
+                                "unreal",
+                                "fantastical"
+                            ],
+                            "updateBy": "phamthanhlam620@gmail.com",
+                            "lastUpdate": 1743481251880,
+                            "entryId": "crazy.1",
+                            "vocab": "crazy",
+                            "pos": "adj",
+                            "uk": "/ˈkreɪ.zi/",
+                            "us": "/ˈkreɪ.zi/",
+                            "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                            "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                            "idioms": [
+                                "be as crazy/rich/etc. as they come",
+                                "like crazy",
+                                "be crazy about someone/something",
+                                "drive someone crazy"
+                            ],
+                            "verb_phrases": [],
+                            "phrases": [],
+                            "family": {
+                                "n": [
+                                    "crazy",
+                                    "craziness"
+                                ],
+                                "adj": [
+                                    "crazy",
+                                    "crazier",
+                                    "craziest"
+                                ],
+                                "adv": [
+                                    "crazily"
+                                ],
+                                "head": "crazy"
+                            },
+                            "rank": 3304,
+                            "freq": 23032837
+                        },
+                        {
+                            "id": "crazy.1.2",
+                            "vi": "bực mình, bực bội",
+                            "def": "annoyed or angry",
+                            "sets": [
+                                {
+                                    "id": "S-B81ABC0F",
+                                    "categoryId": "G-E2F36C24",
+                                    "collectionId": "C-AEFFA16A"
+                                },
+                                {
+                                    "id": "S-CD459DA6",
+                                    "categoryId": "G-A9E1881A",
+                                    "collectionId": "C-96A3768C"
+                                }
+                            ],
+                            "level": "B2",
+                            "colloc": {
+                                "pre": {
+                                    "v": [
+                                        "be",
+                                        "go"
+                                    ],
+                                    "adv": [
+                                        "absolutely",
+                                        "completely"
+                                    ]
+                                },
+                                "suf": {
+                                    "prep": [
+                                        "at"
+                                    ]
+                                }
+                            },
+                            "images": [
+                                "/c/cr/crazy/1723456793779.jpg"
+                            ],
+                            "samples": [
+                                {
+                                    "id": "A5C761",
+                                    "text": "He went crazy at me for letting the dog out."
+                                },
+                                {
+                                    "id": "CE290C",
+                                    "text": "The constant noise drove me crazy."
+                                },
+                                {
+                                    "id": "6731A9",
+                                    "text": "Marie says he went crazy, and smashed the room up."
+                                },
+                                {
+                                    "id": "C7989C",
+                                    "text": "Doesn't it make you crazy when people don't reply to your emails?"
+                                }
+                            ],
+                            "antonyms": [],
+                            "synonyms": [],
+                            "updateBy": "phamthanhlam620@gmail.com",
+                            "lastUpdate": 1743478779367,
+                            "entryId": "crazy.1",
+                            "vocab": "crazy",
+                            "pos": "adj",
+                            "uk": "/ˈkreɪ.zi/",
+                            "us": "/ˈkreɪ.zi/",
+                            "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                            "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                            "idioms": [
+                                "be as crazy/rich/etc. as they come",
+                                "like crazy",
+                                "be crazy about someone/something",
+                                "drive someone crazy"
+                            ],
+                            "verb_phrases": [],
+                            "phrases": [],
+                            "family": {
+                                "n": [
+                                    "crazy",
+                                    "craziness"
+                                ],
+                                "adj": [
+                                    "crazy",
+                                    "crazier",
+                                    "craziest"
+                                ],
+                                "adv": [
+                                    "crazily"
+                                ],
+                                "head": "crazy"
+                            },
+                            "rank": 3304,
+                            "freq": 23032837
+                        },
+                        {
+                            "id": "crazy.adj.75151",
+                            "vi": "điên khùng",
+                            "def": "mentally ill",
+                            "level": "",
+                            "colloc": {
+                                "pre": {
+                                    "v": [
+                                        "be",
+                                        "seem",
+                                        "sound",
+                                        "go"
+                                    ],
+                                    "adv": [
+                                        "really",
+                                        "absolutely",
+                                        "completely",
+                                        "totally",
+                                        "a bit",
+                                        "half",
+                                        "a little",
+                                        "pretty",
+                                        "quite",
+                                        "slightly"
+                                    ]
+                                },
+                                "suf": {
+                                    "prep": [
+                                        "with"
+                                    ]
+                                }
+                            },
+                            "images": [],
+                            "samples": [
+                                {
+                                    "id": "5CC275",
+                                    "text": "I seriously think she'll go crazy if she doesn't have a holiday soon."
+                                },
+                                {
+                                    "id": "CD300F",
+                                    "text": "I'd go crazy if I lived here."
+                                },
+                                {
+                                    "id": "11B160",
+                                    "text": "She was driven half-crazy by the thought of him in prison."
+                                }
+                            ],
+                            "antonyms": [
+                                "sane",
+                                "sound",
+                                "reasonable",
+                                "balanced",
+                                "rational",
+                                "clear",
+                                "normal",
+                                "wise"
+                            ],
+                            "synonyms": [
+                                "psychotic",
+                                "insane",
+                                "mad",
+                                "lunatic",
+                                "maniacal",
+                                "gaga",
+                                "mental",
+                                "paranoid"
+                            ],
+                            "updateBy": "phamthanhlam620@gmail.com",
+                            "lastUpdate": 1743481251880,
+                            "entryId": "crazy.1",
+                            "vocab": "crazy",
+                            "pos": "adj",
+                            "uk": "/ˈkreɪ.zi/",
+                            "us": "/ˈkreɪ.zi/",
+                            "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                            "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                            "idioms": [
+                                "be as crazy/rich/etc. as they come",
+                                "like crazy",
+                                "be crazy about someone/something",
+                                "drive someone crazy"
+                            ],
+                            "verb_phrases": [],
+                            "phrases": [],
+                            "family": {
+                                "n": [
+                                    "crazy",
+                                    "craziness"
+                                ],
+                                "adj": [
+                                    "crazy",
+                                    "crazier",
+                                    "craziest"
+                                ],
+                                "adv": [
+                                    "crazily"
+                                ],
+                                "head": "crazy"
+                            },
+                            "rank": 3304,
+                            "freq": 23032837
+                        }
+                    ],
+                    "family": {
+                        "n": [
+                            "crazy",
+                            "craziness"
+                        ],
+                        "adj": [
+                            "crazy",
+                            "crazier",
+                            "craziest"
+                        ],
+                        "adv": [
+                            "crazily"
+                        ],
+                        "head": "crazy"
+                    },
+                    "idioms": [
+                        "be as crazy/rich/etc. as they come",
+                        "like crazy",
+                        "be crazy about someone/something",
+                        "drive someone crazy"
+                    ],
+                    "vocab": "crazy",
+                    "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                    "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                    "uk": "/ˈkreɪ.zi/",
+                    "us": "/ˈkreɪ.zi/",
+                    "rank": 3304,
+                    "freq": 23032837
+                },
+                {
+                    "id": "crazy.2",
+                    "pos": "n",
+                    "defs": [
+                        {
+                            "id": "crazy.2.1",
+                            "vi": "kẻ điên",
+                            "def": "a person who is crazy",
+                            "level": "",
+                            "images": [],
+                            "samples": [
+                                {
+                                    "id": "5ABF50",
+                                    "text": "There are a lot of crazies out there."
+                                },
+                                {
+                                    "id": "989E3F",
+                                    "text": "The neighbours must think we're the crazies."
+                                }
+                            ],
+                            "antonyms": [],
+                            "synonyms": [
+                                "lunatic",
+                                "psychopath",
+                                "fool",
+                                "maniac",
+                                "psycho"
+                            ],
+                            "updateBy": "phamthanhlam620@gmail.com",
+                            "lastUpdate": 1743481251880,
+                            "entryId": "crazy.2",
+                            "vocab": "crazy",
+                            "pos": "n",
+                            "uk": "/ˈkreɪ.zi/",
+                            "us": "/ˈkreɪ.zi/",
+                            "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                            "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                            "idioms": [
+                                "be as crazy/rich/etc. as they come",
+                                "like crazy",
+                                "be crazy about someone/something",
+                                "drive someone crazy"
+                            ],
+                            "verb_phrases": [],
+                            "phrases": [],
+                            "family": {
+                                "n": [
+                                    "crazy",
+                                    "craziness"
+                                ],
+                                "adj": [
+                                    "crazy",
+                                    "crazier",
+                                    "craziest"
+                                ],
+                                "adv": [
+                                    "crazily"
+                                ],
+                                "head": "crazy"
+                            },
+                            "rank": 3304,
+                            "freq": 23032837
+                        }
+                    ],
+                    "family": {
+                        "n": [
+                            "crazy",
+                            "craziness"
+                        ],
+                        "adj": [
+                            "crazy",
+                            "crazier",
+                            "craziest"
+                        ],
+                        "adv": [
+                            "crazily"
+                        ],
+                        "head": "crazy"
+                    },
+                    "idioms": [
+                        "be as crazy/rich/etc. as they come",
+                        "like crazy",
+                        "be crazy about someone/something",
+                        "drive someone crazy"
+                    ],
+                    "vocab": "crazy",
+                    "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+                    "pron_us": "/c/cr/crazy/crazy.us.mp3",
+                    "uk": "/ˈkreɪ.zi/",
+                    "us": "/ˈkreɪ.zi/",
+                    "rank": 3304,
+                    "freq": 23032837
+                }
+            ],
+            "pron_uk": "/c/cr/crazy/crazy.uk.mp3",
+            "pron_us": "/c/cr/crazy/crazy.us.mp3",
+            "inflects": {
+                "JJR": [
+                    "crazier"
+                ],
+                "JJS": [
+                    "craziest"
+                ]
+            },
+            "updateBy": "thangqm@icloud.com",
+            "lastUpdate": 1713159143824
+        }
+    },
+    "__N_SSG": true
+}

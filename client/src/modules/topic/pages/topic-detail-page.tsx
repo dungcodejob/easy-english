@@ -9,7 +9,7 @@ import { ArrowLeft, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useTopicById } from '../hooks/use-topic-by-id';
 
-export const Route = createFileRoute('/_(authenticated)/topic/$topicId')({
+export const Route = createFileRoute('/_(authenticated)/_/topic/$topicId')({
   component: TopicDetailPage,
 });
 
@@ -70,7 +70,7 @@ export function TopicDetailPage() {
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
             {topic.name}
           </h1>
-          <p className="text-muted-foreground">{topic.description || 'No description'}</p>
+          <p className="text-muted-foreground">{topic.description || "No description"}</p>
         </div>
         <Button onClick={handleAddWord}>
           <Plus className="mr-2 h-4 w-4" />

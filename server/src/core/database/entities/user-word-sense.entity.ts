@@ -7,7 +7,6 @@ import {
   JsonType,
   ManyToOne,
   Property,
-  Unique,
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
@@ -34,7 +33,7 @@ export interface UserWordSenseMedia {
 }
 
 @Entity({ repository: () => UserWordSenseRepository })
-@Unique({ properties: ['userId', 'word', 'partOfSpeech'] })
+// @Unique({ properties: ['userId', 'word', 'partOfSpeech'] }) // Removed for multi-topic support
 export class UserWordSenseEntity extends BaseEntity {
   @Property({ fieldName: 'user_id' })
   @Index()
@@ -59,11 +58,47 @@ export class UserWordSenseEntity extends BaseEntity {
   @Property({ type: 'text' })
   definition: string;
 
+  @Property({ fieldName: 'definition_vi', type: 'text', nullable: true })
+  definitionVi?: string;
+
   @Property({ type: JsonType, nullable: true })
   examples?: string[] | null;
 
   @Property({ nullable: true })
   pronunciation?: string;
+
+  @Property({ fieldName: 'pronunciation_uk', nullable: true })
+  pronunciationUk?: string;
+
+  @Property({ fieldName: 'pronunciation_us', nullable: true })
+  pronunciationUs?: string;
+
+  @Property({ fieldName: 'audio_uk', nullable: true })
+  audioUk?: string;
+
+  @Property({ fieldName: 'audio_us', nullable: true })
+  audioUs?: string;
+
+  @Property({ type: JsonType, nullable: true })
+  images?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  collocations?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  relatedWords?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  idioms?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  phrases?: string[];
+
+  @Property({ type: JsonType, nullable: true })
+  verbPhrases?: string[];
+
+  @Property({ fieldName: 'cefr_level', nullable: true })
+  cefrLevel?: string;
 
   @Property({ nullable: true })
   synonyms?: string[] | null;
@@ -89,6 +124,9 @@ export class UserWordSenseEntity extends BaseEntity {
     fieldName: 'dictionary_sense_id',
   })
   dictionarySense: WordSenseEntity | null;
+
+  @Property({ fieldName: 'is_custom_word', default: true })
+  isCustomWord: boolean = true;
 
   [EntityRepositoryType]?: UserWordSenseRepository;
 

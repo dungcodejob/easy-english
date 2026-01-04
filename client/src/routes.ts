@@ -15,7 +15,7 @@ export const routes = rootRoute('root.tsx', [
     //   '/settings/account/profile',
     //   './features/account/pages/account-profile-page.tsx',
     // ),
-    
+    route('/dictionary/$keyword', './modules/word-detail/pages/$keyword.tsx'),
     layout('/topic', './modules/topic/pages/topic-layout.tsx', [
       index('./modules/topic/pages/topic-page.tsx'),
       route('$topicId', './modules/topic/pages/topic-detail-page.tsx'),

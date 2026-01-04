@@ -16,6 +16,19 @@ import { ExampleEntity } from './example.entity';
 import { VocabSetEntity } from './vocab-set.entity';
 import { WordEntity } from './word.entity';
 
+export enum WordSensePartOfSpeech {
+  phrase = 'phrase',
+  idiom = 'idiom',
+  noun = 'noun',
+  verb = 'verb',
+  adjective = 'adjective',
+  adverb = 'adverb',
+  pronoun = 'pronoun',
+  preposition = 'preposition',
+  conjunction = 'conjunction',
+  interjection = 'interjection',
+}
+
 @Entity({ repository: () => WordSenseRepository })
 export class WordSenseEntity extends BaseEntity {
   @ManyToOne(() => WordEntity)
@@ -24,7 +37,7 @@ export class WordSenseEntity extends BaseEntity {
 
   @Property({ fieldName: 'part_of_speech' })
   @Index()
-  partOfSpeech: string;
+  partOfSpeech: WordSensePartOfSpeech | string;
 
   @Property({ type: 'text' })
   definition: string;

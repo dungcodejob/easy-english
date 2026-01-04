@@ -25,9 +25,9 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth';
 
-import { AzVocabModule } from './modules/azvocab/azvocab.module';
+import { DictionaryInfrastructureModule } from '@app/infrastructure/dictionary';
+import { DictionaryModule } from './modules/dictionary/dictionary.module';
 import { HealthModule } from './modules/health/health.module';
-import { LookupModule } from './modules/lookup/lookup.module';
 import { TopicSenseModule } from './modules/topic-sense/topic-sense.module';
 import { TopicModule } from './modules/topic/topic.module';
 import { UserModule } from './modules/user';
@@ -47,11 +47,11 @@ import { WorkspaceModule } from './modules/workspace/workspace.module';
     WordDetailModule,
     TopicModule,
     TopicSenseModule,
-    AzVocabModule,
-    LookupModule,
     WordModule,
     UserWordSenseModule,
     WorkspaceModule,
+    DictionaryInfrastructureModule,
+    DictionaryModule,
 
     HealthModule,
     ConfigModule.forRoot({

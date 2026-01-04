@@ -2,8 +2,7 @@ export * from './account.repository';
 export * from './category.repository';
 export * from './collection.repository';
 export * from './example.repository';
-export * from './idiom.repository';
-export * from './phrase.repository';
+
 export * from './pronunciation.repository';
 export * from './session.repository';
 export * from './tenant.repository';
@@ -12,7 +11,7 @@ export * from './topic.repository';
 export * from './unit-of-work';
 export * from './user-word-sense.repository';
 export * from './user.repository';
-export * from './verb-phrase.repository';
+
 export * from './vocab-set.repository';
 export * from './word-cache.repository';
 export * from './word-sense.repository';

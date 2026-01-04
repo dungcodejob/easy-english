@@ -5,17 +5,13 @@ import {
   EntityRepositoryType,
   Index,
   JsonType,
-  ManyToMany,
   OneToMany,
   Property,
   Unique,
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
-import { IdiomEntity } from './idiom.entity';
-import { PhraseEntity } from './phrase.entity';
 import { PronunciationEntity } from './pronunciation.entity';
-import { VerbPhraseEntity } from './verb-phrase.entity';
 import { WordSenseEntity } from './word-sense.entity';
 import { Language } from './workspace.entity';
 
@@ -65,15 +61,6 @@ export class WordEntity extends BaseEntity {
 
   @Property({ nullable: true, fieldName: 'update_by' })
   updateBy?: string;
-
-  @ManyToMany(() => IdiomEntity, (idiom) => idiom.words, { owner: true })
-  idioms = new Collection<IdiomEntity>(this);
-
-  @ManyToMany(() => PhraseEntity, (phrase) => phrase.words, { owner: true })
-  phrases = new Collection<PhraseEntity>(this);
-
-  @ManyToMany(() => VerbPhraseEntity, (vp) => vp.words, { owner: true })
-  verbPhrases = new Collection<VerbPhraseEntity>(this);
 
   @OneToMany(() => PronunciationEntity, (pronunciation) => pronunciation.word)
   pronunciations = new Collection<PronunciationEntity>(this);

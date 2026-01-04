@@ -4,6 +4,7 @@ import {
   PronunciationEntity,
   WordEntity,
   WordSenseEntity,
+  WordSensePartOfSpeech,
 } from '@app/entities';
 import { UNIT_OF_WORK, type UnitOfWork } from '@app/repositories';
 import { Inject, Injectable, Logger } from '@nestjs/common';
@@ -106,7 +107,7 @@ export class LookupService {
         for (const s of data.senses) {
           const sense = new WordSenseEntity({
             word: wordEntity,
-            partOfSpeech: s.partOfSpeech,
+            partOfSpeech: s.partOfSpeech as WordSensePartOfSpeech,
             definition: s.definition,
             senseIndex: s.senseIndex,
             source: s.source,

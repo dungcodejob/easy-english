@@ -12,6 +12,7 @@ import { BaseEntity } from './base.entity';
 export enum DictionarySource {
   OXFORD = 'oxford',
   DICTIONARY_API = 'dictionaryapi',
+  AZVOCAB = 'azvocab',
 }
 
 @Entity({ repository: () => WordCacheRepository })

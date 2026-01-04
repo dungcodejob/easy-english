@@ -59,7 +59,15 @@
       "@app/tenant/*": ["src/modules/tenant/*"],
 
       "@app/request": ["src/core/request/index"],
-      "@app/request/*": ["src/core/request/*"]
+      "@app/request/*": ["src/core/request/*"],
+      "@app/domain/dictionary": ["src/modules/dictionary/domain"],
+      "@app/domain/dictionary/*": ["src/modules/dictionary/domain/*"],
+      "@app/infrastructure/dictionary": [
+        "src/modules/dictionary/infrastructure"
+      ],
+      "@app/infrastructure/dictionary/*": [
+        "src/modules/dictionary/infrastructure/*"
+      ]
     },
     "incremental": true,
     "skipLibCheck": true,

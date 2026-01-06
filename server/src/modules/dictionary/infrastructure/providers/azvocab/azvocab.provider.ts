@@ -1,6 +1,13 @@
-import { DictionarySource, Language } from '@app/entities';
+import {
+  ApiEndpointType,
+  ApiProvider,
+  ApiResponseCacheEntity,
+  DictionarySource,
+  Language,
+} from '@app/entities';
 import { Errors } from '@app/errors';
 import { processBatch } from '@app/utils/batch-processor';
+import { EntityManager } from '@mikro-orm/postgresql';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Result, err, ok } from 'neverthrow';
@@ -65,6 +72,7 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
     @Inject(WORD_AGGREGATE_REPOSITORY)
     private readonly wordRepo: IWordAggregateRepository,
     private readonly adapter: AzVocabAdapter,
+    private readonly em: EntityManager,
   ) {}
 
   // ==================== LOOKUP FLOW ====================
@@ -247,7 +255,17 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
         }),
       );
 
-      return response.data || [];
+      const data = response.data || [];
+
+      // Cache raw response for debugging/re-mapping
+      await this.cacheApiResponse(
+        ApiEndpointType.SEARCH,
+        keyword,
+        data,
+        response.status,
+      );
+
+      return data;
     } catch (error) {
       this.logger.error(`Failed to search for keyword: ${keyword}`, error);
       throw error;
@@ -298,6 +316,14 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
         );
         return null;
       }
+
+      // Cache raw response for debugging/re-mapping
+      await this.cacheApiResponse(
+        ApiEndpointType.DEFINITION,
+        defId,
+        response.data,
+        response.status,
+      );
 
       return response.data;
     } catch (error) {
@@ -390,5 +416,50 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
     }
 
     return results;
+  }
+
+  /**
+   * Cache raw API response for debugging and re-mapping purposes
+   */
+  private async cacheApiResponse(
+    endpointType: ApiEndpointType,
+    requestIdentifier: string,
+    rawResponse: unknown,
+    statusCode: number,
+  ): Promise<void> {
+    try {
+      const responseJson = JSON.stringify(rawResponse);
+      const responseSizeBytes = Buffer.byteLength(responseJson, 'utf8');
+
+      // Use upsert to update existing or insert new
+      const existing = await this.em.findOne(ApiResponseCacheEntity, {
+        provider: ApiProvider.AZVOCAB,
+        endpointType,
+        requestIdentifier,
+      });
+
+      if (existing) {
+        existing.rawResponse = rawResponse;
+        existing.responseSizeBytes = responseSizeBytes;
+        existing.statusCode = statusCode;
+      } else {
+        const entity = new ApiResponseCacheEntity({
+          provider: ApiProvider.AZVOCAB,
+          endpointType,
+          requestIdentifier,
+          rawResponse,
+          responseSizeBytes,
+          statusCode,
+        });
+        this.em.persist(entity);
+      }
+
+      await this.em.flush();
+    } catch (error) {
+      // Log but don't throw - caching should not break the main flow
+      this.logger.warn(
+        `Failed to cache API response for ${endpointType}:${requestIdentifier}: ${error}`,
+      );
+    }
   }
 }

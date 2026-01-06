@@ -1,4 +1,5 @@
 export * from './account.entity';
+export * from './api-response-cache.entity';
 export * from './base-extend.entity';
 export * from './base.entity';
 export * from './category.entity';

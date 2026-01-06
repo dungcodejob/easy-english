@@ -1,10 +1,5 @@
 import type { WordFamily, WordInflects } from '@app/domain/dictionary';
-import {
-  Example,
-  Pronunciation,
-  Word,
-  WordSense,
-} from '@app/domain/dictionary';
+import { Word } from '@app/domain/dictionary';
 import {
   ExampleEntity,
   PronunciationEntity,
@@ -13,6 +8,13 @@ import {
 } from '@app/entities';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { CollectionSyncConfig, syncCollection } from './collection-syncer';
+// Import Domain Interfaces
+import type {
+  CreatePronunciationData,
+  CreateWordData,
+} from '@app/domain/dictionary/models/word';
+
+import type { CreateSenseData } from '@app/domain/dictionary/models/word-sense';
 
 /**
  * WordMapper
@@ -27,85 +29,63 @@ export class WordMapper {
    * Convert MikroORM WordEntity to domain Word aggregate
    */
   static toDomain(entity: WordEntity): Word {
-    const word = new Word(
-      {
-        text: entity.text,
-        normalizedText: entity.normalizedText,
-        language: entity.language,
-        rank: entity.rank,
-        frequency: entity.frequency,
-        source: entity.source,
-        inflects: entity.inflects as WordInflects,
-        wordFamily: entity.wordFamily as WordFamily,
-        updateBy: entity.updateBy,
-      },
-      entity.id,
-    );
+    const pronunciations: CreatePronunciationData[] =
+      entity.pronunciations?.isInitialized()
+        ? entity.pronunciations.getItems().map((p) => ({
+            id: p.id,
+            ipa: p.ipa,
+            audioUrl: p.audioUrl,
+            region: p.region,
+          }))
+        : [];
 
-    // Load pronunciations
-    if (entity.pronunciations?.isInitialized()) {
-      const pronunciations = entity.pronunciations.getItems().map(
-        (p) =>
-          new Pronunciation(
-            {
-              ipa: p.ipa,
-              audioUrl: p.audioUrl,
-              region: p.region,
-            },
-            p.id,
-          ),
-      );
-      word._loadPronunciations(pronunciations);
-    }
+    const senses: CreateSenseData[] = entity.senses?.isInitialized()
+      ? entity.senses.getItems().map((s) => ({
+          id: s.id,
+          partOfSpeech: s.partOfSpeech,
+          definition: s.definition,
+          definitionVi: s.definitionVi,
+          shortDefinition: s.shortDefinition,
+          senseIndex: s.senseIndex,
+          source: s.source,
+          externalId: s.externalId,
+          cefrLevel: s.cefrLevel,
+          images: s.images,
+          collocations: s.collocations,
+          relatedWords: s.relatedWords,
+          idioms: s.idioms,
+          phrases: s.phrases,
+          verbPhrases: s.verbPhrases,
+          synonyms: s.synonyms,
+          antonyms: s.antonyms,
+          updateBy: s.updateBy,
+          examples: s.exampleEntities?.isInitialized()
+            ? s.exampleEntities.getItems().map((e) => ({
+                id: e.id,
+                text: e.text,
+                translationVi: e.translationVi,
+                order: e.order,
+                externalId: e.externalId,
+              }))
+            : [],
+        }))
+      : [];
 
-    // Load senses with examples
-    if (entity.senses?.isInitialized()) {
-      const senses = entity.senses.getItems().map((s) => {
-        const sense = new WordSense(
-          {
-            partOfSpeech: s.partOfSpeech,
-            definition: s.definition,
-            senseIndex: s.senseIndex,
-            source: s.source,
-            shortDefinition: s.shortDefinition,
-            cefrLevel: s.cefrLevel,
-            images: s.images,
-            synonyms: s.synonyms,
-            antonyms: s.antonyms,
-            idioms: s.idioms,
-            phrases: s.phrases,
-            verbPhrases: s.verbPhrases,
-            collocations: s.collocations,
-            relatedWords: s.relatedWords,
-            definitionVi: s.definitionVi,
-            externalId: s.externalId,
-          },
-          s.id,
-        );
+    const wordData: CreateWordData = {
+      text: entity.text,
+      normalizedText: entity.normalizedText,
+      language: entity.language,
+      rank: entity.rank,
+      frequency: entity.frequency,
+      source: entity.source,
+      inflects: entity.inflects as WordInflects,
+      wordFamily: entity.wordFamily as WordFamily,
+      updateBy: entity.updateBy,
+      pronunciations: pronunciations,
+      senses: senses,
+    };
 
-        // Load examples if initialized
-        if (s.exampleEntities?.isInitialized()) {
-          const examples = s.exampleEntities.getItems().map(
-            (e) =>
-              new Example(
-                {
-                  text: e.text,
-                  translationVi: e.translationVi,
-                  order: e.order,
-                  externalId: e.externalId,
-                },
-                e.id,
-              ),
-          );
-          sense._loadExamples(examples);
-        }
-
-        return sense;
-      });
-      word._loadSenses(senses);
-    }
-
-    return word;
+    return new Word(wordData, entity.id);
   }
 
   /**
@@ -157,7 +137,7 @@ export class WordMapper {
   ): Promise<void> {
     await wordEntity.pronunciations.init();
 
-    const config: CollectionSyncConfig<Pronunciation, PronunciationEntity> = {
+    const config: CollectionSyncConfig<any, PronunciationEntity> = {
       getDomainId: (p) => p.id,
       getEntityId: (e) => e.id,
       createEntity: (p) => {
@@ -178,7 +158,7 @@ export class WordMapper {
     };
 
     await syncCollection(
-      domain.pronunciations,
+      [...domain.pronunciations],
       wordEntity.pronunciations.getItems(),
       wordEntity.pronunciations,
       em,
@@ -194,7 +174,7 @@ export class WordMapper {
     await wordEntity.senses.init({ populate: ['exampleEntities'] });
     const existingSenses = wordEntity.senses.getItems();
 
-    const config: CollectionSyncConfig<WordSense, WordSenseEntity> = {
+    const config: CollectionSyncConfig<any, WordSenseEntity> = {
       getDomainId: (s) => s.id,
       getEntityId: (e) => e.id,
       createEntity: (s) => {
@@ -212,14 +192,14 @@ export class WordMapper {
         e.definition = s.definition;
         e.shortDefinition = s.shortDefinition;
         e.cefrLevel = s.cefrLevel;
-        e.images = s.images;
-        e.synonyms = s.synonyms;
-        e.antonyms = s.antonyms;
-        e.idioms = s.idioms;
-        e.phrases = s.phrases;
-        e.verbPhrases = s.verbPhrases;
-        e.collocations = s.collocations;
-        e.relatedWords = s.relatedWords;
+        e.images = [...s.images];
+        e.synonyms = [...s.synonyms];
+        e.antonyms = [...s.antonyms];
+        e.idioms = [...s.idioms];
+        e.phrases = [...s.phrases];
+        e.verbPhrases = [...s.verbPhrases];
+        e.collocations = [...s.collocations];
+        e.relatedWords = [...s.relatedWords];
         e.definitionVi = s.definitionVi;
         e.externalId = s.externalId;
       },
@@ -232,7 +212,7 @@ export class WordMapper {
     };
 
     await syncCollection(
-      domain.senses,
+      [...domain.senses],
       existingSenses,
       wordEntity.senses,
       em,
@@ -253,7 +233,7 @@ export class WordMapper {
   }
 
   private static async syncExamples(
-    domainSense: WordSense,
+    domainSense: any,
     senseEntity: WordSenseEntity,
     em: EntityManager,
   ): Promise<void> {
@@ -262,7 +242,7 @@ export class WordMapper {
       await senseEntity.exampleEntities.init();
     }
 
-    const config: CollectionSyncConfig<Example, ExampleEntity> = {
+    const config: CollectionSyncConfig<any, any> = {
       getDomainId: (e) => e.id,
       getEntityId: (e) => e.id,
       createEntity: (e) => {
@@ -274,6 +254,7 @@ export class WordMapper {
           order: e.order,
           externalId: e.externalId,
         });
+        (entity as any).id = e.id;
         return entity;
       },
       updateEntity: (e, entity) => {
@@ -284,7 +265,7 @@ export class WordMapper {
     };
 
     await syncCollection(
-      domainSense.examples,
+      [...domainSense.examples],
       senseEntity.exampleEntities.getItems(),
       senseEntity.exampleEntities,
       em,

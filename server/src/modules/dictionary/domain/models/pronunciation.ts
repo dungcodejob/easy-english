@@ -1,29 +1,28 @@
+import { ValueObject } from '@app/domain';
 import { v7 } from 'uuid';
 
 export interface CreatePronunciationData {
-  ipa?: string;
+  id?: string;
   audioUrl?: string;
+  ipa?: string;
   region?: string;
 }
 
-/**
- * Pronunciation Value Object
- * Immutable after creation - represents a single pronunciation variant
- */
-export class Pronunciation {
-  readonly id: string;
-  readonly ipa?: string;
+export class Pronunciation extends ValueObject<Pronunciation> {
+  readonly id: string; // Maintain ID for Persistence
   readonly audioUrl?: string;
+  readonly ipa?: string;
   readonly region?: string;
 
   constructor(data: CreatePronunciationData, id?: string) {
-    this.id = id ?? v7();
-    this.ipa = data.ipa;
+    super();
+    this.id = id ?? data.id ?? v7();
     this.audioUrl = data.audioUrl;
+    this.ipa = data.ipa;
     this.region = data.region;
   }
 
   equals(other: Pronunciation): boolean {
-    return this.ipa === other.ipa && this.region === other.region;
+    return this.shallowEquals(other, ['ipa', 'region', 'audioUrl']);
   }
 }

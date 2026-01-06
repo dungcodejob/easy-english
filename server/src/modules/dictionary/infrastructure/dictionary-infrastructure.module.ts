@@ -1,7 +1,9 @@
 import { WORD_AGGREGATE_REPOSITORY } from '@app/domain/dictionary';
+import { EVENT_PUBLISHER } from '@app/domain/dictionary/services';
 import { OxfordDictionaryService } from '@app/services/oxford-dictionary.service';
 import { HttpModule } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
+import { InMemoryEventPublisher } from './events/in-memory-event-publisher';
 import { ImportProviderFactory } from './import/import-provider.factory';
 import { LookupProviderFactory } from './lookup/lookup-provider.factory';
 import { FreeDictionaryAdapter } from './lookup/providers/free-dictionary/free-dictionary.adapter';
@@ -26,6 +28,10 @@ import { MikroOrmWordRepository } from './repositories/mikro-orm-word.repository
       provide: WORD_AGGREGATE_REPOSITORY,
       useClass: MikroOrmWordRepository,
     },
+    {
+      provide: EVENT_PUBLISHER,
+      useClass: InMemoryEventPublisher,
+    },
     // Unified AzVocab Provider (used by both import and lookup)
     AzVocabProvider,
     AzVocabAdapter,
@@ -41,6 +47,7 @@ import { MikroOrmWordRepository } from './repositories/mikro-orm-word.repository
   ],
   exports: [
     WORD_AGGREGATE_REPOSITORY,
+    EVENT_PUBLISHER,
     AzVocabProvider,
     ImportProviderFactory,
     LookupProviderFactory,

@@ -49,6 +49,8 @@
       "@app/factories/*": ["src/core/database/factories/*"],
       "@app/services": ["src/shared/services"],
       "@app/services/*": ["src/shared/services/*"],
+      "@app/domain": ["src/shared/domain"],
+      "@app/domain/*": ["src/shared/domain/*"],
       "@app/middlewares": ["src/shared/middlewares"],
       "@app/middlewares/*": ["src/shared/middlewares/*"],
       "@app/background": ["src/core/background"],

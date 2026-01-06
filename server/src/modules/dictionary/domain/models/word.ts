@@ -1,27 +1,12 @@
-import { v7 } from 'uuid';
-import { CreateExampleData } from './example';
-import { CreatePronunciationData, Pronunciation } from './pronunciation';
+import { AggregateRoot } from '@app/domain';
+import {
+  WordCreatedEvent,
+  WordSenseAddedEvent,
+  WordSenseRemovedEvent,
+} from '../events';
+import { Example } from './example';
+import { Pronunciation } from './pronunciation';
 import { CreateSenseData, UpdateSenseData, WordSense } from './word-sense';
-
-export interface CreateWordData {
-  text: string;
-  normalizedText: string;
-  language?: string;
-  rank?: number;
-  frequency?: number;
-  source?: string;
-  inflects?: WordInflects;
-  wordFamily?: WordFamily;
-  updateBy?: string;
-}
-
-export interface UpdateWordData {
-  rank?: number;
-  frequency?: number;
-  inflects?: WordInflects;
-  wordFamily?: WordFamily;
-  updateBy?: string;
-}
 
 export interface WordInflects {
   NNS?: string[];
@@ -43,39 +28,88 @@ export interface WordFamily {
   head: string;
 }
 
-/**
- * Word Aggregate Root
- *
- * The central entity in the Dictionary bounded context.
- * All modifications to child entities (senses, pronunciations)
- * must go through this aggregate.
- */
-export class Word {
-  readonly id: string;
+export interface CreateWordData {
+  text: string;
+  language: string;
+  normalizedText?: string;
+  pronunciations?: CreatePronunciationData[];
+  senses?: CreateSenseData[];
+  tags?: string[];
+  originalWord?: string;
+  source?: string;
+  rank?: number;
+  frequency?: number;
+  inflects?: WordInflects;
+  wordFamily?: WordFamily;
+  updateBy?: string;
+}
+
+export interface CreatePronunciationData {
+  id?: string;
+  audioUrl?: string;
+  ipa?: string;
+  region?: string;
+}
+
+export interface UpdateWordData {
+  text?: string;
+  language?: string;
+  tags?: string[];
+  originalWord?: string;
+  rank?: number;
+  frequency?: number;
+  inflects?: WordInflects;
+  wordFamily?: WordFamily;
+  updateBy?: string;
+  source?: string;
+}
+
+export class Word extends AggregateRoot {
   private _text: string;
   private _normalizedText: string;
   private _language: string;
+  private _pronunciations: Pronunciation[];
+  private _senses: WordSense[];
+  private _tags: string[];
+  private _originalWord?: string;
+  private _source: string;
   private _rank?: number;
   private _frequency?: number;
-  private _source: string;
   private _inflects?: WordInflects;
   private _wordFamily?: WordFamily;
   private _updateBy?: string;
 
-  private readonly _senses: WordSense[] = [];
-  private readonly _pronunciations: Pronunciation[] = [];
-
   constructor(data: CreateWordData, id?: string) {
-    this.id = id ?? v7();
+    super(id);
     this._text = data.text;
-    this._normalizedText = data.normalizedText;
-    this._language = data.language ?? 'en';
+    this._language = data.language;
+    this._normalizedText = data.normalizedText ?? data.text.toLowerCase();
+    this._tags = data.tags ?? [];
+    this._originalWord = data.originalWord;
+    this._source = data.source ?? 'cambridge';
     this._rank = data.rank;
     this._frequency = data.frequency;
-    this._source = data.source ?? 'cambridge';
     this._inflects = data.inflects;
     this._wordFamily = data.wordFamily;
     this._updateBy = data.updateBy;
+
+    this._pronunciations =
+      data.pronunciations?.map((p) => new Pronunciation(p, p.id)) ?? [];
+    this._senses =
+      data.senses?.map((s, index) =>
+        this.createSense({
+          ...s,
+          senseIndex: s.senseIndex ?? index,
+          source: s.source ?? this._source,
+        }),
+      ) ?? [];
+
+    // If ID was not provided, it's a new aggregate -> emit created event
+    if (!id) {
+      this.addDomainEvent(
+        new WordCreatedEvent(this.id, this._text, this._language),
+      );
+    }
   }
 
   // Getters
@@ -91,16 +125,32 @@ export class Word {
     return this._language;
   }
 
+  get pronunciations(): ReadonlyArray<Pronunciation> {
+    return [...this._pronunciations];
+  }
+
+  get senses(): ReadonlyArray<WordSense> {
+    return [...this._senses];
+  }
+
+  get tags(): string[] {
+    return [...this._tags];
+  }
+
+  get originalWord(): string | undefined {
+    return this._originalWord;
+  }
+
+  get source(): string {
+    return this._source;
+  }
+
   get rank(): number | undefined {
     return this._rank;
   }
 
   get frequency(): number | undefined {
     return this._frequency;
-  }
-
-  get source(): string {
-    return this._source;
   }
 
   get inflects(): WordInflects | undefined {
@@ -115,28 +165,59 @@ export class Word {
     return this._updateBy;
   }
 
-  get senses(): ReadonlyArray<WordSense> {
-    return [...this._senses];
-  }
-
-  get pronunciations(): ReadonlyArray<Pronunciation> {
-    return [...this._pronunciations];
-  }
-
-  // Business Methods - Word Updates
+  // Business Logic
   update(data: UpdateWordData): void {
+    if (data.text) {
+      this._text = data.text;
+      this._normalizedText = data.text.toLowerCase();
+    }
+    if (data.language) this._language = data.language;
+    if (data.tags) this._tags = data.tags;
+    if (data.originalWord !== undefined) this._originalWord = data.originalWord;
     if (data.rank !== undefined) this._rank = data.rank;
     if (data.frequency !== undefined) this._frequency = data.frequency;
     if (data.inflects !== undefined) this._inflects = data.inflects;
     if (data.wordFamily !== undefined) this._wordFamily = data.wordFamily;
     if (data.updateBy !== undefined) this._updateBy = data.updateBy;
+    if (data.source !== undefined) this._source = data.source;
+
+    this.touch();
   }
 
-  // Business Methods - Senses
+  addPronunciation(data: CreatePronunciationData): void {
+    const pronunciation = new Pronunciation(data);
+    if (!this._pronunciations.some((p) => p.equals(pronunciation))) {
+      this._pronunciations.push(pronunciation);
+    }
+    this.touch();
+  }
+
+  removePronunciation(pronunciationId: string): void {
+    this._pronunciations = this._pronunciations.filter(
+      (p) => p.id !== pronunciationId,
+    );
+    this.touch();
+  }
+
+  private createSense(data: CreateSenseData): WordSense {
+    return new WordSense(data, data.id);
+  }
+
   addSense(data: CreateSenseData): WordSense {
     const senseIndex = data.senseIndex ?? this._senses.length;
-    const sense = new WordSense({ ...data, senseIndex });
+    const senseData = {
+      ...data,
+      senseIndex,
+      source: data.source ?? this._source,
+    };
+
+    const sense = this.createSense(senseData);
     this._senses.push(sense);
+
+    this.addDomainEvent(
+      new WordSenseAddedEvent(this.id, sense.id, String(sense.partOfSpeech)),
+    );
+    this.touch();
     return sense;
   }
 
@@ -144,60 +225,47 @@ export class Word {
     const index = this._senses.findIndex((s) => s.id === senseId);
     if (index === -1) return false;
     this._senses.splice(index, 1);
-    return true;
-  }
 
-  updateSense(senseId: string, data: UpdateSenseData): WordSense | null {
-    const sense = this._senses.find((s) => s.id === senseId);
-    if (!sense) return null;
-    sense.update(data);
-    return sense;
+    this.addDomainEvent(new WordSenseRemovedEvent(this.id, senseId));
+    this.touch();
+    return true;
   }
 
   getSense(senseId: string): WordSense | undefined {
     return this._senses.find((s) => s.id === senseId);
   }
 
-  // Business Methods - Examples (through sense)
-  addExample(senseId: string, data: CreateExampleData) {
+  updateSense(senseId: string, data: UpdateSenseData): boolean {
     const sense = this.getSense(senseId);
-    if (!sense) throw new Error(`Sense not found: ${senseId}`);
-    return sense.addExample(data);
-  }
+    if (!sense) return false;
 
-  // Business Methods - Pronunciations
-  addPronunciation(data: CreatePronunciationData): Pronunciation {
-    // Check for duplicate
-    const existing = this._pronunciations.find(
-      (p) => p.ipa === data.ipa && p.region === data.region,
-    );
-    if (existing) return existing;
-
-    const pronunciation = new Pronunciation(data);
-    this._pronunciations.push(pronunciation);
-    return pronunciation;
-  }
-
-  removePronunciation(pronunciationId: string): boolean {
-    const index = this._pronunciations.findIndex(
-      (p) => p.id === pronunciationId,
-    );
-    if (index === -1) return false;
-    this._pronunciations.splice(index, 1);
+    sense.update(data);
+    this.touch();
     return true;
   }
 
-  /**
-   * Internal methods for hydration from persistence.
-   * These should only be called by the repository/mapper.
-   */
-  _loadSenses(senses: WordSense[]): void {
-    this._senses.length = 0;
-    this._senses.push(...senses);
+  addExampleToSense(
+    senseId: string,
+    exampleText: string,
+    translation?: string,
+  ): Example | undefined {
+    const sense = this.getSense(senseId);
+    if (!sense) return undefined;
+
+    const example = sense.addExample({
+      text: exampleText,
+      translationVi: translation,
+    });
+    this.touch();
+    return example;
   }
 
-  _loadPronunciations(pronunciations: Pronunciation[]): void {
-    this._pronunciations.length = 0;
-    this._pronunciations.push(...pronunciations);
+  removeExampleFromSense(senseId: string, exampleId: string): boolean {
+    const sense = this.getSense(senseId);
+    if (!sense) return false;
+
+    const result = sense.removeExample(exampleId);
+    if (result) this.touch();
+    return result;
   }
 }

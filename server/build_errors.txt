@@ -1,0 +1,54 @@
+src/modules/dictionary/application/word-detail.service.ts(29,18): error TS2339: Property 'rank' does not exist on type 'Word'.
+src/modules/dictionary/application/word-detail.service.ts(30,23): error TS2339: Property 'frequency' does not exist on type 'Word'.
+src/modules/dictionary/application/word-detail.service.ts(31,24): error TS2339: Property 'wordFamily' does not exist on type 'Word'.
+src/modules/dictionary/application/word-detail.service.ts(42,26): error TS2339: Property 'cefrLevel' does not exist on type 'WordSense'.
+src/modules/dictionary/application/word-detail.service.ts(43,23): error TS2339: Property 'images' does not exist on type 'WordSense'.
+src/modules/dictionary/application/word-detail.service.ts(44,25): error TS2339: Property 'synonyms' does not exist on type 'WordSense'.
+src/modules/dictionary/application/word-detail.service.ts(45,25): error TS2339: Property 'antonyms' does not exist on type 'WordSense'.
+src/modules/dictionary/application/word-detail.service.ts(46,23): error TS2339: Property 'idioms' does not exist on type 'WordSense'.
+src/modules/dictionary/application/word-detail.service.ts(47,24): error TS2339: Property 'phrases' does not exist on type 'WordSense'.
+src/modules/dictionary/application/word-detail.service.ts(48,28): error TS2339: Property 'verbPhrases' does not exist on type 'WordSense'.
+src/modules/dictionary/domain/models/index.ts(11,3): error TS2305: Module '"./word"' has no exported member 'WordFamily'.
+src/modules/dictionary/domain/models/index.ts(12,3): error TS2305: Module '"./word"' has no exported member 'WordInflects'.
+src/modules/dictionary/infrastructure/lookup/providers/free-dictionary/free-dictionary.adapter.ts(29,9): error TS2353: Object literal may only specify known properties, and 'normalizedText' does not exist in type 'CreateWordData'.
+src/modules/dictionary/infrastructure/lookup/providers/free-dictionary/free-dictionary.adapter.ts(66,17): error TS2353: Object literal may only specify known properties, and 'source' does not exist in type 'CreateSenseData'.
+src/modules/dictionary/infrastructure/lookup/providers/oxford/oxford.adapter.ts(32,9): error TS2353: Object literal may only specify known properties, and 'normalizedText' does not exist in type 'CreateWordData'.
+src/modules/dictionary/infrastructure/lookup/providers/oxford/oxford.adapter.ts(71,19): error TS2353: Object literal may only specify known properties, and 'source' does not exist in type 'CreateSenseData'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(33,9): error TS2353: Object literal may only specify known properties, and 'normalizedText' does not exist in type 'CreateWordData'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(58,12): error TS2551: Property '_loadPronunciations' does not exist on type 'Word'. Did you mean 'addPronunciation'?
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(69,13): error TS2353: Object literal may only specify known properties, and 'source' does not exist in type 'CreateSenseData'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(95,19): error TS2353: Object literal may only specify known properties, and 'externalId' does not exist in type 'CreateExampleData'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(100,17): error TS2551: Property '_loadExamples' does not exist on type 'WordSense'. Did you mean 'addExample'?
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(105,12): error TS2339: Property '_loadSenses' does not exist on type 'Word'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(119,32): error TS2339: Property 'normalizedText' does not exist on type 'Word'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(124,30): error TS2339: Property 'rank' does not exist on type 'Word'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(125,35): error TS2339: Property 'frequency' does not exist on type 'Word'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(126,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(127,34): error TS2339: Property 'inflects' does not exist on type 'Word'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(128,36): error TS2339: Property 'wordFamily' does not exist on type 'Word'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(129,34): error TS2551: Property 'updateBy' does not exist on type 'Word'. Did you mean 'update'?
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(206,21): error TS2339: Property 'source' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(213,31): error TS2551: Property 'shortDefinition' does not exist on type 'WordSense'. Did you mean 'definition'?
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(214,25): error TS2339: Property 'cefrLevel' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(215,22): error TS2339: Property 'images' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(216,24): error TS2339: Property 'synonyms' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(217,24): error TS2339: Property 'antonyms' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(218,22): error TS2339: Property 'idioms' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(219,23): error TS2339: Property 'phrases' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(220,27): error TS2339: Property 'verbPhrases' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(221,28): error TS2339: Property 'collocations' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(222,28): error TS2339: Property 'relatedWords' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(224,26): error TS2339: Property 'externalId' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(275,25): error TS2339: Property 'externalId' does not exist on type 'Example'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.adapter.ts(40,9): error TS2353: Object literal may only specify known properties, and 'normalizedText' does not exist in type 'CreateWordData'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.adapter.ts(71,11): error TS2353: Object literal may only specify known properties, and 'source' does not exist in type 'CreateSenseData'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(156,15): error TS2353: Object literal may only specify known properties, and 'source' does not exist in type 'CreateSenseData'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(156,29): error TS2339: Property 'source' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(157,38): error TS2551: Property 'shortDefinition' does not exist on type 'WordSense'. Did you mean 'definition'?
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(158,31): error TS2339: Property 'synonyms' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(159,31): error TS2339: Property 'antonyms' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(160,33): error TS2339: Property 'externalId' does not exist on type 'WordSense'.
+src/modules/dictionary/infrastructure/repositories/mikro-orm-word.repository.ts(18,63): error TS1272: A type referenced in a decorated signature must be imported with 'import type' or a namespace import when 'isolatedModules' and 'emitDecoratorMetadata' are enabled.
+test/app.e2e-spec.ts(20,12): error TS2349: This expression is not callable.
+  Type '{ default: SuperTestStatic; Test: typeof Test; agent: typeof TestAgent & ((app?: App | undefined, options?: AgentOptions | undefined) => TestAgent<...>); }' has no call signatures.

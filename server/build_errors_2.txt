@@ -1,0 +1,11 @@
+src/modules/dictionary/application/word-detail.service.ts(37,7): error TS2322: Type '{ id: string; partOfSpeech: string; definition: string; definitionVi: string | undefined; cefrLevel: string | undefined; images: readonly string[]; synonyms: readonly string[]; antonyms: readonly string[]; idioms: readonly string[]; phrases: readonly string[]; verbPhrases: readonly string[]; examples: { ...; }[]; }[]' is not assignable to type 'SenseDetailDto[]'.
+  Type '{ id: string; partOfSpeech: string; definition: string; definitionVi: string | undefined; cefrLevel: string | undefined; images: readonly string[]; synonyms: readonly string[]; antonyms: readonly string[]; idioms: readonly string[]; phrases: readonly string[]; verbPhrases: readonly string[]; examples: { ...; }[]; }' is not assignable to type 'SenseDetailDto'.
+    Types of property 'images' are incompatible.
+      The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(13,3): error TS2459: Module '"@app/domain/dictionary/models/word"' declares 'CreateSenseData' locally, but it is not exported.
+src/modules/dictionary/infrastructure/mappers/word.mapper.ts(247,28): error TS2304: Cannot find name 'ExampleEntity'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(158,15): error TS4104: The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/modules/dictionary/infrastructure/providers/azvocab/azvocab.provider.ts(159,15): error TS4104: The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/modules/dictionary/infrastructure/repositories/mikro-orm-word.repository.ts(18,63): error TS1272: A type referenced in a decorated signature must be imported with 'import type' or a namespace import when 'isolatedModules' and 'emitDecoratorMetadata' are enabled.
+test/app.e2e-spec.ts(20,12): error TS2349: This expression is not callable.
+  Type '{ default: SuperTestStatic; Test: typeof Test; agent: typeof TestAgent & ((app?: App | undefined, options?: AgentOptions | undefined) => TestAgent<...>); }' has no call signatures.

@@ -1,4 +1,5 @@
 export * from './account.repository';
+export * from './api-response-cache.repository';
 export * from './category.repository';
 export * from './collection.repository';
 export * from './example.repository';

@@ -1,7 +1,10 @@
 import { IWordAggregateRepository, Word } from '@app/domain/dictionary';
+// Use import type for interface to avoid runtime metadata emission error
+import type { IEventPublisher } from '@app/domain/dictionary/services';
+import { EVENT_PUBLISHER } from '@app/domain/dictionary/services';
 import { WordEntity } from '@app/entities';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { WordMapper } from '../mappers/word.mapper';
 
 /**
@@ -9,7 +12,10 @@ import { WordMapper } from '../mappers/word.mapper';
  */
 @Injectable()
 export class MikroOrmWordRepository implements IWordAggregateRepository {
-  constructor(private readonly em: EntityManager) {}
+  constructor(
+    private readonly em: EntityManager,
+    @Inject(EVENT_PUBLISHER) private readonly eventPublisher: IEventPublisher,
+  ) {}
 
   async findById(id: string): Promise<Word | null> {
     const entity = await this.em.findOne(
@@ -79,6 +85,10 @@ export class MikroOrmWordRepository implements IWordAggregateRepository {
 
     // Flush all changes
     await this.em.flush();
+
+    // Publish domain events
+    await this.eventPublisher.publishAll(word.domainEvents);
+    word.clearDomainEvents();
   }
 
   async delete(word: Word): Promise<void> {

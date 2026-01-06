@@ -1,6 +1,7 @@
-import { v7 } from 'uuid';
+import { Entity } from '@app/domain';
 
 export interface CreateExampleData {
+  id?: string;
   text: string;
   translationVi?: string;
   order?: number;
@@ -13,19 +14,14 @@ export interface UpdateExampleData {
   order?: number;
 }
 
-/**
- * Example Entity
- * Represents a usage example for a word sense
- */
-export class Example {
-  readonly id: string;
+export class Example extends Entity {
   private _text: string;
   private _translationVi?: string;
   private _order: number;
   private _externalId?: string;
 
   constructor(data: CreateExampleData, id?: string) {
-    this.id = id ?? v7();
+    super(id ?? data.id);
     this._text = data.text;
     this._translationVi = data.translationVi;
     this._order = data.order ?? 0;
@@ -49,9 +45,11 @@ export class Example {
   }
 
   update(data: UpdateExampleData): void {
-    if (data.text !== undefined) this._text = data.text;
+    if (data.text) this._text = data.text;
     if (data.translationVi !== undefined)
       this._translationVi = data.translationVi;
     if (data.order !== undefined) this._order = data.order;
+
+    this.touch();
   }
 }

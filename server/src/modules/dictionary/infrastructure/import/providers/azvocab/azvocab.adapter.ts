@@ -1,7 +1,7 @@
 import {
-  ExampleEntity,
-  PronunciationEntity,
   WordEntity,
+  WordExampleEntity,
+  WordPronunciationEntity,
   WordSenseEntity,
   WordSensePartOfSpeech,
 } from '@app/entities';
@@ -84,8 +84,8 @@ export class AzVocabAdapter implements IImportAdapter<any> {
   adaptPronunciations(
     vocab: VocabDetailDto,
     word: WordEntity,
-  ): Array<Partial<PronunciationEntity>> {
-    const result: Array<Partial<PronunciationEntity>> = [];
+  ): Array<Partial<WordPronunciationEntity>> {
+    const result: Array<Partial<WordPronunciationEntity>> = [];
 
     if (vocab.uk || vocab.pron_uk) {
       result.push({
@@ -111,7 +111,7 @@ export class AzVocabAdapter implements IImportAdapter<any> {
   adaptExamples(
     samples: any[],
     wordSense: WordSenseEntity,
-  ): Array<Partial<ExampleEntity>> {
+  ): Array<Partial<WordExampleEntity>> {
     if (!samples || !Array.isArray(samples)) return [];
 
     return samples.map((sample, index) => {

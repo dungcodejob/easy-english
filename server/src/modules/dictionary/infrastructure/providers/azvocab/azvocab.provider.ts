@@ -224,9 +224,21 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
   }
 
   /**
-   * Search for a word in azVocab dictionary
+   * Search for a word in azVocab dictionary (cache-first)
    */
   private async search(keyword: string): Promise<AzVocabSearchResponseDto[]> {
+    // Check cache first
+    const cached = await this.getCachedResponse<AzVocabSearchResponseDto[]>(
+      ApiEndpointType.SEARCH,
+      keyword,
+    );
+    if (cached) {
+      this.logger.debug(`[Cache HIT] search: ${keyword}`);
+      return cached;
+    }
+
+    this.logger.debug(`[Cache MISS] search: ${keyword} - calling API`);
+
     try {
       const url = `${this.baseUrl}/api/vocab/search?q=${encodeURIComponent(keyword)}`;
 
@@ -278,6 +290,18 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
   private async getDefinition(
     defId: string,
   ): Promise<AzVocabDefinitionResponseDto | null> {
+    // Check cache first
+    const cached = await this.getCachedResponse<AzVocabDefinitionResponseDto>(
+      ApiEndpointType.DEFINITION,
+      defId,
+    );
+    if (cached) {
+      this.logger.debug(`[Cache HIT] definition: ${defId}`);
+      return cached;
+    }
+
+    this.logger.debug(`[Cache MISS] definition: ${defId} - calling API`);
+
     try {
       const encodedDefId = encodeURIComponent(defId);
       const url = `${this.baseUrl}/_next/data/${this.buildId}/vi/definition/${encodedDefId}.json?id=${encodedDefId}`;
@@ -460,6 +484,33 @@ export class AzVocabProvider implements LookupProvider, IImportProvider {
       this.logger.warn(
         `Failed to cache API response for ${endpointType}:${requestIdentifier}: ${error}`,
       );
+    }
+  }
+
+  /**
+   * Get cached API response if available
+   */
+  private async getCachedResponse<T>(
+    endpointType: ApiEndpointType,
+    requestIdentifier: string,
+  ): Promise<T | null> {
+    try {
+      const cached = await this.em.findOne(ApiResponseCacheEntity, {
+        provider: ApiProvider.AZVOCAB,
+        endpointType,
+        requestIdentifier,
+      });
+
+      if (cached) {
+        return cached.rawResponse as T;
+      }
+
+      return null;
+    } catch (error) {
+      this.logger.warn(
+        `Failed to get cached response for ${endpointType}:${requestIdentifier}: ${error}`,
+      );
+      return null;
     }
   }
 }

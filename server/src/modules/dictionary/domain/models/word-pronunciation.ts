@@ -8,7 +8,7 @@ export interface CreatePronunciationData {
   region?: string;
 }
 
-export class Pronunciation extends ValueObject<Pronunciation> {
+export class WordPronunciation extends ValueObject<WordPronunciation> {
   readonly id: string; // Maintain ID for Persistence
   readonly audioUrl?: string;
   readonly ipa?: string;
@@ -22,7 +22,7 @@ export class Pronunciation extends ValueObject<Pronunciation> {
     this.region = data.region;
   }
 
-  equals(other: Pronunciation): boolean {
+  equals(other: WordPronunciation): boolean {
     return this.shallowEquals(other, ['ipa', 'region', 'audioUrl']);
   }
 }

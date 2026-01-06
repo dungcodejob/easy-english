@@ -2,7 +2,6 @@ import { Global, Injectable, Module, Provider } from '@nestjs/common';
 
 import {
   AccountEntity,
-  PronunciationEntity,
   SessionEntity,
   TenantEntity,
   TopicEntity,
@@ -10,13 +9,14 @@ import {
   UserWordSenseEntity,
   WordCacheEntity,
   WordEntity,
+  WordPronunciationEntity,
   WordSenseEntity,
 } from '@app/entities';
 import { RequestContextService } from '@app/request';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { WorkspaceEntity } from '../entities/workspace.entity';
 import { AccountRepository } from './account.repository';
-import { PronunciationRepository } from './pronunciation.repository';
+import { WordPronunciationRepository } from './pronunciation.repository';
 import { SessionRepository } from './session.repository';
 import { TenantRepository } from './tenant.repository';
 import { TopicRepository } from './topic.repository';
@@ -37,7 +37,7 @@ export interface UnitOfWork {
   topic: TopicRepository;
   word: WordRepository;
   wordCache: WordCacheRepository;
-  pronunciation: PronunciationRepository;
+  pronunciation: WordPronunciationRepository;
   wordSense: WordSenseRepository;
   userWordSense: UserWordSenseRepository;
   workspace: WorkspaceRepository;
@@ -59,7 +59,7 @@ export class UnitOfWorkImpl implements UnitOfWork {
   private _topic?: TopicRepository;
   private _word?: WordRepository;
   private _wordCache?: WordCacheRepository;
-  private _pronunciation?: PronunciationRepository;
+  private _pronunciation?: WordPronunciationRepository;
   private _wordSense?: WordSenseRepository;
   private _userWordSense?: UserWordSenseRepository;
   private _workspace?: WorkspaceRepository;
@@ -132,9 +132,9 @@ export class UnitOfWorkImpl implements UnitOfWork {
     return this._wordCache;
   }
 
-  get pronunciation(): PronunciationRepository {
+  get pronunciation(): WordPronunciationRepository {
     if (!this._pronunciation) {
-      this._pronunciation = this._em.getRepository(PronunciationEntity);
+      this._pronunciation = this._em.getRepository(WordPronunciationEntity);
     }
     return this._pronunciation;
   }

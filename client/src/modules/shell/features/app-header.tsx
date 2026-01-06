@@ -12,7 +12,7 @@ export function AppHeader() {
       <div className="flex items-center gap-4">
         <SidebarTrigger className="-ml-2" />
 
-        <div data-orientation="vertical" role="none" className="bg-border shrink-0 w-px hidden !h-4 sm:block md:max-lg:hidden" />
+        <div data-orientation="vertical" role="none" className="bg-border shrink-0 w-px hidden h-4! sm:block md:max-lg:hidden" />
 
         {/* Search Desktop */}
         <Button

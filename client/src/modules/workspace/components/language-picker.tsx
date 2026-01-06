@@ -64,7 +64,7 @@ function LanguageCard({ language, isSelected, onSelect, disabled = false }: Lang
 
       {/* SVG Flag */}
       {FlagComponent && (
-        <div className="h-12 w-[4.5rem] overflow-hidden rounded shadow-sm">
+        <div className="h-12 w-18 overflow-hidden rounded shadow-sm">
           <FlagComponent className="h-full w-full object-cover" title={`${language.name} flag`} />
         </div>
       )}

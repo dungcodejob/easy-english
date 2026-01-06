@@ -1,8 +1,8 @@
 import {
   DictionarySource,
   Language,
-  PronunciationEntity,
   WordEntity,
+  WordPronunciationEntity,
   WordSenseEntity,
   WordSensePartOfSpeech,
 } from '@app/entities';
@@ -92,7 +92,7 @@ export class LookupService {
       // Create Pronunciations
       if (data.pronunciations && data.pronunciations.length > 0) {
         for (const p of data.pronunciations) {
-          const pron = new PronunciationEntity({
+          const pron = new WordPronunciationEntity({
             word: wordEntity,
             ipa: p.ipa,
             audioUrl: p.audioUrl,

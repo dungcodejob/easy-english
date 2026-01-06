@@ -1,11 +1,5 @@
 import type { WordFamily, WordInflects } from '@app/domain/dictionary';
 import { Word } from '@app/domain/dictionary';
-import {
-  ExampleEntity,
-  PronunciationEntity,
-  WordEntity,
-  WordSenseEntity,
-} from '@app/entities';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { CollectionSyncConfig, syncCollection } from './collection-syncer';
 // Import Domain Interfaces
@@ -15,6 +9,12 @@ import type {
 } from '@app/domain/dictionary/models/word';
 
 import type { CreateSenseData } from '@app/domain/dictionary/models/word-sense';
+import {
+  WordEntity,
+  WordExampleEntity,
+  WordPronunciationEntity,
+  WordSenseEntity,
+} from '@app/entities';
 
 /**
  * WordMapper
@@ -137,11 +137,11 @@ export class WordMapper {
   ): Promise<void> {
     await wordEntity.pronunciations.init();
 
-    const config: CollectionSyncConfig<any, PronunciationEntity> = {
+    const config: CollectionSyncConfig<any, WordPronunciationEntity> = {
       getDomainId: (p) => p.id,
       getEntityId: (e) => e.id,
       createEntity: (p) => {
-        const entity = new PronunciationEntity({
+        const entity = new WordPronunciationEntity({
           word: wordEntity,
           ipa: p.ipa,
           audioUrl: p.audioUrl,
@@ -246,7 +246,7 @@ export class WordMapper {
       getDomainId: (e) => e.id,
       getEntityId: (e) => e.id,
       createEntity: (e) => {
-        const entity = new ExampleEntity({
+        const entity = new WordExampleEntity({
           id: e.id,
           sense: senseEntity,
           text: e.text,

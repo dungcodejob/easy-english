@@ -1,17 +1,10 @@
-import { PronunciationRepository } from '@app/repositories';
-import {
-  Entity,
-  EntityRepositoryType,
-  Index,
-  ManyToOne,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, Index, ManyToOne, Property } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { WordEntity } from './word.entity';
 
-@Entity({ repository: () => PronunciationRepository })
-export class PronunciationEntity extends BaseEntity {
+@Entity()
+export class WordPronunciationEntity extends BaseEntity {
   @ManyToOne(() => WordEntity)
   @Index()
   word: WordEntity;
@@ -25,9 +18,7 @@ export class PronunciationEntity extends BaseEntity {
   @Property({ nullable: true })
   region?: string;
 
-  [EntityRepositoryType]?: PronunciationRepository;
-
-  constructor(data: Partial<PronunciationEntity>) {
+  constructor(data: Partial<WordPronunciationEntity>) {
     super();
     this.id = v7();
 

@@ -11,7 +11,7 @@ import {
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
-import { PronunciationEntity } from './pronunciation.entity';
+import { WordPronunciationEntity } from './word-pronunciation.entity';
 import { WordSenseEntity } from './word-sense.entity';
 import { Language } from './workspace.entity';
 
@@ -62,8 +62,11 @@ export class WordEntity extends BaseEntity {
   @Property({ nullable: true, fieldName: 'update_by' })
   updateBy?: string;
 
-  @OneToMany(() => PronunciationEntity, (pronunciation) => pronunciation.word)
-  pronunciations = new Collection<PronunciationEntity>(this);
+  @OneToMany(
+    () => WordPronunciationEntity,
+    (pronunciation) => pronunciation.word,
+  )
+  pronunciations = new Collection<WordPronunciationEntity>(this);
 
   @OneToMany(() => WordSenseEntity, (sense) => sense.word)
   senses = new Collection<WordSenseEntity>(this);

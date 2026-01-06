@@ -1,9 +1,9 @@
 import {
   DictionarySource,
-  ExampleEntity,
   Language,
-  PronunciationEntity,
   WordEntity,
+  WordExampleEntity,
+  WordPronunciationEntity,
   WordSenseEntity,
 } from '@app/entities';
 import { EntityManager, wrap } from '@mikro-orm/core';
@@ -80,12 +80,12 @@ export class AzVocabProvider implements IImportProvider {
           word,
         );
         for (const pronData of pronunciationDataList) {
-          const exists = await em.findOne(PronunciationEntity, {
+          const exists = await em.findOne(WordPronunciationEntity, {
             word: word,
             region: pronData.region,
           });
           if (!exists) {
-            em.persist(new PronunciationEntity(pronData));
+            em.persist(new WordPronunciationEntity(pronData));
             createdPronunciations++;
           }
         }
@@ -110,7 +110,7 @@ export class AzVocabProvider implements IImportProvider {
               wordSense,
             );
             for (const exData of examples) {
-              em.persist(new ExampleEntity(exData));
+              em.persist(new WordExampleEntity(exData));
               createdExamples++;
             }
           } else {

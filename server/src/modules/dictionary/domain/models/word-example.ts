@@ -14,7 +14,7 @@ export interface UpdateExampleData {
   order?: number;
 }
 
-export class Example extends Entity {
+export class WordExample extends Entity {
   private _text: string;
   private _translationVi?: string;
   private _order: number;

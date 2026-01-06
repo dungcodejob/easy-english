@@ -1,5 +1,5 @@
 import { Entity } from '@app/domain';
-import { CreateExampleData, Example } from './example';
+import { CreateExampleData, WordExample } from './word-example';
 
 export interface CreateSenseData {
   id?: string;
@@ -60,7 +60,7 @@ export class WordSense extends Entity {
   private _synonyms: string[];
   private _antonyms: string[];
   private _updateBy?: string;
-  private _examples: Example[];
+  private _examples: WordExample[];
 
   constructor(data: CreateSenseData, id?: string) {
     super(id ?? data.id);
@@ -82,7 +82,7 @@ export class WordSense extends Entity {
     this._antonyms = data.antonyms ?? [];
     this._updateBy = data.updateBy;
 
-    this._examples = data.examples?.map((e) => new Example(e, e.id)) ?? [];
+    this._examples = data.examples?.map((e) => new WordExample(e, e.id)) ?? [];
   }
 
   // Getters
@@ -154,7 +154,7 @@ export class WordSense extends Entity {
     return this._updateBy;
   }
 
-  get examples(): ReadonlyArray<Example> {
+  get examples(): ReadonlyArray<WordExample> {
     return [...this._examples];
   }
 
@@ -181,8 +181,8 @@ export class WordSense extends Entity {
     this.touch();
   }
 
-  addExample(data: CreateExampleData): Example {
-    const example = new Example(data);
+  addExample(data: CreateExampleData): WordExample {
+    const example = new WordExample(data);
     this._examples.push(example);
     this.touch();
     return example;

@@ -1,7 +1,7 @@
-export { Pronunciation } from './pronunciation';
-export type { CreatePronunciationData } from './pronunciation';
+export { WordPronunciation as Pronunciation } from './word-pronunciation';
+export type { CreatePronunciationData } from './word-pronunciation';
 
-export { Example } from './example';
+export { WordExample as Example } from './example';
 export type { CreateExampleData, UpdateExampleData } from './example';
 
 export { Word } from './word';

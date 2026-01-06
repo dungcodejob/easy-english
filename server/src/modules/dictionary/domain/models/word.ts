@@ -4,8 +4,8 @@ import {
   WordSenseAddedEvent,
   WordSenseRemovedEvent,
 } from '../events';
-import { Example } from './example';
-import { Pronunciation } from './pronunciation';
+import { WordExample } from './word-example';
+import { WordPronunciation } from './word-pronunciation';
 import { CreateSenseData, UpdateSenseData, WordSense } from './word-sense';
 
 export interface WordInflects {
@@ -68,7 +68,7 @@ export class Word extends AggregateRoot {
   private _text: string;
   private _normalizedText: string;
   private _language: string;
-  private _pronunciations: Pronunciation[];
+  private _pronunciations: WordPronunciation[];
   private _senses: WordSense[];
   private _tags: string[];
   private _originalWord?: string;
@@ -94,7 +94,7 @@ export class Word extends AggregateRoot {
     this._updateBy = data.updateBy;
 
     this._pronunciations =
-      data.pronunciations?.map((p) => new Pronunciation(p, p.id)) ?? [];
+      data.pronunciations?.map((p) => new WordPronunciation(p, p.id)) ?? [];
     this._senses =
       data.senses?.map((s, index) =>
         this.createSense({
@@ -125,7 +125,7 @@ export class Word extends AggregateRoot {
     return this._language;
   }
 
-  get pronunciations(): ReadonlyArray<Pronunciation> {
+  get pronunciations(): ReadonlyArray<WordPronunciation> {
     return [...this._pronunciations];
   }
 
@@ -185,7 +185,7 @@ export class Word extends AggregateRoot {
   }
 
   addPronunciation(data: CreatePronunciationData): void {
-    const pronunciation = new Pronunciation(data);
+    const pronunciation = new WordPronunciation(data);
     if (!this._pronunciations.some((p) => p.equals(pronunciation))) {
       this._pronunciations.push(pronunciation);
     }
@@ -248,7 +248,7 @@ export class Word extends AggregateRoot {
     senseId: string,
     exampleText: string,
     translation?: string,
-  ): Example | undefined {
+  ): WordExample | undefined {
     const sense = this.getSense(senseId);
     if (!sense) return undefined;
 

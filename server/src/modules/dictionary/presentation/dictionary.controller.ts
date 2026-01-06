@@ -64,7 +64,7 @@ export class DictionaryController {
   /**
    * Get detailed information for a word from database
    */
-  @Public()
+
   @Get('word/:keyword')
   @ApiOperation({
     summary: 'Get detailed information for a word from database',

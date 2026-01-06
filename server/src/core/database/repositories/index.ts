@@ -2,9 +2,6 @@ export * from './account.repository';
 export * from './api-response-cache.repository';
 export * from './category.repository';
 export * from './collection.repository';
-export * from './example.repository';
-
-export * from './pronunciation.repository';
 export * from './session.repository';
 export * from './tenant.repository';
 export * from './topic-sense.repository';

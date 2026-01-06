@@ -1,8 +1,6 @@
-import { ExampleRepository } from '@app/repositories';
 import {
   Collection,
   Entity,
-  EntityRepositoryType,
   Index,
   ManyToMany,
   ManyToOne,
@@ -13,8 +11,8 @@ import { BaseEntity } from './base.entity';
 import { VocabSetEntity } from './vocab-set.entity';
 import { WordSenseEntity } from './word-sense.entity';
 
-@Entity({ repository: () => ExampleRepository })
-export class ExampleEntity extends BaseEntity {
+@Entity()
+export class WordExampleEntity extends BaseEntity {
   @Property({ fieldName: 'external_id', nullable: true })
   externalId?: string;
 
@@ -34,9 +32,7 @@ export class ExampleEntity extends BaseEntity {
   @ManyToMany(() => VocabSetEntity, (set) => set.examples)
   vocabSets = new Collection<VocabSetEntity>(this);
 
-  [EntityRepositoryType]?: ExampleRepository;
-
-  constructor(data: Partial<ExampleEntity>) {
+  constructor(data: Partial<WordExampleEntity>) {
     super();
     this.id = v7();
     Object.assign(this, data);

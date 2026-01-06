@@ -12,7 +12,7 @@ import {
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
 import { CategoryEntity } from './category.entity';
-import { ExampleEntity } from './example.entity';
+import { WordExampleEntity } from './word-example.entity';
 import { WordSenseEntity } from './word-sense.entity';
 
 @Entity({ repository: () => VocabSetRepository })
@@ -33,10 +33,10 @@ export class VocabSetEntity extends BaseEntity {
   })
   senses = new Collection<WordSenseEntity>(this);
 
-  @ManyToMany(() => ExampleEntity, (example) => example.vocabSets, {
+  @ManyToMany(() => WordExampleEntity, (example) => example.vocabSets, {
     owner: true,
   })
-  examples = new Collection<ExampleEntity>(this);
+  examples = new Collection<WordExampleEntity>(this);
 
   [EntityRepositoryType]?: VocabSetRepository;
 

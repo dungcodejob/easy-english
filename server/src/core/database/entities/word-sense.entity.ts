@@ -12,8 +12,8 @@ import {
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
 import { BaseEntity } from './base.entity';
-import { ExampleEntity } from './example.entity';
 import { VocabSetEntity } from './vocab-set.entity';
+import { WordExampleEntity } from './word-example.entity';
 import { WordEntity } from './word.entity';
 
 export enum WordSensePartOfSpeech {
@@ -45,8 +45,8 @@ export class WordSenseEntity extends BaseEntity {
   @Property({ fieldName: 'short_definition', type: 'text', nullable: true })
   shortDefinition?: string;
 
-  @OneToMany(() => ExampleEntity, (example) => example.sense)
-  exampleEntities = new Collection<ExampleEntity>(this);
+  @OneToMany(() => WordExampleEntity, (example) => example.sense)
+  exampleEntities = new Collection<WordExampleEntity>(this);
 
   @ManyToMany(() => VocabSetEntity, (set) => set.senses)
   vocabSets = new Collection<VocabSetEntity>(this);

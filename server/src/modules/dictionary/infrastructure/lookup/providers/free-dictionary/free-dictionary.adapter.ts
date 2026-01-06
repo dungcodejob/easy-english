@@ -1,76 +1,84 @@
 import { DictionarySource, Language } from '@app/entities';
 import { Injectable, Logger } from '@nestjs/common';
-import { NormalizedData } from '../../../../domain/lookup/lookup-provider.interface';
+import { Word } from '../../../../domain/models/word';
 
 @Injectable()
 export class FreeDictionaryAdapter {
   private readonly logger = new Logger(FreeDictionaryAdapter.name);
 
-  adapt(raw: any): NormalizedData | null {
+  /**
+   * Convert raw FreeDictionary API response to Word domain model
+   */
+  toWordDomain(raw: unknown): Word | null {
     if (!raw || !Array.isArray(raw) || raw.length === 0) {
       this.logger.warn('Invalid raw data for normalization');
       return null;
     }
 
     try {
-      const entry = raw[0]; // Take the first entry
+      const entry = raw[0];
       const wordText = entry.word;
 
       if (!wordText) {
         throw new Error('Word text missing in raw data');
       }
 
-      const normalized: NormalizedData = {
-        word: {
-          text: wordText,
-          normalizedText: wordText.toLowerCase().trim(),
-          language: Language.EN,
-        },
-        pronunciations: [],
-        senses: [],
-      };
+      // Create Word aggregate
+      const word = new Word({
+        text: wordText,
+        normalizedText: wordText.toLowerCase().trim(),
+        language: Language.EN,
+        source: DictionarySource.DICTIONARY_API,
+      });
 
-      // Extract Pronunciations
+      // Add Pronunciations
       if (Array.isArray(entry.phonetics)) {
-        normalized.pronunciations = entry.phonetics
-          .filter((p: any) => p.text || p.audio)
-          .map((p: any) => ({
-            ipa: p.text,
-            audioUrl: p.audio || undefined,
-            region: this.inferRegion(
-              typeof p.audio === 'string' ? (p.audio as string) : undefined,
-            ),
-          }));
+        for (const p of entry.phonetics) {
+          if (p.text || p.audio) {
+            word.addPronunciation({
+              ipa: p.text,
+              audioUrl: p.audio || undefined,
+              region: this.inferRegion(
+                typeof p.audio === 'string' ? p.audio : undefined,
+              ),
+            });
+          }
+        }
       }
 
-      // Extract Senses
+      // Add Senses
       if (Array.isArray(entry.meanings)) {
-        entry.meanings.forEach((meaning: any) => {
+        let senseIndex = 0;
+        for (const meaning of entry.meanings) {
           const partOfSpeech = meaning.partOfSpeech;
           const definitions = meaning.definitions;
           const globalSynonyms = meaning.synonyms || [];
           const globalAntonyms = meaning.antonyms || [];
 
           if (Array.isArray(definitions)) {
-            definitions.forEach((def: any, index: number) => {
-              if (!def.definition) return;
+            for (const def of definitions) {
+              if (!def.definition) continue;
 
-              normalized.senses.push({
-                partOfSpeech: partOfSpeech,
+              const sense = word.addSense({
+                partOfSpeech,
                 definition: def.definition,
+                senseIndex: senseIndex++,
+                source: DictionarySource.DICTIONARY_API,
                 shortDefinition: def.definition.substring(0, 100),
-                examples: def.example ? [def.example] : [],
                 synonyms: [...globalSynonyms, ...(def.synonyms || [])],
                 antonyms: [...globalAntonyms, ...(def.antonyms || [])],
-                senseIndex: index,
-                source: DictionarySource.DICTIONARY_API,
               });
-            });
+
+              // Add example if exists
+              if (def.example) {
+                sense.addExample({ text: def.example });
+              }
+            }
           }
-        });
+        }
       }
 
-      return normalized;
+      return word;
     } catch (error) {
       this.logger.error(`Adaptation failed: ${error.message}`, error.stack);
       return null;

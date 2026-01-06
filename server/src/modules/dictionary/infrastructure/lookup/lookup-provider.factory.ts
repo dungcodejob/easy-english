@@ -1,6 +1,7 @@
 import { DictionarySource } from '@app/entities';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { LookupProvider } from '../../domain/lookup/lookup-provider.interface';
+import { AzVocabProvider } from '../providers/azvocab/azvocab.provider';
 import { FreeDictionaryProvider } from './providers/free-dictionary/free-dictionary.provider';
 import { OxfordProvider } from './providers/oxford/oxford.provider';
 
@@ -9,6 +10,7 @@ export class LookupProviderFactory {
   constructor(
     private readonly oxfordProvider: OxfordProvider,
     private readonly freeDictionaryProvider: FreeDictionaryProvider,
+    private readonly azvocabProvider: AzVocabProvider,
   ) {}
 
   getProvider(source?: DictionarySource): LookupProvider {
@@ -18,6 +20,10 @@ export class LookupProviderFactory {
 
       case DictionarySource.DICTIONARY_API:
         return this.freeDictionaryProvider;
+
+      case DictionarySource.AZVOCAB:
+        return this.azvocabProvider;
+
       default:
         throw new NotFoundException(
           `Dictionary provider '${source}' not supported`,

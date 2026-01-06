@@ -1,38 +1,24 @@
 import { Result } from 'neverthrow';
+import { Word } from '../models/word';
+
+/**
+ * Lookup Result
+ *
+ * Contains the Word domain model ready to persist,
+ * plus the raw API response for debugging/logging.
+ */
+export interface LookupResult {
+  word: Word;
+  rawData: unknown;
+}
 
 /**
  * Lookup Provider Interface
  *
- * Same as DictionaryProvider - for looking up words from external APIs.
- * Returns NormalizedData that can be mapped to Word domain.
+ * Providers fetch data from external APIs and return
+ * a Word domain model + raw data for debugging.
  */
 export interface LookupProvider {
   name: string;
-  lookup(
-    word: string,
-    language?: string,
-  ): Promise<Result<NormalizedData, Error>>;
-}
-
-export interface NormalizedData {
-  word: {
-    text: string;
-    normalizedText: string;
-    language: string;
-  };
-  pronunciations: Array<{
-    ipa?: string;
-    audioUrl?: string;
-    region?: string;
-  }>;
-  senses: Array<{
-    partOfSpeech: string;
-    definition: string;
-    shortDefinition?: string;
-    examples: string[];
-    synonyms: string[];
-    antonyms: string[];
-    senseIndex: number;
-    source: string;
-  }>;
+  lookup(word: string, language?: string): Promise<Result<LookupResult, Error>>;
 }

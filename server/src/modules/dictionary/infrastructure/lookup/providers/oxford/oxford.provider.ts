@@ -4,7 +4,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { err, ok, Result } from 'neverthrow';
 import {
   LookupProvider,
-  NormalizedData,
+  LookupResult,
 } from '../../../../domain/lookup/lookup-provider.interface';
 import { OxfordAdapter } from './oxford.adapter';
 
@@ -18,25 +18,27 @@ export class OxfordProvider implements LookupProvider {
     private readonly adapter: OxfordAdapter,
   ) {}
 
-  async lookup(word: string): Promise<Result<NormalizedData, Error>> {
+  async lookup(word: string): Promise<Result<LookupResult, Error>> {
     try {
       // 1. Fetch raw data
       // const res = await this.oxfordService.lookupWord(word);
-
-      const res = {} as any;
+      const res = {} as { data?: unknown };
 
       if (!res.data) {
         return err(Errors.LookupNotFound);
       }
 
-      // 2. Transform using adapter
-      const normalizedData = this.adapter.adapt(res.data);
+      // 2. Transform to Word domain
+      const wordDomain = this.adapter.toWordDomain(res.data);
 
-      if (!normalizedData) {
+      if (!wordDomain) {
         return err(Errors.LookupNotFound);
       }
 
-      return ok(normalizedData);
+      return ok({
+        word: wordDomain,
+        rawData: res.data,
+      });
     } catch (error) {
       this.logger.error(
         `Error in OxfordProvider lookup for ${word}: ${error.message}`,

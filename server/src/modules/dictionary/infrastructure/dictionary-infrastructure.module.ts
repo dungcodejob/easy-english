@@ -3,12 +3,13 @@ import { OxfordDictionaryService } from '@app/services/oxford-dictionary.service
 import { HttpModule } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
 import { ImportProviderFactory } from './import/import-provider.factory';
-import { AzVocabProvider } from './import/providers/azvocab/azvocab.provider';
 import { LookupProviderFactory } from './lookup/lookup-provider.factory';
 import { FreeDictionaryAdapter } from './lookup/providers/free-dictionary/free-dictionary.adapter';
 import { FreeDictionaryProvider } from './lookup/providers/free-dictionary/free-dictionary.provider';
 import { OxfordAdapter } from './lookup/providers/oxford/oxford.adapter';
 import { OxfordProvider } from './lookup/providers/oxford/oxford.provider';
+import { AzVocabAdapter } from './providers/azvocab/azvocab.adapter';
+import { AzVocabProvider } from './providers/azvocab/azvocab.provider';
 import { MikroOrmWordRepository } from './repositories/mikro-orm-word.repository';
 
 /**
@@ -25,11 +26,13 @@ import { MikroOrmWordRepository } from './repositories/mikro-orm-word.repository
       provide: WORD_AGGREGATE_REPOSITORY,
       useClass: MikroOrmWordRepository,
     },
-    // Import providers
+    // Unified AzVocab Provider (used by both import and lookup)
     AzVocabProvider,
+    AzVocabAdapter,
+    // Factories
     ImportProviderFactory,
-    // Lookup providers
     LookupProviderFactory,
+    // Other Lookup providers
     OxfordProvider,
     FreeDictionaryProvider,
     OxfordAdapter,

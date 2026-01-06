@@ -15,7 +15,17 @@ import { AzVocabAdapter } from './azvocab.adapter';
 import {
   AzVocabDefinitionResponseDto,
   AzVocabSearchResponseDto,
+  VocabDetailDto,
 } from './azvocab.types';
+
+// ============ Rate Limiting Configuration ============
+// Delay after every BATCH_SIZE requests to avoid API spam
+const BATCH_SIZE = 3; // Number of requests before delay
+const BATCH_DELAY_MS = 500; // Delay in milliseconds after each batch
+
+const delay = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+// =====================================================
 
 @Injectable()
 export class AzVocabProvider implements IImportProvider {
@@ -32,107 +42,101 @@ export class AzVocabProvider implements IImportProvider {
     private readonly em: EntityManager,
   ) {}
 
-  async import(keyword: string): Promise<ImportResult> {
-    const definitions = await this.searchAndGetDefinitions(keyword);
+  async import(keyword: string): Promise<ImportResult[]> {
+    const result = await this.searchAndGetDefinitions(keyword);
 
-    if (definitions.length === 0) {
-      return {
-        keyword,
-        wordId: null,
-        wordCreated: false,
-        createdSenses: 0,
-        createdPronunciations: 0,
-        createdExamples: 0,
-        skippedSenses: 0,
-        totalDefinitions: 0,
-      };
+    if (result.length === 0) {
+      return [];
     }
 
-    // Assume all definitions belong to the same vocab
-    const vocabData = definitions[0].pageProps.vocab;
+    const importResults: ImportResult[] = [];
 
-    let wordCreated = false;
-    let createdSenses = 0;
-    let createdPronunciations = 0;
-    let createdExamples = 0;
-    let skippedSenses = 0;
+    for (const { vocabData, definitions } of result) {
+      let wordCreated = false;
+      let createdSenses = 0;
+      let createdPronunciations = 0;
+      let createdExamples = 0;
+      let skippedSenses = 0;
 
-    // Use a transaction
-    await this.em.transactional(async (em) => {
-      // 1. Find or create Word
-      let word = await em.findOne(WordEntity, {
+      // Use a transaction
+      await this.em.transactional(async (em) => {
+        // 1. Find or create Word
+        let word = await em.findOne(WordEntity, {
+          normalizedText: keyword.toLowerCase(),
+          language: Language.EN,
+        });
+
+        if (!word) {
+          word = new WordEntity(this.adapter.adaptWord(vocabData));
+          em.persist(word);
+          wordCreated = true;
+        } else {
+          wrap(word).assign(this.adapter.adaptWord(vocabData));
+        }
+
+        // 2. Pronunciations
+        const pronunciationDataList = this.adapter.adaptPronunciations(
+          vocabData,
+          word,
+        );
+        for (const pronData of pronunciationDataList) {
+          const exists = await em.findOne(PronunciationEntity, {
+            word: word,
+            region: pronData.region,
+          });
+          if (!exists) {
+            em.persist(new PronunciationEntity(pronData));
+            createdPronunciations++;
+          }
+        }
+
+        // 3. Definitions -> WordSenses
+        for (const [index, apiDef] of definitions.entries()) {
+          const defDetail = apiDef.pageProps.def;
+          const existsRef = await em.findOne(WordSenseEntity, {
+            externalId: defDetail.id,
+          });
+
+          if (!existsRef) {
+            const wordSense = new WordSenseEntity(
+              this.adapter.adaptSenses(defDetail, word, index),
+            );
+            em.persist(wordSense);
+            createdSenses++;
+
+            // 4. Examples
+            const examples = this.adapter.adaptExamples(
+              defDetail.samples || [],
+              wordSense,
+            );
+            for (const exData of examples) {
+              em.persist(new ExampleEntity(exData));
+              createdExamples++;
+            }
+          } else {
+            skippedSenses++;
+          }
+        }
+      });
+
+      const finalWord = await this.em.findOne(WordEntity, {
         normalizedText: keyword.toLowerCase(),
         language: Language.EN,
       });
 
-      if (!word) {
-        word = new WordEntity(this.adapter.adaptWord(vocabData));
-        em.persist(word);
-        wordCreated = true;
-      } else {
-        wrap(word).assign(this.adapter.adaptWord(vocabData));
-      }
+      importResults.push({
+        keyword: vocabData.vocab,
+        wordId: finalWord?.id || null,
+        wordCreated,
+        createdSenses,
+        createdPronunciations,
+        createdExamples,
+        skippedSenses,
+        totalDefinitions: definitions.length,
+      });
+    }
 
-      // 2. Pronunciations
-      const pronunciationDataList = this.adapter.adaptPronunciations(
-        vocabData,
-        word,
-      );
-      for (const pronData of pronunciationDataList) {
-        const exists = await em.findOne(PronunciationEntity, {
-          word: word,
-          region: pronData.region,
-        });
-        if (!exists) {
-          em.persist(new PronunciationEntity(pronData));
-          createdPronunciations++;
-        }
-      }
-
-      // 3. Definitions -> WordSenses
-      for (const [index, apiDef] of definitions.entries()) {
-        const defDetail = apiDef.pageProps.def;
-        const existsRef = await em.findOne(WordSenseEntity, {
-          externalId: defDetail.id,
-        });
-
-        if (!existsRef) {
-          const wordSense = new WordSenseEntity(
-            this.adapter.adaptSenses(defDetail, word, index),
-          );
-          em.persist(wordSense);
-          createdSenses++;
-
-          // 4. Examples
-          const examples = this.adapter.adaptExamples(
-            defDetail.samples || [],
-            wordSense,
-          );
-          for (const exData of examples) {
-            em.persist(new ExampleEntity(exData));
-            createdExamples++;
-          }
-        } else {
-          skippedSenses++;
-        }
-      }
-    });
-
-    const finalWord = await this.em.findOne(WordEntity, {
-      normalizedText: keyword.toLowerCase(),
-      language: Language.EN,
-    });
-
-    return {
-      keyword,
-      wordId: finalWord?.id || null,
-      wordCreated,
-      createdSenses,
-      createdPronunciations,
-      createdExamples,
-      skippedSenses,
-      totalDefinitions: definitions.length,
-    };
+    return importResults;
   }
 
   /**
@@ -225,39 +229,71 @@ export class AzVocabProvider implements IImportProvider {
     }
   }
 
-  /**
-   * Search and get all detailed definitions
-   */
-  private async searchAndGetDefinitions(
-    keyword: string,
-  ): Promise<AzVocabDefinitionResponseDto[]> {
+  private async searchAndGetDefinitions(keyword: string): Promise<
+    {
+      vocabData: VocabDetailDto;
+      definitions: AzVocabDefinitionResponseDto[];
+    }[]
+  > {
     try {
       // Step 1: Search for the keyword
       const searchResults = await this.search(keyword);
 
-      // Step 2: Filter entries with ID matching pattern ${keyword}.number
-      // const pattern = new RegExp(`^${keyword}\\.`);
-      // const matchingEntries = searchResults.filter((entry) =>
-      //   pattern.test(entry.id),
-      // );
+      if (!searchResults || searchResults.length === 0) {
+        return [];
+      }
 
       this.logger.log(
         `Found ${searchResults.length} matching entries for keyword: ${keyword}`,
       );
 
-      // Step 3: Get detailed definitions for each matching entry
-      const definitions = await Promise.all(
-        searchResults.map(async (entry) => {
-          const defPromises = entry.defs.map((def) =>
-            this.getDefinition(def.id),
-          );
-          return Promise.all(defPromises);
-        }),
+      // Step 3: Get detailed definitions with batch delay to avoid API spam
+      // Collect all definition IDs from matching entries
+      const allDefIds = searchResults.flatMap((entry) =>
+        entry.defs.map((def) => def.id),
       );
 
-      return definitions
-        .flat()
-        .filter((d): d is AzVocabDefinitionResponseDto => !!d && !!d.pageProps);
+      let requestCount = 0;
+
+      const result: {
+        vocabData: VocabDetailDto;
+        definitions: AzVocabDefinitionResponseDto[];
+      }[] = [];
+
+      for (const entry of searchResults) {
+        const defIds = entry.defs.map((def) => def.id);
+        const definitions: AzVocabDefinitionResponseDto[] = [];
+        for (const defId of defIds) {
+          const defData = await this.getDefinition(defId);
+          if (defData?.pageProps) {
+            definitions.push(defData);
+          }
+
+          requestCount++;
+
+          // Delay after every BATCH_SIZE requests
+          if (
+            requestCount % BATCH_SIZE === 0 &&
+            requestCount < allDefIds.length
+          ) {
+            this.logger.debug(
+              `Batch ${requestCount / BATCH_SIZE} completed, delaying ${BATCH_DELAY_MS}ms...`,
+            );
+            await delay(BATCH_DELAY_MS);
+          }
+        }
+
+        if (definitions.length === 0 || !definitions[0].pageProps?.vocab) {
+          continue;
+        }
+
+        result.push({
+          vocabData: definitions[0].pageProps.vocab,
+          definitions,
+        });
+      }
+
+      return result;
     } catch (error) {
       this.logger.error(
         `Failed to search and get definitions for keyword: ${keyword}`,

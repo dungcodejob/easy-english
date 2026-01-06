@@ -66,17 +66,15 @@ export class MikroOrmWordRepository implements IWordAggregateRepository {
     const existingEntity = await this.em.findOne(WordEntity, { id: word.id });
 
     // Map domain to entity
-    const wordEntity = WordMapper.toEntity(
-      word,
-      this.em,
-      existingEntity ?? undefined,
-    );
+    const wordEntity = WordMapper.toEntity(word, existingEntity ?? undefined);
 
     if (!existingEntity) {
       this.em.persist(wordEntity);
+      // Flush to make entity managed before syncing children
+      await this.em.flush();
     }
 
-    // Sync child entities
+    // Sync child entities (entity is now managed)
     await WordMapper.syncChildren(word, wordEntity, this.em);
 
     // Flush all changes

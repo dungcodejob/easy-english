@@ -10,7 +10,7 @@ export class ImportService {
   async import(
     keyword: string,
     source: DictionarySource = DictionarySource.AZVOCAB,
-  ): Promise<ImportResult> {
+  ): Promise<ImportResult[]> {
     const provider = this.factory.getProvider(source);
     return provider.import(keyword);
   }

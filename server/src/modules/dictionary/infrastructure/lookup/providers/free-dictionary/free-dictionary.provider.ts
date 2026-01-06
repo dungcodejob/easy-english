@@ -4,7 +4,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Result, err, ok } from 'neverthrow';
 import {
   LookupProvider,
-  NormalizedData,
+  LookupResult,
 } from '../../../../domain/lookup/lookup-provider.interface';
 import { FreeDictionaryAdapter } from './free-dictionary.adapter';
 
@@ -19,7 +19,7 @@ export class FreeDictionaryProvider implements LookupProvider {
     private readonly adapter: FreeDictionaryAdapter,
   ) {}
 
-  async lookup(word: string): Promise<Result<NormalizedData, Error>> {
+  async lookup(word: string): Promise<Result<LookupResult, Error>> {
     try {
       // 1. Fetch raw data
       const res = await this.httpService.axiosRef.get(
@@ -30,14 +30,17 @@ export class FreeDictionaryProvider implements LookupProvider {
         return err(Errors.LookupNotFound);
       }
 
-      // 2. Transform using adapter
-      const normalized = this.adapter.adapt(res.data);
+      // 2. Transform to Word domain
+      const wordDomain = this.adapter.toWordDomain(res.data);
 
-      if (!normalized) {
+      if (!wordDomain) {
         return err(Errors.LookupNotFound);
       }
 
-      return ok(normalized);
+      return ok({
+        word: wordDomain,
+        rawData: res.data,
+      });
     } catch (error) {
       this.logger.error(
         `Error in FreeDictionaryProvider lookup for ${word}: ${error.message}`,

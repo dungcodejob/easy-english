@@ -36,16 +36,11 @@ export class LookupService {
     this.logger.log(
       `DB Miss for word: ${normalizedText}. Fetching from provider.`,
     );
-    const provider = this.providerFactory.getProvider(source);
+    const provider = this.providerFactory.getProvider(DictionarySource.AZVOCAB);
     const result = await provider.lookup(normalizedText, language);
 
     return result.match(
-      async ({ word: wordDomain, rawData }) => {
-        // Log raw data for debugging
-        this.logger.debug(`Raw API response for ${normalizedText}:`, rawData);
-
-        // Provider already created Word domain - just persist
-        await this.wordRepo.save(wordDomain);
+      async ({ word: wordDomain }) => {
         return wordDomain;
       },
       (error) => {

@@ -14,7 +14,7 @@ export const databaseConfig = defineConfig({
   clientUrl: process.env[ENV_KEY.DATABASE_URL],
   entities: ['dist/core/database/entities/**/*.entity.js'],
   entitiesTs: ['src/core/database/entities/**/*.entity.ts'],
-  debug: NODE_ENV === 'dev',
+  debug: false,
   highlighter: new SqlHighlighter(),
   extensions: [Migrator, SeedManager],
 

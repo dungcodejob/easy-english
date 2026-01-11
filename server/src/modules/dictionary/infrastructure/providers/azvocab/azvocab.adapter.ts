@@ -1,4 +1,8 @@
-import { DictionarySource, Language } from '@app/entities';
+import {
+  DictionarySource,
+  Language,
+  WordSensePartOfSpeech,
+} from '@app/entities';
 import { Injectable, Logger } from '@nestjs/common';
 import { Word } from '../../../domain/models/word';
 import {
@@ -6,6 +10,37 @@ import {
   DefDetailDto,
   VocabDetailDto,
 } from './azvocab.types';
+
+export enum AzVocabPartOfSpeech {
+  noun = 'n',
+  verb = 'v',
+  adjective = 'a',
+  adverb = 'adv',
+  pronoun = 'pron',
+  preposition = 'prep',
+  conjunction = 'conj',
+  interjection = 'intj',
+  phrase = 'phr',
+  idiom = 'idiom',
+  phraseVerb = 'phr.v',
+}
+
+const azVocabMappingPosToPartOfSpeech: Record<
+  AzVocabPartOfSpeech,
+  WordSensePartOfSpeech
+> = {
+  [AzVocabPartOfSpeech.phraseVerb]: WordSensePartOfSpeech.verb,
+  [AzVocabPartOfSpeech.phrase]: WordSensePartOfSpeech.phrase,
+  [AzVocabPartOfSpeech.idiom]: WordSensePartOfSpeech.idiom,
+  [AzVocabPartOfSpeech.noun]: WordSensePartOfSpeech.noun,
+  [AzVocabPartOfSpeech.verb]: WordSensePartOfSpeech.verb,
+  [AzVocabPartOfSpeech.adjective]: WordSensePartOfSpeech.adjective,
+  [AzVocabPartOfSpeech.adverb]: WordSensePartOfSpeech.adverb,
+  [AzVocabPartOfSpeech.pronoun]: WordSensePartOfSpeech.pronoun,
+  [AzVocabPartOfSpeech.preposition]: WordSensePartOfSpeech.preposition,
+  [AzVocabPartOfSpeech.conjunction]: WordSensePartOfSpeech.conjunction,
+  [AzVocabPartOfSpeech.interjection]: WordSensePartOfSpeech.interjection,
+};
 
 /**
  * AzVocab Adapter
@@ -37,6 +72,9 @@ export class AzVocabAdapter {
       // Create Word aggregate
       const word = new Word({
         text: wordText,
+        rank: vocabData.rank,
+        inflects: vocabData.inflects,
+        frequency: vocabData.freq,
         normalizedText: wordText.toLowerCase().trim(),
         language: Language.EN,
         source: DictionarySource.AZVOCAB,
@@ -65,9 +103,16 @@ export class AzVocabAdapter {
         if (!def) return;
 
         const sense = word.addSense({
-          partOfSpeech: def.pos || 'unknown',
+          partOfSpeech:
+            azVocabMappingPosToPartOfSpeech[def.pos] || def.pos || 'unknown',
           definition: def.def,
+          definitionVi: def.vi,
           senseIndex: index,
+          cefrLevel: def.level,
+          images: def.images,
+          idioms: def.idioms,
+          phrases: def.phrases,
+          verbPhrases: def.verb_phrases,
           source: DictionarySource.AZVOCAB,
           shortDefinition: def.def.substring(0, 100),
           synonyms: def.synonyms || [],
@@ -77,7 +122,7 @@ export class AzVocabAdapter {
 
         // Add examples
         for (const sample of def.samples || []) {
-          sense.addExample({ text: sample.text });
+          sense.addExample({ text: sample.text, externalId: sample.id });
         }
       });
 

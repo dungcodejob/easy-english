@@ -8,7 +8,10 @@ import type {
   CreateWordData,
 } from '@app/domain/dictionary/models/word';
 
-import type { CreateSenseData } from '@app/domain/dictionary/models/word-sense';
+import type {
+  CreateSenseData,
+  WordSense,
+} from '@app/domain/dictionary/models/word-sense';
 import {
   WordEntity,
   WordExampleEntity,
@@ -174,21 +177,35 @@ export class WordMapper {
     await wordEntity.senses.init({ populate: ['exampleEntities'] });
     const existingSenses = wordEntity.senses.getItems();
 
-    const config: CollectionSyncConfig<any, WordSenseEntity> = {
+    const config: CollectionSyncConfig<WordSense, WordSenseEntity> = {
       getDomainId: (s) => s.id,
       getEntityId: (e) => e.id,
       createEntity: (s) => {
         const entity = new WordSenseEntity({
           word: wordEntity,
+
+          source: s.source,
+          senseIndex: s.senseIndex,
+          externalId: s.externalId,
           partOfSpeech: s.partOfSpeech,
           definition: s.definition,
-          senseIndex: s.senseIndex,
-          source: s.source,
+          shortDefinition: s.shortDefinition,
+          cefrLevel: s.cefrLevel,
+          images: s.images,
+          synonyms: s.synonyms,
+          antonyms: s.antonyms,
+          idioms: s.idioms,
+          phrases: s.phrases,
+          verbPhrases: s.verbPhrases,
+          collocations: s.collocations,
+          relatedWords: s.relatedWords,
+          definitionVi: s.definitionVi,
         });
         (entity as any).id = s.id;
         return entity;
       },
       updateEntity: (s, e) => {
+        e.partOfSpeech = s.partOfSpeech;
         e.definition = s.definition;
         e.shortDefinition = s.shortDefinition;
         e.cefrLevel = s.cefrLevel;
@@ -201,7 +218,6 @@ export class WordMapper {
         e.collocations = [...s.collocations];
         e.relatedWords = [...s.relatedWords];
         e.definitionVi = s.definitionVi;
-        e.externalId = s.externalId;
       },
       onRemove: async (e, entityManager) => {
         // Cascade remove examples first

@@ -58,6 +58,176 @@
           "default": "false",
           "mappedType": "boolean"
         },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "azvocab",
+            "cambridge",
+            "free_dictionary"
+          ],
+          "mappedType": "enum"
+        },
+        "endpoint_type": {
+          "name": "endpoint_type",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "search",
+            "definition"
+          ],
+          "mappedType": "enum"
+        },
+        "request_identifier": {
+          "name": "request_identifier",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "raw_response": {
+          "name": "raw_response",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
+        },
+        "response_size_bytes": {
+          "name": "response_size_bytes",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "status_code": {
+          "name": "status_code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "200",
+          "mappedType": "integer"
+        },
+        "latency_ms": {
+          "name": "latency_ms",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        }
+      },
+      "name": "api_response_cache",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "api_response_cache_provider_request_identifier_index",
+          "columnNames": [
+            "provider",
+            "request_identifier"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "api_response_cache_provider_endpoint_type_request_6b54c_unique",
+          "columnNames": [
+            "provider",
+            "endpoint_type",
+            "request_identifier"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "api_response_cache_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuidv7()",
+          "mappedType": "uuid"
+        },
+        "create_at": {
+          "name": "create_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "current_timestamp",
+          "mappedType": "datetime"
+        },
+        "update_at": {
+          "name": "update_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "current_timestamp",
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "delete_flag": {
+          "name": "delete_flag",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
         "external_id": {
           "name": "external_id",
           "type": "varchar(255)",
@@ -1668,7 +1838,7 @@
           "mappedType": "string"
         }
       },
-      "name": "pronunciation_entity",
+      "name": "word_pronunciation_entity",
       "schema": "public",
       "indexes": [
         {
@@ -1676,13 +1846,13 @@
             "word_id"
           ],
           "composite": false,
-          "keyName": "pronunciation_entity_word_id_index",
+          "keyName": "word_pronunciation_entity_word_id_index",
           "constraint": false,
           "primary": false,
           "unique": false
         },
         {
-          "keyName": "pronunciation_entity_pkey",
+          "keyName": "word_pronunciation_entity_pkey",
           "columnNames": [
             "id"
           ],
@@ -1694,12 +1864,12 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "pronunciation_entity_word_id_foreign": {
-          "constraintName": "pronunciation_entity_word_id_foreign",
+        "word_pronunciation_entity_word_id_foreign": {
+          "constraintName": "word_pronunciation_entity_word_id_foreign",
           "columnNames": [
             "word_id"
           ],
-          "localTableName": "public.pronunciation_entity",
+          "localTableName": "public.word_pronunciation_entity",
           "referencedColumnNames": [
             "id"
           ],
@@ -1986,75 +2156,6 @@
     },
     {
       "columns": {
-        "vocab_set_entity_id": {
-          "name": "vocab_set_entity_id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "uuid"
-        },
-        "word_sense_entity_id": {
-          "name": "word_sense_entity_id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "uuid"
-        }
-      },
-      "name": "vocab_set_entity_senses",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "vocab_set_entity_senses_pkey",
-          "columnNames": [
-            "vocab_set_entity_id",
-            "word_sense_entity_id"
-          ],
-          "composite": true,
-          "constraint": true,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "vocab_set_entity_senses_vocab_set_entity_id_foreign": {
-          "constraintName": "vocab_set_entity_senses_vocab_set_entity_id_foreign",
-          "columnNames": [
-            "vocab_set_entity_id"
-          ],
-          "localTableName": "public.vocab_set_entity_senses",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.vocab_set_entity",
-          "createForeignKeyConstraint": true,
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        },
-        "vocab_set_entity_senses_word_sense_entity_id_foreign": {
-          "constraintName": "vocab_set_entity_senses_word_sense_entity_id_foreign",
-          "columnNames": [
-            "word_sense_entity_id"
-          ],
-          "localTableName": "public.vocab_set_entity_senses",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.word_sense_entity",
-          "createForeignKeyConstraint": true,
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        }
-      },
-      "nativeEnums": {}
-    },
-    {
-      "columns": {
         "id": {
           "name": "id",
           "type": "uuid",
@@ -2155,7 +2256,7 @@
           "mappedType": "integer"
         }
       },
-      "name": "example_entity",
+      "name": "word_example_entity",
       "schema": "public",
       "indexes": [
         {
@@ -2163,13 +2264,13 @@
             "sense_id"
           ],
           "composite": false,
-          "keyName": "example_entity_sense_id_index",
+          "keyName": "word_example_entity_sense_id_index",
           "constraint": false,
           "primary": false,
           "unique": false
         },
         {
-          "keyName": "example_entity_pkey",
+          "keyName": "word_example_entity_pkey",
           "columnNames": [
             "id"
           ],
@@ -2181,12 +2282,12 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "example_entity_sense_id_foreign": {
-          "constraintName": "example_entity_sense_id_foreign",
+        "word_example_entity_sense_id_foreign": {
+          "constraintName": "word_example_entity_sense_id_foreign",
           "columnNames": [
             "sense_id"
           ],
-          "localTableName": "public.example_entity",
+          "localTableName": "public.word_example_entity",
           "referencedColumnNames": [
             "id"
           ],
@@ -2208,8 +2309,8 @@
           "nullable": false,
           "mappedType": "uuid"
         },
-        "example_entity_id": {
-          "name": "example_entity_id",
+        "word_example_entity_id": {
+          "name": "word_example_entity_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -2225,7 +2326,7 @@
           "keyName": "vocab_set_entity_examples_pkey",
           "columnNames": [
             "vocab_set_entity_id",
-            "example_entity_id"
+            "word_example_entity_id"
           ],
           "composite": true,
           "constraint": true,
@@ -2249,16 +2350,85 @@
           "deleteRule": "cascade",
           "updateRule": "cascade"
         },
-        "vocab_set_entity_examples_example_entity_id_foreign": {
-          "constraintName": "vocab_set_entity_examples_example_entity_id_foreign",
+        "vocab_set_entity_examples_word_example_entity_id_foreign": {
+          "constraintName": "vocab_set_entity_examples_word_example_entity_id_foreign",
           "columnNames": [
-            "example_entity_id"
+            "word_example_entity_id"
           ],
           "localTableName": "public.vocab_set_entity_examples",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.example_entity",
+          "referencedTableName": "public.word_example_entity",
+          "createForeignKeyConstraint": true,
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "vocab_set_entity_id": {
+          "name": "vocab_set_entity_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "word_sense_entity_id": {
+          "name": "word_sense_entity_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "vocab_set_entity_senses",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "vocab_set_entity_senses_pkey",
+          "columnNames": [
+            "vocab_set_entity_id",
+            "word_sense_entity_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "vocab_set_entity_senses_vocab_set_entity_id_foreign": {
+          "constraintName": "vocab_set_entity_senses_vocab_set_entity_id_foreign",
+          "columnNames": [
+            "vocab_set_entity_id"
+          ],
+          "localTableName": "public.vocab_set_entity_senses",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.vocab_set_entity",
+          "createForeignKeyConstraint": true,
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "vocab_set_entity_senses_word_sense_entity_id_foreign": {
+          "constraintName": "vocab_set_entity_senses_word_sense_entity_id_foreign",
+          "columnNames": [
+            "word_sense_entity_id"
+          ],
+          "localTableName": "public.vocab_set_entity_senses",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.word_sense_entity",
           "createForeignKeyConstraint": true,
           "deleteRule": "cascade",
           "updateRule": "cascade"

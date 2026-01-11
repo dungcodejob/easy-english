@@ -68,27 +68,31 @@ export class MikroOrmWordRepository implements IWordAggregateRepository {
   }
 
   async save(word: Word): Promise<void> {
-    // Check if entity exists
-    const existingEntity = await this.em.findOne(WordEntity, { id: word.id });
+    try {
+      // Check if entity exists
+      const existingEntity = await this.em.findOne(WordEntity, { id: word.id });
 
-    // Map domain to entity
-    const wordEntity = WordMapper.toEntity(word, existingEntity ?? undefined);
+      // Map domain to entity
+      const wordEntity = WordMapper.toEntity(word, existingEntity ?? undefined);
 
-    if (!existingEntity) {
-      this.em.persist(wordEntity);
-      // Flush to make entity managed before syncing children
+      if (!existingEntity) {
+        this.em.persist(wordEntity);
+        // Flush to make entity managed before syncing children
+        await this.em.flush();
+      }
+
+      // Sync child entities (entity is now managed)
+      await WordMapper.syncChildren(word, wordEntity, this.em);
+
+      // Flush all changes
       await this.em.flush();
+
+      // Publish domain events
+      await this.eventPublisher.publishAll(word.domainEvents);
+      word.clearDomainEvents();
+    } catch (error) {
+      console.log(error);
     }
-
-    // Sync child entities (entity is now managed)
-    await WordMapper.syncChildren(word, wordEntity, this.em);
-
-    // Flush all changes
-    await this.em.flush();
-
-    // Publish domain events
-    await this.eventPublisher.publishAll(word.domainEvents);
-    word.clearDomainEvents();
   }
 
   async delete(word: Word): Promise<void> {

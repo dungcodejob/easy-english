@@ -43,7 +43,7 @@ export class DictionaryController {
   ) {
     const result = await this.lookupService.lookup(
       word,
-      source || DictionarySource.DICTIONARY_API,
+      source || DictionarySource.AZVOCAB,
       Language.EN,
     );
     if (!result) {

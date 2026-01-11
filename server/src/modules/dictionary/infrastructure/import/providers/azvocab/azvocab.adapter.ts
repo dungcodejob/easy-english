@@ -3,41 +3,9 @@ import {
   WordExampleEntity,
   WordPronunciationEntity,
   WordSenseEntity,
-  WordSensePartOfSpeech,
 } from '@app/entities';
 import { IImportAdapter } from '../../../../domain/import/import-adapter.interface';
 import { DefDetailDto, VocabDetailDto } from './azvocab.types';
-
-export enum AzVocabPartOfSpeech {
-  noun = 'n',
-  verb = 'v',
-  adjective = 'a',
-  adverb = 'adv',
-  pronoun = 'pron',
-  preposition = 'prep',
-  conjunction = 'conj',
-  interjection = 'intj',
-  phrase = 'phr',
-  idiom = 'idiom',
-  phraseVerb = 'phr.v',
-}
-
-const azVocabMappingPosToPartOfSpeech: Record<
-  AzVocabPartOfSpeech,
-  WordSensePartOfSpeech
-> = {
-  [AzVocabPartOfSpeech.phraseVerb]: WordSensePartOfSpeech.verb,
-  [AzVocabPartOfSpeech.phrase]: WordSensePartOfSpeech.phrase,
-  [AzVocabPartOfSpeech.idiom]: WordSensePartOfSpeech.idiom,
-  [AzVocabPartOfSpeech.noun]: WordSensePartOfSpeech.noun,
-  [AzVocabPartOfSpeech.verb]: WordSensePartOfSpeech.verb,
-  [AzVocabPartOfSpeech.adjective]: WordSensePartOfSpeech.adjective,
-  [AzVocabPartOfSpeech.adverb]: WordSensePartOfSpeech.adverb,
-  [AzVocabPartOfSpeech.pronoun]: WordSensePartOfSpeech.pronoun,
-  [AzVocabPartOfSpeech.preposition]: WordSensePartOfSpeech.preposition,
-  [AzVocabPartOfSpeech.conjunction]: WordSensePartOfSpeech.conjunction,
-  [AzVocabPartOfSpeech.interjection]: WordSensePartOfSpeech.interjection,
-};
 
 export class AzVocabAdapter implements IImportAdapter<any> {
   // We handle separate types for Word and Sense/Examples here as per original logic
@@ -65,7 +33,7 @@ export class AzVocabAdapter implements IImportAdapter<any> {
   ): Partial<WordSenseEntity> {
     return {
       word: word,
-      partOfSpeech: azVocabMappingPosToPartOfSpeech[def.pos] || def.pos,
+      partOfSpeech: def.pos,
       definition: def.def,
       definitionVi: def.vi,
       cefrLevel: def.level,

@@ -65,17 +65,12 @@ const handle401Error = async (originalRequest: any) => {
   isRefreshing = true;
 
   try {
-    // Use getState to access store values and actions
-    const { refreshToken } = useAuthStore.getState();
-
-    if (!refreshToken) {
-      throw new Error('No refresh token available');
-    }
-
     // Call refresh endpoint directly using plain axios to avoid interceptor loops
+    // We use withCredentials: true to send the httpOnly cookie
     const response = await axios.post<SingleResponseDto<AuthResultDto>>(
       `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/auth/refresh`,
-      { refreshToken }
+      {},
+      { withCredentials: true }
     );
 
     // Check if refresh was successful

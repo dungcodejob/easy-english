@@ -18,4 +18,15 @@ export const authApi = {
   refreshToken: (refreshToken: string): Promise<Result<{ data: AuthResultDto }, AppError>> => {
     return apiCall(() => apiClient.post<SingleResponseDto<AuthResultDto>>('/auth/refresh', { refreshToken }));
   },
+  silentRefresh: (): Promise<Result<{ data: AuthResultDto }, AppError>> => {
+    return apiCall(() =>
+      apiClient.post<SingleResponseDto<AuthResultDto>>(
+        '/auth/refresh',
+        {},
+        {
+          withCredentials: true,
+        }
+      )
+    );
+  },
 };

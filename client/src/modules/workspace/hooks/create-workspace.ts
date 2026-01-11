@@ -1,9 +1,9 @@
 import { QUERY_KEYS } from "@/shared/constants";
 import { useErrorHandler } from "@/shared/hooks/use-error-handler";
 import type { TypeSafe } from "@/shared/types";
-import { toast } from '@/shared/utils/toast';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { useWorkspaceStore } from "../stores/workspace.store";
 import type { CreateWorkspaceDto } from "../types/workspace.types";
 

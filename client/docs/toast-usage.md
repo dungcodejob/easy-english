@@ -2,7 +2,7 @@
 
 ## Import
 ```typescript
-import { toast } from '@/shared/utils/toast';
+import { toast } from "sonner";
 ```
 
 ## Basic Usage
@@ -106,5 +106,5 @@ All existing files using `toast.promise` will continue to work without any code 
 
 ```diff
 - import { toast } from 'sonner';
-+ import { toast } from '@/shared/utils/toast';
++ import { toast } from "sonner";
 ```

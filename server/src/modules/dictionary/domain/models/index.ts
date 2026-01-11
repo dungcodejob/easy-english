@@ -1,8 +1,8 @@
 export { WordPronunciation as Pronunciation } from './word-pronunciation';
 export type { CreatePronunciationData } from './word-pronunciation';
 
-export { WordExample as Example } from './example';
-export type { CreateExampleData, UpdateExampleData } from './example';
+export { WordExample } from './word-example';
+export type { CreateExampleData, UpdateExampleData } from './word-example';
 
 export { Word } from './word';
 export type {

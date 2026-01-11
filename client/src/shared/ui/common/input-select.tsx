@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { cn, type SelectOption, type SetState } from "@/shared/utils";
-import { CheckIcon, ChevronDown, X } from "lucide-react";
+import { CheckIcon, ChevronDown, Loader2, X } from "lucide-react";
 import { Button } from "../shadcn/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "../shadcn/command";
 import { Popover, PopoverContent, PopoverTrigger } from "../shadcn/popover";
@@ -19,6 +19,7 @@ export interface InputSelectProvided {
   setIsPopoverOpen: SetState<boolean>;
   onOptionSelect: (v: string) => void;
   onClearAllOptions: () => void;
+  isLoading?: boolean;
 }
 
 export const InputSelect: React.FC<{
@@ -28,6 +29,7 @@ export const InputSelect: React.FC<{
   placeholder?: string;
   clearable?: boolean;
   disabled?: boolean;
+  isLoading?: boolean;
   className?: string;
   style?: React.CSSProperties;
   children?: (v: InputSelectProvided) => React.ReactNode;
@@ -38,6 +40,7 @@ export const InputSelect: React.FC<{
   placeholder = "Select...",
   clearable = false,
   disabled = false,
+  isLoading = false,
   className,
   children,
   ...restProps
@@ -61,7 +64,7 @@ export const InputSelect: React.FC<{
       if (isPopoverOpen && value !== selectedValue) {
         setSelectedValue(value);
       }
-    }, [isPopoverOpen])
+    }, [isPopoverOpen, value, selectedValue])
 
     return (
       <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
@@ -79,6 +82,7 @@ export const InputSelect: React.FC<{
             setIsPopoverOpen,
             onOptionSelect,
             onClearAllOptions,
+            isLoading,
           }) : <InputSelectTrigger options={options}
             onValueChange={onValueChange}
             placeholder={placeholder}
@@ -90,6 +94,7 @@ export const InputSelect: React.FC<{
             setIsPopoverOpen={setIsPopoverOpen}
             onOptionSelect={onOptionSelect}
             onClearAllOptions={onClearAllOptions}
+            isLoading={isLoading}
           />}
 
         </PopoverTrigger>
@@ -102,57 +107,65 @@ export const InputSelect: React.FC<{
           <Command>
             <CommandInput placeholder="Search..." />
             <CommandList className="max-h-[unset] overflow-y-hidden">
-              <CommandEmpty>No results found.</CommandEmpty>
-              <CommandGroup className="max-h-[20rem] min-h-[10rem] overflow-y-auto">
-                {options.map((option) => {
-                  const isSelected = selectedValue === option.value;
-                  return (
-                    <CommandItem
-                      key={option.value}
-                      onSelect={() => onOptionSelect(option.value)}
-                      className="cursor-pointer"
-                    >
-                      <div
-                        className={cn(
-                          "mr-1 flex h-4 w-4 items-center justify-center",
-                          isSelected ? "text-primary" : "invisible"
-                        )}
-                      >
-                        <CheckIcon className="w-4 h-4" />
-                      </div>
-                      {option.icon && (
-                        <option.icon className="w-4 h-4 mr-2 text-muted-foreground" />
-                      )}
-                      <span>{option.label}</span>
-                    </CommandItem>
-                  );
-                })}
-              </CommandGroup>
-              <CommandSeparator />
-              <CommandGroup>
-                <div className="flex items-center justify-between">
-                  {selectedValue && clearable && (
-                    <>
-                      <CommandItem
-                        onSelect={onClearAllOptions}
-                        className="justify-center flex-1 cursor-pointer"
-                      >
-                        Clear
-                      </CommandItem>
-                      <Separator
-                        orientation="vertical"
-                        className="flex h-full mx-2 min-h-6"
-                      />
-                    </>
-                  )}
-                  <CommandItem
-                    onSelect={() => setIsPopoverOpen(false)}
-                    className="justify-center flex-1 max-w-full cursor-pointer"
-                  >
-                    Close
-                  </CommandItem>
+              {isLoading ? (
+                <div className="flex items-center justify-center py-6">
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
                 </div>
-              </CommandGroup>
+              ) : (
+                <>
+                  <CommandEmpty>No results found.</CommandEmpty>
+                  <CommandGroup className="max-h-[20rem] min-h-[10rem] overflow-y-auto">
+                    {options.map((option) => {
+                      const isSelected = selectedValue === option.value;
+                      return (
+                        <CommandItem
+                          key={option.value}
+                          onSelect={() => onOptionSelect(option.value)}
+                          className="cursor-pointer"
+                        >
+                          <div
+                            className={cn(
+                              "mr-1 flex h-4 w-4 items-center justify-center",
+                              isSelected ? "text-primary" : "invisible"
+                            )}
+                          >
+                            <CheckIcon className="w-4 h-4" />
+                          </div>
+                          {option.icon && (
+                            <option.icon className="w-4 h-4 mr-2 text-muted-foreground" />
+                          )}
+                          <span>{option.label}</span>
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                  <CommandSeparator />
+                  <CommandGroup>
+                    <div className="flex items-center justify-between">
+                      {selectedValue && clearable && (
+                        <>
+                          <CommandItem
+                            onSelect={onClearAllOptions}
+                            className="justify-center flex-1 cursor-pointer"
+                          >
+                            Clear
+                          </CommandItem>
+                          <Separator
+                            orientation="vertical"
+                            className="flex h-full mx-2 min-h-6"
+                          />
+                        </>
+                      )}
+                      <CommandItem
+                        onSelect={() => setIsPopoverOpen(false)}
+                        className="justify-center flex-1 max-w-full cursor-pointer"
+                      >
+                        Close
+                      </CommandItem>
+                    </div>
+                  </CommandGroup>
+                </>
+              )}
             </CommandList>
           </Command>
         </PopoverContent>
@@ -182,6 +195,7 @@ export const InputSelectTrigger = React.forwardRef<
       setIsPopoverOpen,
       // onOptionSelect,
       onClearAllOptions,
+      isLoading,
       className,
       style,
       children,
@@ -244,13 +258,21 @@ export const InputSelectTrigger = React.forwardRef<
                   <Separator orientation="vertical" className="flex h-full min-h-6" />
                 </>
               )}
-              <ChevronDown className="h-4 mx-1 cursor-pointer text-muted-foreground" />
+              {isLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground mr-1" />
+              ) : (
+                <ChevronDown className="h-4 mx-1 cursor-pointer text-muted-foreground" />
+              )}
             </div>
           </div>
         ) : (
           <div className="flex items-center justify-between w-full mx-auto">
             <span className="mx-3 text-sm text-muted-foreground">{placeholder}</span>
-            <ChevronDown className="h-4 mx-1 cursor-pointer text-muted-foreground" />
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin text-muted-foreground mr-1" />
+            ) : (
+              <ChevronDown className="h-4 mx-1 cursor-pointer text-muted-foreground" />
+            )}
           </div>
         )}
       </Button>

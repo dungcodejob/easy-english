@@ -17,10 +17,15 @@ export function AppHeader() {
         {/* Search Desktop */}
         <Button
           variant="outline"
-          className="text-muted-foreground hidden h-9 w-64 items-center justify-start gap-2 px-3 font-normal sm:flex md:max-lg:hidden"
+          className="text-muted-foreground hidden h-9 w-72 items-center justify-between gap-2 px-3 font-normal sm:flex md:max-lg:hidden hover:bg-accent/50 transition-colors"
         >
-          <Search className="h-4 w-4" />
-          <span>Type to search...</span>
+          <div className="flex items-center gap-2">
+            <Search className="h-4 w-4" />
+            <span>Search words, topics...</span>
+          </div>
+          <kbd className="pointer-events-none h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground hidden sm:flex">
+            ⌘K
+          </kbd>
         </Button>
 
         {/* Search Mobile */}

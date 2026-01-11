@@ -56,7 +56,7 @@ export function NavGroup({ items, title, isOpen, className, action }: NavProps) 
       )}
     >
       <div className="flex flex-col gap-1 px-2 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2">
-        <div className="flex items-center justify-between px-2 text-xs font-medium tracking-tight text-muted-foreground group-data-[collapsed=true]:hidden">
+        <div className="flex items-center justify-between px-2 mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70 group-data-[collapsed=true]:hidden">
           <span>{title}</span>
           {action && <div className="ml-auto">{action}</div>}
         </div>

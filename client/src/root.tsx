@@ -13,7 +13,7 @@ function RootComponent() {
   return (
     <React.Fragment>
       <Providers>
-                 <Toaster position="top-center" />
+        <Toaster position="top-center" />
         <Outlet />
         {/* <TanStackRouterDevtools position="bottom-left" /> */}
       </Providers>

@@ -24,7 +24,8 @@ export class FreeDictionaryAdapter {
       }
 
       // Create Word aggregate
-      const word = new Word({
+      // Create Word aggregate
+      const word = Word.createExternal({
         text: wordText,
         normalizedText: wordText.toLowerCase().trim(),
         language: Language.EN,

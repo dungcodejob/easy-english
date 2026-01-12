@@ -8,6 +8,8 @@ import { WordExample } from './word-example';
 import { WordPronunciation } from './word-pronunciation';
 import { CreateSenseData, UpdateSenseData, WordSense } from './word-sense';
 
+export type WordOrigin = 'external' | 'persisted';
+
 export interface WordInflects {
   NNS?: string[];
   VBD?: string[];
@@ -78,9 +80,15 @@ export class Word extends AggregateRoot {
   private _inflects?: WordInflects;
   private _wordFamily?: WordFamily;
   private _updateBy?: string;
+  private readonly _origin: WordOrigin;
 
-  constructor(data: CreateWordData, id?: string) {
+  private constructor(
+    data: CreateWordData,
+    id: string | undefined,
+    origin: WordOrigin,
+  ) {
     super(id);
+    this._origin = origin;
     this._text = data.text;
     this._language = data.language;
     this._normalizedText = data.normalizedText ?? data.text.toLowerCase();
@@ -104,15 +112,47 @@ export class Word extends AggregateRoot {
         }),
       ) ?? [];
 
-    // If ID was not provided, it's a new aggregate -> emit created event
-    if (!id) {
+    // If it's an external word (new), emit created event
+    if (this._origin === 'external') {
       this.addDomainEvent(
         new WordCreatedEvent(this.id, this._text, this._language),
       );
     }
   }
 
+  static createExternal(data: CreateWordData): Word {
+    return new Word(data, undefined, 'external');
+  }
+
+  static rehydrate(id: string, data: CreateWordData): Word {
+    return new Word(data, id, 'persisted');
+  }
+
   // Getters
+  get origin(): WordOrigin {
+    return this._origin;
+  }
+
+  isExternal(): boolean {
+    return this._origin === 'external';
+  }
+
+  isPersisted(): boolean {
+    return this._origin === 'persisted';
+  }
+
+  /**
+   * Associates this external word with an existing persistence ID.
+   * This effectively transforms this instance into an update payload for the existing entity.
+   */
+  identify(id: string): void {
+    if (this._origin !== 'external') {
+      throw new Error('Cannot identify a word that is not external');
+    }
+    (this as any).id = id; // Assign ID
+    (this as any)._origin = 'persisted'; // Mark as persisted/update
+  }
+
   get text(): string {
     return this._text;
   }

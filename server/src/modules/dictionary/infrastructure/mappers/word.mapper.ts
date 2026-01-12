@@ -1,4 +1,4 @@
-import type { WordFamily, WordInflects } from '@app/domain/dictionary';
+import type { WordInflects } from '@app/domain/dictionary';
 import { Word } from '@app/domain/dictionary';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { CollectionSyncConfig, syncCollection } from './collection-syncer';
@@ -56,13 +56,13 @@ export class WordMapper {
       frequency: entity.frequency,
       source: entity.source,
       inflects: entity.inflects as WordInflects,
-      wordFamily: entity.wordFamily as WordFamily,
+      wordFamily: entity.wordFamily,
       updateBy: entity.updateBy,
       pronunciations: pronunciations,
       senses: senses,
     };
 
-    return new Word(wordData, entity.id);
+    return Word.rehydrate(entity.id, wordData);
   }
 
   /**

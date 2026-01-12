@@ -72,6 +72,7 @@ export interface VocabDetailDto {
   pron_uk?: string;
   pron_us?: string;
   inflects?: Record<string, string[]>;
+  family?: WordFamilyDto;
   updateBy?: string;
   lastUpdate?: number;
 }

@@ -11,6 +11,7 @@ import { FreeDictionaryProvider } from './lookup/providers/free-dictionary/free-
 import { OxfordAdapter } from './lookup/providers/oxford/oxford.adapter';
 import { OxfordProvider } from './lookup/providers/oxford/oxford.provider';
 import { AzVocabAdapter } from './providers/azvocab/azvocab.adapter';
+import { AzVocabHttpClient } from './providers/azvocab/azvocab.http-client';
 import { AzVocabProvider } from './providers/azvocab/azvocab.provider';
 import { MikroOrmWordRepository } from './repositories/mikro-orm-word.repository';
 
@@ -35,6 +36,7 @@ import { MikroOrmWordRepository } from './repositories/mikro-orm-word.repository
     // Unified AzVocab Provider (used by both import and lookup)
     AzVocabProvider,
     AzVocabAdapter,
+    AzVocabHttpClient,
     // Factories
     ImportProviderFactory,
     LookupProviderFactory,

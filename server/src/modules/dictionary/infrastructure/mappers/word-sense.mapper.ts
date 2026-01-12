@@ -54,6 +54,7 @@ export class WordSenseMapper {
       antonyms: domain.antonyms,
       idioms: domain.idioms,
       phrases: domain.phrases,
+
       verbPhrases: domain.verbPhrases,
       collocations: domain.collocations,
       relatedWords: domain.relatedWords,

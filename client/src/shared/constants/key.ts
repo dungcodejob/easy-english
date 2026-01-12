@@ -28,5 +28,5 @@ export const API_KEYS = {
   TOPIC: 'topic',
   WORD: 'word',
   USER_WORD_SENSE: 'user-word-sense',
-  LOOKUP: 'lookup',
+  DICTIONARY_LOOKUP: 'dictionary/lookup',
 }

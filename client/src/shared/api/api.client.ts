@@ -100,6 +100,13 @@ const handle401Error = async (originalRequest: any) => {
   }
 };
 
+const AuthEndpoints = [
+    '/auth/login',
+    '/auth/refresh',
+    '/auth/register',
+    '/auth/logout',
+]
+
 apiClient.interceptors.response.use(
   async (response) => {
     
@@ -107,10 +114,7 @@ apiClient.interceptors.response.use(
     // Check if the response is 200 OK but contains a 401 error code in the body
     if (!data.success && data.statusCode === 401) {
       const originalRequest = response.config as any;
-      const isAuthEndpoint =
-        originalRequest.url?.includes('/auth/login') ||
-        originalRequest.url?.includes('/auth/refresh') ||
-        originalRequest.url?.includes('/auth/register');
+      const isAuthEndpoint = AuthEndpoints.some((endpoint) => originalRequest.url?.includes(endpoint));
 
       if (!originalRequest._retry && !isAuthEndpoint) {
         return handle401Error(originalRequest);

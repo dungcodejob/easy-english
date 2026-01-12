@@ -11,7 +11,7 @@ export const dictionaryApi = {
   lookup: (params: { word: string; language: string; source?: string }) =>
     apiCall(() =>
       apiClient.get<SingleResponseDto<DictionaryLookupResult>>(
-        `${API_KEYS.LOOKUP}/${params.word}`,
+        `${API_KEYS.DICTIONARY_LOOKUP}/${params.word}`,
       )
     ),
 };

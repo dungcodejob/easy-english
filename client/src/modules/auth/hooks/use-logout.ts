@@ -13,11 +13,13 @@ export const useLogout = () => {
     mutationKey: [QUERY_KEYS.AUTH.LOGOUT],
     mutationFn: logout,
     onSuccess: () => {
-      navigate({ to: APP_ROUTES.AUTH.LOGIN });
+
     },
 
     onError: () => {
       toast.error(t('auth.logout.logout_failed'));
+    },
+    onSettled: () => {
       navigate({ to: APP_ROUTES.AUTH.LOGIN });
     },
   });

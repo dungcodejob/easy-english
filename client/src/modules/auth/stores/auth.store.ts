@@ -9,6 +9,7 @@ type AuthState =
       refreshToken: null;
       user: null;
       isBootstrapping: boolean;
+      isBootstrapped: boolean;
     }
   | {
       isAuthenticated: true;
@@ -19,12 +20,14 @@ type AuthState =
         name: string;
       };
       isBootstrapping: boolean;
+      isBootstrapped: boolean;
     };
 
 type AuthMethod = {
   login: (data: LoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
   setBootstrapping: (isBootstrapping: boolean) => void;
+  setBootstrapped: (isBootstrapped: boolean) => void;
   setAuth: (data: { accessToken: string; refreshToken: string; user: { id: string; name: string } }) => void;
 };
 type AuthStore = AuthState & AuthMethod;
@@ -35,7 +38,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
   refreshToken: null,
   user: null,
   isBootstrapping: true,
+  isBootstrapped: false,
   setBootstrapping: (isBootstrapping) => set({ isBootstrapping }),
+  setBootstrapped: (isBootstrapped) => set({ isBootstrapped }),
   setAuth: (data) => set({ isAuthenticated: true, ...data }),
   login: async (data) => {
     const result = await authApi.login(data);

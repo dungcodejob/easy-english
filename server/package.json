@@ -24,7 +24,8 @@
     "migration:fresh": "mikro-orm migration:fresh --config ./src/core/configs/database.config.ts",
     "schema:drop": "mikro-orm schema:drop --run --config ./src/core/configs/database.config.ts",
     "seed:run": "mikro-orm seeder:run --config ./src/core/configs/database.config.ts",
-    "seed:create": "mikro-orm seeder:create --config ./src/core/configs/database.config.ts"
+    "seed:create": "mikro-orm seeder:create --config ./src/core/configs/database.config.ts",
+    "cli": "ts-node -r tsconfig-paths/register src/cli.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
@@ -56,6 +57,7 @@
     "date-fns": "^4.1.0",
     "geoip-lite": "^1.4.10",
     "helmet": "^8.1.0",
+    "nest-commander": "^3.20.1",
     "neverthrow": "^8.2.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",

@@ -1,6 +1,6 @@
-import { DomainEvent } from '@app/domain';
 import { Injectable, Logger } from '@nestjs/common';
-import { IEventPublisher } from '../../domain/services';
+import { DomainEvent } from '../../domain/events/domain-event';
+import { IEventPublisher } from '../../domain/events/event-publisher.interface';
 
 @Injectable()
 export class InMemoryEventPublisher implements IEventPublisher {

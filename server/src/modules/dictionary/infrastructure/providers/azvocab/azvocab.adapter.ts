@@ -68,6 +68,7 @@ export class AzVocabAdapter {
       // Create Word aggregate
       // Create Word aggregate
       const word = Word.createExternal({
+        externalId: vocabData.id,
         text: wordText,
         rank: vocabData.rank,
         inflects: vocabData.inflects,

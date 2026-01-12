@@ -1,10 +1,10 @@
 import { IWordAggregateRepository, Word } from '@app/domain/dictionary';
 // Use import type for interface to avoid runtime metadata emission error
-import type { IEventPublisher } from '@app/domain/dictionary/services';
-import { EVENT_PUBLISHER } from '@app/domain/dictionary/services';
+import type { IEventPublisher } from '@app/core/domain/events';
+import { InjectEventPublisher } from '@app/core/domain/events';
 import { WordEntity } from '@app/entities';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { WordMapper } from '../mappers/word.mapper';
 
 /**
@@ -14,7 +14,7 @@ import { WordMapper } from '../mappers/word.mapper';
 export class MikroOrmWordRepository implements IWordAggregateRepository {
   constructor(
     private readonly em: EntityManager,
-    @Inject(EVENT_PUBLISHER) private readonly eventPublisher: IEventPublisher,
+    @InjectEventPublisher() private readonly eventPublisher: IEventPublisher,
   ) {}
 
   async findById(id: string): Promise<Word | null> {

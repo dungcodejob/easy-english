@@ -57,6 +57,10 @@
       "@app/background/*": ["src/core/background/*"],
       "@app/database": ["src/core/database"],
       "@app/database/*": ["src/core/database/*"],
+      "@app/core/domain": ["src/core/domain"],
+      "@app/core/domain/*": ["src/core/domain/*"],
+      "@app/core/infrastructure": ["src/core/infrastructure"],
+      "@app/core/infrastructure/*": ["src/core/infrastructure/*"],
       "@app/tenant": ["src/modules/tenant"],
       "@app/tenant/*": ["src/modules/tenant/*"],
 

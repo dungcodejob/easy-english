@@ -61,6 +61,7 @@ export interface DefDetailDto {
 }
 
 export interface VocabDetailDto {
+  id: string;
   uk?: string;
   us?: string;
   dict: string;

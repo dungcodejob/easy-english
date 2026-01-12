@@ -37,6 +37,9 @@ export class WordEntity extends BaseEntity {
   @Property({ default: 'cambridge' })
   source: string = 'cambridge';
 
+  @Property({ fieldName: 'external_id', nullable: true })
+  externalId?: string;
+
   @Property({ type: JsonType, nullable: true })
   inflects?: {
     NNS?: string[];

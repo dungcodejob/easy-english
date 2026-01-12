@@ -31,6 +31,7 @@ export interface WordFamily {
 }
 
 export interface CreateWordData {
+  externalId?: string;
   text: string;
   language: string;
   normalizedText?: string;
@@ -80,6 +81,7 @@ export class Word extends AggregateRoot {
   private _inflects?: WordInflects;
   private _wordFamily?: WordFamily;
   private _updateBy?: string;
+  private _externalId?: string;
   private readonly _origin: WordOrigin;
 
   private constructor(
@@ -90,6 +92,7 @@ export class Word extends AggregateRoot {
     super(id);
     this._origin = origin;
     this._text = data.text;
+    this._externalId = data.externalId;
     this._language = data.language;
     this._normalizedText = data.normalizedText ?? data.text.toLowerCase();
     this._tags = data.tags ?? [];
@@ -203,6 +206,10 @@ export class Word extends AggregateRoot {
 
   get updateBy(): string | undefined {
     return this._updateBy;
+  }
+
+  get externalId(): string | undefined {
+    return this._externalId;
   }
 
   // Business Logic

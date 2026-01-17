@@ -1,7 +1,5 @@
 import { Badge } from '@/shared/ui/shadcn/badge';
 import { Button } from '@/shared/ui/shadcn/button';
-import { Card } from '@/shared/ui/shadcn/card';
-import { Checkbox } from '@/shared/ui/shadcn/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -19,14 +17,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui/shadcn/select';
-import { ArrowLeft, BookOpen, Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { ScrollArea } from "@shared/ui/shadcn/scroll-area";
+import { ArrowLeft, BookOpen, Loader2, Volume2 } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from "sonner";
 import { useCreateWordSense } from '../hooks/use-create-word-sense';
 import { useDictionary } from '../hooks/use-dictionary';
 import { DifficultyLevel, LearningStatus, type CreateUserWordSenseDtoItem, type DictionarySense } from '../types/word-sense.types';
 import { formValuesToCreateDtoItem } from '../utils/adapters';
+import { SenseCard } from './sense-card';
 import { SenseEditor, type SenseEditorFormValues } from './sense-editor';
+
 
 type Step = 'input' | 'selection' | 'editor';
 
@@ -51,9 +52,69 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
   const [selectedSenses, setSelectedSenses] = useState<DictionarySense[]>([]);
   const [currentSenseIndex, setCurrentSenseIndex] = useState(0);
   const [senseForms, setSenseForms] = useState<SenseEditorFormValues[]>([]);
+  
+  // UX Enhancements State
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [cefrFilter, setCefrFilter] = useState<string>('all');
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const dictionaryMutation = useDictionary();
   const createWordSense = useCreateWordSense(topicId);
+
+  // Filter Senses Logic
+  const filteredSenses = useMemo(() => {
+    if (!dictionaryMutation.data?.senses) return [];
+    if (cefrFilter === 'all') return dictionaryMutation.data.senses;
+    
+    const levels = cefrFilter.split('-'); // 'A1-A2' -> ['A1', 'A2']
+    return dictionaryMutation.data.senses.filter(s => 
+      levels.includes(s.cefrLevel ?? '')
+    );
+  }, [dictionaryMutation.data?.senses, cefrFilter]);
+
+  // Audio Playback Logic
+  const handlePlayAudio = () => {
+    const audioUrl = dictionaryMutation.data?.pronunciations?.[0]?.audioUrl;
+    if (audioUrl && audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        setIsPlaying(false);
+      } else {
+        setIsPlaying(true);
+        audioRef.current.src = `https://cdn.azvocab.com${audioUrl}`;
+        audioRef.current.play().catch(() => {
+          setIsPlaying(false);
+          toast.error('Could not play audio');
+        });
+      }
+    }
+  };
+
+  // Keyboard Shortcuts
+  useEffect(() => {
+    if (step !== 'selection' || !open) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Numbers 1-9 to toggle selection
+      if (e.key >= '1' && e.key <= '9') {
+        const index = parseInt(e.key) - 1;
+        if (filteredSenses[index]) {
+          e.preventDefault();
+          handleSenseToggle(filteredSenses[index]);
+        }
+      }
+      
+      // Enter to confirm if selection exists
+      if (e.key === 'Enter' && selectedSenses.length > 0) {
+        e.preventDefault();
+        handleContinueToEditor();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [step, open, filteredSenses, selectedSenses]);
 
   const handleLookup = async () => {
     if (!word.trim()) {
@@ -87,6 +148,13 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
     });
   };
 
+  const handleSelectAllVisible = () => {
+    const newSenses = filteredSenses.filter(s => 
+      !selectedSenses.some(selected => selected.id === s.id)
+    );
+    setSelectedSenses(prev => [...prev, ...newSenses]);
+  };
+
   const handleContinueToEditor = () => {
     if (selectedSenses.length === 0) {
       toast.error('Please select at least one sense or skip lookup to add manually');
@@ -98,7 +166,7 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
         partOfSpeech: sense.partOfSpeech,
         definition: sense.definition,
         pronunciation: dictionaryMutation.data?.pronunciations?.[0]?.ipa || '',
-        examples: sense.examples?.map((v) => ({ value: v })) || [],
+        examples: sense.examples?.map((ex) => ({ value: ex.text })) || [],
         synonyms: sense.synonyms?.map((v) => ({ value: v })) || [],
         antonyms: sense.antonyms?.map((v) => ({ value: v })) || [],
         difficultyLevel: DifficultyLevel.Easy,
@@ -161,6 +229,8 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
       setSelectedSenses([]);
       setCurrentSenseIndex(0);
       setSenseForms([]);
+      setCefrFilter('all');
+      setIsPlaying(false);
     }, 300);
   };
 
@@ -176,9 +246,11 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
     }
   };
 
+  const hasAudio = !!dictionaryMutation.data?.pronunciations?.[0]?.audioUrl;
+
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={handleClose}  >
+      <DialogContent className="!max-w-[50rem] !w-[50rem] max-h-[90vh]">
         <DialogHeader>
           <div className="flex items-center gap-2">
             {step !== 'input' && (
@@ -192,7 +264,35 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
               </Button>
             )}
             <div className="flex-1">
-              <DialogTitle>Add Word to Topic</DialogTitle>
+              <div className="flex items-center gap-3">
+                <DialogTitle>Add Word to Topic</DialogTitle>
+                
+                {/* Selected Count Badge (Moved here) */}
+                {step === 'selection' && selectedSenses.length > 0 && (
+                  <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                    {selectedSenses.length} selected
+                  </Badge>
+                )}
+
+                {/* Audio Playback Button */}
+                {step === 'selection' && hasAudio && (
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={handlePlayAudio}
+                    className={`h-6 w-6 rounded-full transition-colors ${isPlaying ? 'text-primary bg-primary/10' : 'text-muted-foreground'}`}
+                  >
+                    <Volume2 className={`h-4 w-4 ${isPlaying ? 'animate-pulse' : ''}`} />
+                  </Button>
+                )}
+                <audio 
+                  ref={audioRef} 
+                  onEnded={() => setIsPlaying(false)} 
+                  onPause={() => setIsPlaying(false)}
+                  className="hidden" 
+                />
+              </div>
+
               <DialogDescription>
                 {step === 'input' && 'Lookup a word from dictionary or add manually'}
                 {step === 'selection' && `Select senses for "${word}"`}
@@ -257,50 +357,83 @@ export function AddWordDialog({ topicId, open, onOpenChange }: AddWordDialogProp
         {/* Step 2: Sense Selection */}
         {step === 'selection' && dictionaryMutation.data && (
           <div className="space-y-4">
-            <div className="text-sm text-muted-foreground">
-              Select one or more senses to add to your topic:
+            {/* Header info with Filters */}
+            <div className="flex flex-col gap-3 sticky top-0 bg-background z-10 pb-2 border-b">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  Select meanings ({filteredSenses.length} visible)
+                </p>
+              </div>
+
+              {/* CEFR Level Filters */}
+              <div className="flex flex-wrap gap-2 items-center">
+                {['all', 'A1-A2', 'B1-B2', 'C1-C2'].map(filter => (
+                  <Button
+                    key={filter}
+                    variant={cefrFilter === filter ? 'default' : 'outline'}
+                    size="sm"
+                    className="h-7 text-xs"
+                    onClick={() => setCefrFilter(filter)}
+                  >
+                    {filter === 'all' ? 'All Levels' : filter}
+                  </Button>
+                ))}
+                <div className="ml-auto">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-7 text-xs"
+                    onClick={handleSelectAllVisible}
+                    disabled={filteredSenses.length === 0}
+                  >
+                    Select All Visible
+                  </Button>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2 max-h-96 overflow-y-auto">
-              {dictionaryMutation.data.senses.map((sense) => (
-                <Card
-                  key={sense.id}
-                  className={`p-4 cursor-pointer transition-colors ${
-                    selectedSenses.find((s) => s.id === sense.id)
-                      ? 'border-primary bg-primary/5'
-                      : 'hover:bg-muted/50'
-                  }`}
-                  onClick={() => handleSenseToggle(sense)}
-                >
-                  <div className="flex items-start gap-3">
-                    <Checkbox
-                      checked={!!selectedSenses.find((s) => s.id === sense.id)}
-                      onCheckedChange={() => handleSenseToggle(sense)}
-                      className="mt-1"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Badge variant="outline">{sense.partOfSpeech}</Badge>
-                        <span className="text-xs text-muted-foreground">
-                          Sense {sense.senseIndex + 1}
-                        </span>
-                      </div>
-                      <p className="text-sm font-medium mb-1">{sense.definition}</p>
-                      {sense.examples && sense.examples.length > 0 && (
-                        <p className="text-xs text-muted-foreground italic">
-                          Example: {sense.examples[0]}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={handleSkipLookup}>
+
+            {/* Sense cards */}
+            <ScrollArea className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 scroll-smooth">
+              {filteredSenses.length > 0 ? (
+                filteredSenses.map((sense, index) => (
+                  <SenseCard
+                    key={sense.id}
+                    sense={sense}
+                    word={word}
+                    isSelected={!!selectedSenses.find((s) => s.id === sense.id)}
+                    isRecommended={index === 0 && sense.cefrLevel === 'A1'}
+                    onToggle={() => handleSenseToggle(sense)}
+                  />
+                ))
+              ) : (
+                <div className="py-8 text-center text-muted-foreground border border-dashed rounded-lg">
+                  No senses found for this filter
+                </div>
+              )}
+            </ScrollArea>
+
+            {/* Footer with dynamic CTA */}
+            <DialogFooter className="flex-col sm:flex-row gap-2 pt-4 border-t items-center sm:items-stretch">
+              <div className="flex-1 text-xs text-muted-foreground text-center sm:text-left hidden sm:block">
+               💡 Press <kbd className="font-mono bg-muted px-1 rounded">1</kbd>-<kbd className="font-mono bg-muted px-1 rounded">9</kbd> to select, <kbd className="font-mono bg-muted px-1 rounded">Enter</kbd> to confirm
+              </div>
+              <Button
+                variant="ghost"
+                onClick={handleSkipLookup}
+                className="text-muted-foreground"
+              >
                 Add manually instead
               </Button>
-              <Button onClick={handleContinueToEditor} disabled={selectedSenses.length === 0}>
-                Continue ({selectedSenses.length} selected)
+              <Button
+                onClick={handleContinueToEditor}
+                disabled={selectedSenses.length === 0}
+                className="min-w-[160px]"
+              >
+                {selectedSenses.length === 0
+                  ? 'Select at least one'
+                  : selectedSenses.length === 1
+                    ? 'Add 1 meaning'
+                    : `Add ${selectedSenses.length} meanings`}
               </Button>
             </DialogFooter>
           </div>

@@ -68,21 +68,21 @@ export interface UpdateWordData {
 }
 
 export class Word extends AggregateRoot {
-  private _text: string;
-  private _normalizedText: string;
-  private _language: string;
-  private _pronunciations: WordPronunciation[];
-  private _senses: WordSense[];
-  private _tags: string[];
-  private _originalWord?: string;
-  private _source: string;
-  private _rank?: number;
-  private _frequency?: number;
-  private _inflects?: WordInflects;
-  private _wordFamily?: WordFamily;
-  private _updateBy?: string;
-  private _externalId?: string;
-  private readonly _origin: WordOrigin;
+  text: string;
+  normalizedText: string;
+  language: string;
+  pronunciations: WordPronunciation[];
+  senses: WordSense[];
+  tags: string[];
+  originalWord?: string;
+  source: string;
+  rank?: number;
+  frequency?: number;
+  inflects?: WordInflects;
+  wordFamily?: WordFamily;
+  updateBy?: string;
+  externalId?: string;
+  readonly origin: WordOrigin;
 
   private constructor(
     data: CreateWordData,
@@ -90,35 +90,35 @@ export class Word extends AggregateRoot {
     origin: WordOrigin,
   ) {
     super(id);
-    this._origin = origin;
-    this._text = data.text;
-    this._externalId = data.externalId;
-    this._language = data.language;
-    this._normalizedText = data.normalizedText ?? data.text.toLowerCase();
-    this._tags = data.tags ?? [];
-    this._originalWord = data.originalWord;
-    this._source = data.source ?? 'cambridge';
-    this._rank = data.rank;
-    this._frequency = data.frequency;
-    this._inflects = data.inflects;
-    this._wordFamily = data.wordFamily;
-    this._updateBy = data.updateBy;
+    this.origin = origin;
+    this.text = data.text;
+    this.externalId = data.externalId;
+    this.language = data.language;
+    this.normalizedText = data.normalizedText ?? data.text.toLowerCase();
+    this.tags = data.tags ?? [];
+    this.originalWord = data.originalWord;
+    this.source = data.source ?? 'cambridge';
+    this.rank = data.rank;
+    this.frequency = data.frequency;
+    this.inflects = data.inflects;
+    this.wordFamily = data.wordFamily;
+    this.updateBy = data.updateBy;
 
-    this._pronunciations =
+    this.pronunciations =
       data.pronunciations?.map((p) => new WordPronunciation(p, p.id)) ?? [];
-    this._senses =
+    this.senses =
       data.senses?.map((s, index) =>
         this.createSense({
           ...s,
           senseIndex: s.senseIndex ?? index,
-          source: s.source ?? this._source,
+          source: s.source ?? this.source,
         }),
       ) ?? [];
 
     // If it's an external word (new), emit created event
-    if (this._origin === 'external') {
+    if (this.origin === 'external') {
       this.addDomainEvent(
-        new WordCreatedEvent(this.id, this._text, this._language),
+        new WordCreatedEvent(this.id, this.text, this.language),
       );
     }
   }
@@ -131,17 +131,12 @@ export class Word extends AggregateRoot {
     return new Word(data, id, 'persisted');
   }
 
-  // Getters
-  get origin(): WordOrigin {
-    return this._origin;
-  }
-
   isExternal(): boolean {
-    return this._origin === 'external';
+    return this.origin === 'external';
   }
 
   isPersisted(): boolean {
-    return this._origin === 'persisted';
+    return this.origin === 'persisted';
   }
 
   /**
@@ -149,98 +144,42 @@ export class Word extends AggregateRoot {
    * This effectively transforms this instance into an update payload for the existing entity.
    */
   identify(id: string): void {
-    if (this._origin !== 'external') {
+    if (this.origin !== 'external') {
       throw new Error('Cannot identify a word that is not external');
     }
     (this as any).id = id; // Assign ID
-    (this as any)._origin = 'persisted'; // Mark as persisted/update
-  }
-
-  get text(): string {
-    return this._text;
-  }
-
-  get normalizedText(): string {
-    return this._normalizedText;
-  }
-
-  get language(): string {
-    return this._language;
-  }
-
-  get pronunciations(): ReadonlyArray<WordPronunciation> {
-    return [...this._pronunciations];
-  }
-
-  get senses(): ReadonlyArray<WordSense> {
-    return [...this._senses];
-  }
-
-  get tags(): string[] {
-    return [...this._tags];
-  }
-
-  get originalWord(): string | undefined {
-    return this._originalWord;
-  }
-
-  get source(): string {
-    return this._source;
-  }
-
-  get rank(): number | undefined {
-    return this._rank;
-  }
-
-  get frequency(): number | undefined {
-    return this._frequency;
-  }
-
-  get inflects(): WordInflects | undefined {
-    return this._inflects;
-  }
-
-  get wordFamily(): WordFamily | undefined {
-    return this._wordFamily;
-  }
-
-  get updateBy(): string | undefined {
-    return this._updateBy;
-  }
-
-  get externalId(): string | undefined {
-    return this._externalId;
+    (this as any).origin = 'persisted'; // Mark as persisted/update
   }
 
   // Business Logic
   update(data: UpdateWordData): void {
     if (data.text) {
-      this._text = data.text;
-      this._normalizedText = data.text.toLowerCase();
+      this.text = data.text;
+      this.normalizedText = data.text.toLowerCase();
     }
-    if (data.language) this._language = data.language;
-    if (data.tags) this._tags = data.tags;
-    if (data.originalWord !== undefined) this._originalWord = data.originalWord;
-    if (data.rank !== undefined) this._rank = data.rank;
-    if (data.frequency !== undefined) this._frequency = data.frequency;
-    if (data.inflects !== undefined) this._inflects = data.inflects;
-    if (data.wordFamily !== undefined) this._wordFamily = data.wordFamily;
-    if (data.updateBy !== undefined) this._updateBy = data.updateBy;
-    if (data.source !== undefined) this._source = data.source;
+    if (data.language) this.language = data.language;
+    if (data.tags) this.tags = data.tags;
+    if (data.originalWord !== undefined) this.originalWord = data.originalWord;
+    if (data.rank !== undefined) this.rank = data.rank;
+    if (data.frequency !== undefined) this.frequency = data.frequency;
+    if (data.inflects !== undefined) this.inflects = data.inflects;
+    if (data.wordFamily !== undefined) this.wordFamily = data.wordFamily;
+    if (data.updateBy !== undefined) this.updateBy = data.updateBy;
+    if (data.source !== undefined) this.source = data.source;
 
     this.touch();
   }
 
   addPronunciation(data: CreatePronunciationData): void {
     const pronunciation = new WordPronunciation(data);
-    if (!this._pronunciations.some((p) => p.equals(pronunciation))) {
-      this._pronunciations.push(pronunciation);
+    if (!this.pronunciations.some((p) => p.equals(pronunciation))) {
+      this.pronunciations.push(pronunciation);
     }
     this.touch();
   }
 
   removePronunciation(pronunciationId: string): void {
-    this._pronunciations = this._pronunciations.filter(
+    this.pronunciations = this.pronunciations.filter(
       (p) => p.id !== pronunciationId,
     );
     this.touch();
@@ -251,15 +190,15 @@ export class Word extends AggregateRoot {
   }
 
   addSense(data: CreateSenseData): WordSense {
-    const senseIndex = data.senseIndex ?? this._senses.length;
+    const senseIndex = data.senseIndex ?? this.senses.length;
     const senseData = {
       ...data,
       senseIndex,
-      source: data.source ?? this._source,
+      source: data.source ?? this.source,
     };
 
     const sense = this.createSense(senseData);
-    this._senses.push(sense);
+    this.senses.push(sense);
 
     this.addDomainEvent(
       new WordSenseAddedEvent(this.id, sense.id, String(sense.partOfSpeech)),
@@ -269,9 +208,9 @@ export class Word extends AggregateRoot {
   }
 
   removeSense(senseId: string): boolean {
-    const index = this._senses.findIndex((s) => s.id === senseId);
+    const index = this.senses.findIndex((s) => s.id === senseId);
     if (index === -1) return false;
-    this._senses.splice(index, 1);
+    this.senses.splice(index, 1);
 
     this.addDomainEvent(new WordSenseRemovedEvent(this.id, senseId));
     this.touch();
@@ -279,7 +218,7 @@ export class Word extends AggregateRoot {
   }
 
   getSense(senseId: string): WordSense | undefined {
-    return this._senses.find((s) => s.id === senseId);
+    return this.senses.find((s) => s.id === senseId);
   }
 
   updateSense(senseId: string, data: UpdateSenseData): boolean {

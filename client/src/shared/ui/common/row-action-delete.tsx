@@ -29,13 +29,13 @@ export const RowActionDelete = forwardRef<HTMLDivElement, RowActionDeleteProps>(
       <AlertDialog defaultOpen={open} onOpenChange={setOpen}>
         <AlertDialogTrigger asChild>
           <DropdownMenuItem
-            onClick={(e) => {
+            onSelect={(e) => {
               e.preventDefault();
               setOpen(true);
             }}
             ref={ref}
           >
-            <RiDeleteBinLine />
+            <RiDeleteBinLine className="mr-2 h-4 w-4" />
             {buttonLabel || t('common.delete')}
           </DropdownMenuItem>
         </AlertDialogTrigger>

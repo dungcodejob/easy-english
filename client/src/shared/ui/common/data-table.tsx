@@ -4,8 +4,7 @@ import { CURRENT_PAGE_DEFAULT, PAGE_SIZE_DEFAULT } from '@/shared/constants';
 import { cn, recursiveCloneChildren } from '@/shared/utils';
 import {
   RiArrowDownSLine,
-  RiArrowUpSLine,
-  RiSearch2Line,
+  RiArrowUpSLine
 } from '@remixicon/react';
 import {
   type ColumnDef,
@@ -25,10 +24,8 @@ import React, {
   type Dispatch,
   type PropsWithChildren,
   type SetStateAction,
-  useContext,
-  useEffect,
   useMemo,
-  useState,
+  useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -39,62 +36,17 @@ import {
   TableHeader,
   TableRow,
 } from '../shadcn/table';
-import { InputWithIcon } from './input-with-icon';
+import { DATA_TABLE_FILTER_NAME } from './data-table-filter';
+import { DATA_TABLE_VIEW_OPTIONS_NAME } from './data-table-view-options';
 import { PaginationControls } from './pagination-controls';
 
-const DataTableContext = React.createContext<{
+export const DataTableContext = React.createContext<{
   keyword: string;
   setKeyword: Dispatch<SetStateAction<string>>;
 }>({ keyword: '', setKeyword: () => {} });
 
-const DATA_TABLE_FILTER_NAME = 'DataTableFilter';
 
-type DataTableFilterProps = React.ComponentProps<'div'> & {
-  keyword?: string;
-  placeholder: string;
-  enableColumnFilters?: boolean;
-  onKeywordChange?: (value: string) => void;
-} & PropsWithChildren;
 
-export function DataTableFilter({
-  keyword: defaultKeyword = '',
-  placeholder,
-  onKeywordChange,
-  enableColumnFilters,
-  children,
-  className,
-  ...rest
-}: DataTableFilterProps) {
-  const { keyword, setKeyword } = useContext(DataTableContext);
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setKeyword(value);
-
-    if (enableColumnFilters && onKeywordChange) {
-      onKeywordChange(value);
-    }
-  };
-
-  useEffect(() => {
-    setKeyword(defaultKeyword);
-  }, [defaultKeyword, setKeyword]);
-
-  return (
-    <div className={cn('flex items-center gap-4 mb-4', className)} {...rest}>
-      <InputWithIcon
-        startIcon={RiSearch2Line}
-        className="h-9 "
-        defaultValue={keyword}
-        placeholder={placeholder}
-        onChange={handleSearchChange}
-      />
-      {children}
-    </div>
-  );
-}
-
-DataTableFilter.displayName = DATA_TABLE_FILTER_NAME;
 
 type DataTableProps<T extends object> = {
   // Columns
@@ -193,12 +145,23 @@ export function DataTable<T extends object>({
   const extendedChildren = recursiveCloneChildren(
     children as React.ReactElement[],
     null,
-    [DATA_TABLE_FILTER_NAME],
+    [DATA_TABLE_FILTER_NAME, DATA_TABLE_VIEW_OPTIONS_NAME],
     uniqueId,
     asChild,
   );
+  // 3. Nếu bạn muốn kiểm soát Layout (Filter trái, Options phải):
+  // Lưu ý: Logic này chỉ work với direct children.
+  const childrenArray = React.Children.toArray(extendedChildren) as React.ReactElement[];
+  
+  const enableFiltering = !!childrenArray.find(
+    (child) => (child.type as any)?.displayName === DATA_TABLE_FILTER_NAME
+  );
+  
+  const enableViewOptions = !!childrenArray.find(
+    (child) => (child.type as any)?.displayName === DATA_TABLE_VIEW_OPTIONS_NAME
+  );
 
-  const enableFiltering = !!extendedChildren;
+
 
   // Handle sorting changes (internal or external)
   const handleSortingChange: OnChangeFn<SortingState> = (updater) => {
@@ -304,9 +267,11 @@ export function DataTable<T extends object>({
       }}
     >
       <div className="w-full">
-        {enableFiltering && extendedChildren}
+        <div className="flex items-center justify-between">
+          {extendedChildren}
+        </div>
 
-        <div className="w-full">
+        <div className="w-full border rounded-md">
           <Table className="text-paragraph-sm">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (

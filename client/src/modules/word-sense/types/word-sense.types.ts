@@ -68,28 +68,69 @@ export interface UpdateUserWordSenseDto {
   media?: UserWordSenseMedia;
 }
 
-// Dictionary Lookup Response
+// Dictionary Lookup Response (matches Word domain model from server)
 export interface DictionarySense {
   id: string;
-  wordId: string;
   partOfSpeech: string;
   definition: string;
+  definitionVi?: string;
   shortDefinition?: string;
-  examples: string[];
-  synonyms?: string[];
-  antonyms?: string[];
+  examples: { id: string; text: string; translationVi?: string; order: number }[];
+  synonyms: string[];
+  antonyms: string[];
   senseIndex: number;
+  source: string;
+  externalId?: string;
+  cefrLevel?: string;
+  images: string[];
+  collocations: string[];
+  relatedWords: string[];
+  idioms: string[];
+  phrases: string[];
+  verbPhrases: string[];
+  updateBy?: string;
 }
 
 export interface DictionaryPronunciation {
+  id: string;
   ipa?: string;
   audioUrl?: string;
   region?: string;
 }
 
-export interface DictionaryLookupResult {
-  word: string;
+export interface WordInflects {
+  NNS?: string[];
+  VBD?: string[];
+  VBG?: string[];
+  VBP?: string[];
+  VBZ?: string[];
+  JJR?: string[];
+  JJS?: string[];
+  RBR?: string[];
+  RBS?: string[];
+}
+
+export interface WordFamily {
+  n?: string[];
+  v?: string[];
+  adj?: string[];
+  adv?: string[];
+  head: string;
+}
+
+export interface WordDto {
+  id: string;
+  text: string;
+  normalizedText: string;
   language: string;
   pronunciations: DictionaryPronunciation[];
   senses: DictionarySense[];
+  tags: string[];
+  originalWord?: string;
+  source: string;
+  rank?: number;
+  frequency?: number;
+  inflects?: WordInflects;
+  wordFamily?: WordFamily;
+  externalId?: string;
 }

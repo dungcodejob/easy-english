@@ -1,409 +1,251 @@
-# Task Breakdown: [FEATURE_NAME]
+---
 
-**Feature**: [Feature Name]  
-**Created**: [YYYY-MM-DD]  
-**Sprint/Milestone**: [Sprint Number or Milestone Name]  
-**Total Estimated Effort**: [Hours/Days]
+description: "Task list template for feature implementation"
+---
+
+# Tasks: [FEATURE NAME]
+
+**Input**: Design documents from `/specs/[###-feature-name]/`
+**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+
+**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+
+**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+
+## Format: `[ID] [P?] [Story] Description`
+
+- **[P]**: Can run in parallel (different files, no dependencies)
+- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
+- Include exact file paths in descriptions
+
+## Path Conventions
+
+- **Single project**: `src/`, `tests/` at repository root
+- **Web app**: `backend/src/`, `frontend/src/`
+- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
+- Paths shown below assume single project - adjust based on plan.md structure
+
+<!-- 
+  ============================================================================
+  IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
+  
+  The /speckit.tasks command MUST replace these with actual tasks based on:
+  - User stories from spec.md (with their priorities P1, P2, P3...)
+  - Feature requirements from plan.md
+  - Entities from data-model.md
+  - Endpoints from contracts/
+  
+  Tasks MUST be organized by user story so each story can be:
+  - Implemented independently
+  - Tested independently
+  - Delivered as an MVP increment
+  
+  DO NOT keep these sample tasks in the generated tasks.md file.
+  ============================================================================
+-->
+
+## Phase 1: Setup (Shared Infrastructure)
+
+**Purpose**: Project initialization and basic structure
+
+- [ ] T001 Create project structure per implementation plan
+- [ ] T002 Initialize [language] project with [framework] dependencies
+- [ ] T003 [P] Configure linting and formatting tools
 
 ---
 
-## Task Organization
+## Phase 2: Foundational (Blocking Prerequisites)
 
-Tasks are categorized by constitutional principle alignment to ensure systematic adherence to project standards.
+**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
----
+**⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-## 1. Architecture & Setup Tasks
-*Aligned with Principle 1 (Technology Stack) and Principle 2 (Modular Architecture)*
+Examples of foundational tasks (adjust based on your project):
 
-### Task 1.1: Frontend Module Setup
-- [ ] Create Angular feature module with routing
-- [ ] Configure lazy loading in app routes
-- [ ] Set up module-level providers
-- [ ] Create module public API (index.ts)
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: None
+- [ ] T004 Setup database schema and migrations framework
+- [ ] T005 [P] Implement authentication/authorization framework
+- [ ] T006 [P] Setup API routing and middleware structure
+- [ ] T007 Create base models/entities that all stories depend on
+- [ ] T008 Configure error handling and logging infrastructure
+- [ ] T009 Setup environment configuration management
 
-### Task 1.2: Backend Module Setup
-- [ ] Create NestJS module with controller and service
-- [ ] Configure module imports and exports
-- [ ] Register module in app.module.ts
-- [ ] Set up dependency injection
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: None
-
-### Task 1.3: Database Schema Design
-- [ ] Design database tables and relationships
-- [ ] Create TypeORM entities
-- [ ] Write database migration scripts
-- [ ] Add indexes for query optimization
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: None
+**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
 ---
 
-## 2. Type Safety & Contracts
-*Aligned with Principle 3 (Type Safety First)*
+## Phase 3: User Story 1 - [Title] (Priority: P1) 🎯 MVP
 
-### Task 2.1: Define TypeScript Interfaces
-- [ ] Create DTOs for all API requests/responses
-- [ ] Define shared types/interfaces
-- [ ] Create type guards where needed
-- [ ] Enable strict TypeScript checks
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.2, 1.3
+**Goal**: [Brief description of what this story delivers]
 
-### Task 2.2: API Contract Definition
-- [ ] Define request/response types
-- [ ] Add OpenAPI/Swagger decorators
-- [ ] Document all endpoints
-- [ ] Generate API documentation
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 2.1
+**Independent Test**: [How to verify this story works on its own]
 
----
+### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
 
-## 3. Validation Implementation
-*Aligned with Principle 4 (Comprehensive Validation)*
+> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-### Task 3.1: Frontend Validation
-- [ ] Implement Angular form validators
-- [ ] Add real-time validation feedback
-- [ ] Create custom validators if needed
-- [ ] Add validation error messages
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 2.1
+- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
+- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
 
-### Task 3.2: Backend Validation
-- [ ] Add class-validator decorators to DTOs
-- [ ] Implement custom validation rules
-- [ ] Configure ValidationPipe globally
-- [ ] Test validation error responses
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 2.1
+### Implementation for User Story 1
 
-### Task 3.3: Database Constraints
-- [ ] Add NOT NULL constraints
-- [ ] Add CHECK constraints
-- [ ] Add UNIQUE constraints
-- [ ] Create validation triggers if needed
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.3
+- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
+- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
+- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
+- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T016 [US1] Add validation and error handling
+- [ ] T017 [US1] Add logging for user story 1 operations
+
+**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
 ---
 
-## 4. Security Implementation
-*Aligned with Principle 5 (Secure Authentication & Authorization)*
+## Phase 4: User Story 2 - [Title] (Priority: P2)
 
-### Task 4.1: Authentication Setup
-- [ ] Implement JWT token generation
-- [ ] Add refresh token rotation
-- [ ] Create HTTP-only cookie handling
-- [ ] Add token expiry logic
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.2
+**Goal**: [Brief description of what this story delivers]
 
-### Task 4.2: Authorization Guards
-- [ ] Create Angular route guards
-- [ ] Implement NestJS guards for endpoints
-- [ ] Add role-based access control (RBAC)
-- [ ] Test permission enforcement
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 4.1
+**Independent Test**: [How to verify this story works on its own]
 
-### Task 4.3: Security Hardening
-- [ ] Configure CORS properly
-- [ ] Add rate limiting
-- [ ] Implement request sanitization
-- [ ] Add security headers
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.2
+### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+
+- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
+- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+
+### Implementation for User Story 2
+
+- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
+- [ ] T021 [US2] Implement [Service] in src/services/[service].py
+- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+
+**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
 ---
 
-## 5. Feature Development
-*Aligned with Principle 6 (Four Skills Implementation Standards)*
+## Phase 5: User Story 3 - [Title] (Priority: P3)
 
-### Task 5.1: Component Development
-- [ ] Create UI components
-- [ ] Implement component logic
-- [ ] Add responsive styling
-- [ ] Connect to state management
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.1, 2.1
+**Goal**: [Brief description of what this story delivers]
 
-### Task 5.2: Service Layer Implementation
-- [ ] Implement frontend services
-- [ ] Create HTTP client methods
-- [ ] Add error handling
-- [ ] Implement caching if needed
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 2.2
+**Independent Test**: [How to verify this story works on its own]
 
-### Task 5.3: Backend Business Logic
-- [ ] Implement service methods
-- [ ] Add business rule validation
-- [ ] Integrate with database
-- [ ] Handle edge cases
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.2, 1.3, 2.1
+### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-### Task 5.4: State Management
-- [ ] Create NgRx Signal Store
-- [ ] Define state structure
-- [ ] Implement state methods
-- [ ] Add computed signals
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 2.1
+- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
+- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+
+### Implementation for User Story 3
+
+- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
+- [ ] T027 [US3] Implement [Service] in src/services/[service].py
+- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+
+**Checkpoint**: All user stories should now be independently functional
 
 ---
 
-## 6. Error Handling
-*Aligned with Principle 7 (Error Handling & Observability)*
-
-### Task 6.1: Frontend Error Handling
-- [ ] Implement global error handler
-- [ ] Add error boundary components
-- [ ] Create toast notification service
-- [ ] Add loading states
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.1
-
-### Task 6.2: Backend Error Handling
-- [ ] Create custom exception filters
-- [ ] Implement structured error responses
-- [ ] Add logging with appropriate levels
-- [ ] Configure Winston/Pino logger
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.2
-
-### Task 6.3: Monitoring Setup
-- [ ] Add health check endpoints
-- [ ] Configure metrics collection
-- [ ] Set up error alerting
-- [ ] Add performance monitoring
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 6.2
+[Add more user story phases as needed, following the same pattern]
 
 ---
 
-## 7. Testing Implementation
-*Aligned with Principle 8 (Testing Discipline)*
+## Phase N: Polish & Cross-Cutting Concerns
 
-### Task 7.1: Unit Tests
-- [ ] Write service unit tests
-- [ ] Write utility function tests
-- [ ] Achieve ≥80% coverage
-- [ ] Add edge case tests
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.2, 5.3
+**Purpose**: Improvements that affect multiple user stories
 
-### Task 7.2: Integration Tests
-- [ ] Write API endpoint tests
-- [ ] Test database interactions
-- [ ] Test authentication flows
-- [ ] Test error scenarios
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.3
-
-### Task 7.3: Component Tests
-- [ ] Write component behavior tests
-- [ ] Test user interactions
-- [ ] Test form validation
-- [ ] Test state updates
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.1
-
-### Task 7.4: E2E Tests
-- [ ] Write critical user flow tests
-- [ ] Test success paths
-- [ ] Test error paths
-- [ ] Configure CI/CD for E2E tests
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.1, 5.3
+- [ ] TXXX [P] Documentation updates in docs/
+- [ ] TXXX Code cleanup and refactoring
+- [ ] TXXX Performance optimization across all stories
+- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
+- [ ] TXXX Security hardening
+- [ ] TXXX Run quickstart.md validation
 
 ---
 
-## 8. Performance Optimization
-*Aligned with Principle 9 (Performance & Scalability)*
+## Dependencies & Execution Order
 
-### Task 8.1: Frontend Optimization
-- [ ] Implement OnPush change detection
-- [ ] Add virtual scrolling for lists
-- [ ] Optimize images and assets
-- [ ] Analyze and reduce bundle size
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.1
+### Phase Dependencies
 
-### Task 8.2: Backend Optimization
-- [ ] Optimize database queries
-- [ ] Add query indexes
-- [ ] Implement caching (Redis)
-- [ ] Add pagination for large datasets
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.3
+- **Setup (Phase 1)**: No dependencies - can start immediately
+- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
+- **User Stories (Phase 3+)**: All depend on Foundational phase completion
+  - User stories can then proceed in parallel (if staffed)
+  - Or sequentially in priority order (P1 → P2 → P3)
+- **Polish (Final Phase)**: Depends on all desired user stories being complete
 
-### Task 8.3: Performance Testing
-- [ ] Run performance benchmarks
-- [ ] Measure API response times
-- [ ] Measure page load times
-- [ ] Identify bottlenecks
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 8.1, 8.2
+### User Story Dependencies
 
----
+- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
+- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
+- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
 
-## 9. Documentation
-*Aligned with Principle 10 (Documentation & Context7 Integration)*
+### Within Each User Story
 
-### Task 9.1: Code Documentation
-- [ ] Add TSDoc comments to public APIs
-- [ ] Document complex algorithms
-- [ ] Add inline comments for non-obvious logic
-- [ ] Update code examples
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 5.1, 5.2, 5.3
+- Tests (if included) MUST be written and FAIL before implementation
+- Models before services
+- Services before endpoints
+- Core implementation before integration
+- Story complete before moving to next priority
 
-### Task 9.2: API Documentation
-- [ ] Verify OpenAPI/Swagger spec completeness
-- [ ] Add request/response examples
-- [ ] Document authentication requirements
-- [ ] Publish API documentation
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 2.2
+### Parallel Opportunities
 
-### Task 9.3: Developer Documentation
-- [ ] Update README if needed
-- [ ] Create/update ADR for significant decisions
-- [ ] Document environment variables
-- [ ] Add troubleshooting guide
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: All previous tasks
+- All Setup tasks marked [P] can run in parallel
+- All Foundational tasks marked [P] can run in parallel (within Phase 2)
+- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
+- All tests for a user story marked [P] can run in parallel
+- Models within a story marked [P] can run in parallel
+- Different user stories can be worked on in parallel by different team members
 
 ---
 
-## 10. Deployment & Validation
-*Cross-cutting concerns*
+## Parallel Example: User Story 1
 
-### Task 10.1: Pre-Deployment Checklist
-- [ ] Run all tests and verify passing
-- [ ] Check linter for errors
-- [ ] Verify constitutional compliance
-- [ ] Review security checklist
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: All previous tasks
+```bash
+# Launch all tests for User Story 1 together (if tests requested):
+Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
+Task: "Integration test for [user journey] in tests/integration/test_[name].py"
 
-### Task 10.2: Database Migrations
-- [ ] Test migrations in staging
-- [ ] Prepare rollback scripts
-- [ ] Execute migrations in production
-- [ ] Verify data integrity
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 1.3
-
-### Task 10.3: Production Deployment
-- [ ] Deploy backend services
-- [ ] Deploy frontend application
-- [ ] Configure environment variables
-- [ ] Verify health checks
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 10.1, 10.2
-
-### Task 10.4: Post-Deployment Validation
-- [ ] Smoke test critical flows
-- [ ] Monitor error rates
-- [ ] Monitor performance metrics
-- [ ] Verify feature functionality
-- **Estimated**: [Time]
-- **Assignee**: [Name]
-- **Dependencies**: 10.3
-
----
-
-## Task Dependencies Graph
-
-```
-1.1, 1.2, 1.3 (Parallel Setup)
-    ↓
-2.1, 2.2 (Type Definitions)
-    ↓
-3.1, 3.2, 3.3 (Validation)
-    ↓
-4.1, 4.2, 4.3 (Security)
-    ↓
-5.1, 5.2, 5.3, 5.4 (Feature Development)
-    ↓
-6.1, 6.2, 6.3 (Error Handling)
-    ↓
-7.1, 7.2, 7.3, 7.4 (Testing)
-    ↓
-8.1, 8.2, 8.3 (Optimization)
-    ↓
-9.1, 9.2, 9.3 (Documentation)
-    ↓
-10.1 → 10.2 → 10.3 → 10.4 (Deployment)
+# Launch all models for User Story 1 together:
+Task: "Create [Entity1] model in src/models/[entity1].py"
+Task: "Create [Entity2] model in src/models/[entity2].py"
 ```
 
 ---
 
-## Risk Tracking
+## Implementation Strategy
 
-| Task | Risk | Mitigation |
-|------|------|------------|
-| [Task ID] | [Risk description] | [Mitigation strategy] |
+### MVP First (User Story 1 Only)
 
----
+1. Complete Phase 1: Setup
+2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
+3. Complete Phase 3: User Story 1
+4. **STOP and VALIDATE**: Test User Story 1 independently
+5. Deploy/demo if ready
 
-## Progress Tracking
+### Incremental Delivery
 
-**Overall Progress**: [X]% Complete
+1. Complete Setup + Foundational → Foundation ready
+2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
+3. Add User Story 2 → Test independently → Deploy/Demo
+4. Add User Story 3 → Test independently → Deploy/Demo
+5. Each story adds value without breaking previous stories
 
-| Category | Completed | Total | Progress |
-|----------|-----------|-------|----------|
-| 1. Architecture & Setup | 0 | [N] | 0% |
-| 2. Type Safety | 0 | [N] | 0% |
-| 3. Validation | 0 | [N] | 0% |
-| 4. Security | 0 | [N] | 0% |
-| 5. Feature Development | 0 | [N] | 0% |
-| 6. Error Handling | 0 | [N] | 0% |
-| 7. Testing | 0 | [N] | 0% |
-| 8. Performance | 0 | [N] | 0% |
-| 9. Documentation | 0 | [N] | 0% |
-| 10. Deployment | 0 | [N] | 0% |
+### Parallel Team Strategy
+
+With multiple developers:
+
+1. Team completes Setup + Foundational together
+2. Once Foundational is done:
+   - Developer A: User Story 1
+   - Developer B: User Story 2
+   - Developer C: User Story 3
+3. Stories complete and integrate independently
 
 ---
 
 ## Notes
 
-[Any additional context, decisions, or information relevant to task execution]
+- [P] tasks = different files, no dependencies
+- [Story] label maps task to specific user story for traceability
+- Each user story should be independently completable and testable
+- Verify tests fail before implementing
+- Commit after each task or logical group
+- Stop at any checkpoint to validate story independently
+- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence

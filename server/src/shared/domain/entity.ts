@@ -2,8 +2,8 @@ import { v7 } from 'uuid';
 
 export abstract class Entity<TId = string> {
   readonly id: TId;
-  protected readonly createdAt: Date;
-  protected updatedAt: Date;
+  readonly createdAt: Date;
+  updatedAt: Date;
 
   protected constructor(id?: TId) {
     this.id = id ?? (v7() as TId);

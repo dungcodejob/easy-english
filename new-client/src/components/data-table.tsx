@@ -308,7 +308,7 @@ export function DataTable<T extends object>({
       <div className="w-full">
         {enableFiltering && extendedChildren}
 
-        <div className="w-full">
+        <div className="w-full border rounded-md">
           <Table className="text-paragraph-sm">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
